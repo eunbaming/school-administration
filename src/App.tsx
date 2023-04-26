@@ -1,15 +1,15 @@
 import React from "react";
-import logo from "./logo.svg";
-import "./App.css";
-import { Route } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import Students from "./pages/Students";
+import Home from './pages/Home';
 
 function App() {
   return (
     <div>
-      <Route>
-        <Students />
-      </Route>
+      <Routes>
+      <Route path="/" element={<Home/>}/>
+      <Route path="students" element={<Students/>}/>
+      </Routes>
     </div>
   );
 }
