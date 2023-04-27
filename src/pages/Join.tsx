@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import StepProgressBar from "react-step-progress";
-import "react-step-progress/dist/index.css";
 import JoinFirstStep from "../component/JoinFirstStep";
 import JoinSecondStep from "../component/JoinSecondStep";
 
@@ -31,7 +29,7 @@ const Join = () => {
   return (
     <Body>
       <Container>
-        <JoinFirstStep />
+        <JoinFirstStep/>
       </Container>
     </Body>
   );

@@ -1,19 +1,25 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import Menu from '../component/Menu';
+import Menu from './Menu';
 
 const Container = styled.div`
-
+padding-left: 241px;
 `;
 
 
-const Home = () => {
+interface props {
+    children: any
+}
+
+
+const Layout = ({children}: props) => {
     return (
         <Container>
             <Menu/>
+            {children}
         </Container>
     )
 }
 
-export default Home;
+export default Layout

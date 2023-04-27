@@ -86,6 +86,7 @@ const LoginButton = styled.button`
   cursor: pointer;
 `;
 
+
 const JoinFirstStep = () => {
   const navigate = useNavigate();
   const [secondStep, setSecondStep] = useState(false);
