@@ -4,32 +4,21 @@ import JoinFirstStep from "../component/JoinFirstStep";
 import JoinSecondStep from "../component/JoinSecondStep";
 
 const Body = styled.body`
-  background: #f1f1f1;
+  background: #fcfafa;
   height: 100vh;
 `;
 
-const Button = styled.button`
-  width: 225px;
-  // margin: 15px;
-  padding: 10px;
-  border: none;
-  background-color: #2d88d4;
-  color: #fff;
-  border-radius: 5px;
-  cursor: pointer;
-  position: absolute;
-  bottom: 30%;
-  left: 50%;
-  transform: translate(-50%, 0);
-`;
-
+// const Container = styled.div``;
 const Container = styled.div``;
 
 const Join = () => {
+  const [currentStep, setCurrentStep] = useState(1);
+
   return (
     <Body>
       <Container>
-        <JoinFirstStep/>
+        {currentStep === 1 && <JoinFirstStep setCurrentStep={setCurrentStep} />}
+        {currentStep === 2 && <JoinSecondStep />}
       </Container>
     </Body>
   );

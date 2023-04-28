@@ -22,9 +22,10 @@ const Main = styled.div`
   flex-direction: column;
   align-items: center;
   background-color: #fff;
-  width: 450px;
-  height: 400px;
+  width: 512px;
+  height: 395px;
   margin-top: 30px;
+  position: relative;
 `;
 
 const Form = styled.form`
@@ -33,44 +34,66 @@ const Form = styled.form`
 `;
 
 const EnterName = styled.input`
-  width: 200px;
-  margin: 15px;
+  width: 248px;
+  height: 42px;
   padding: 10px;
-  border: 1px solid #ddd;
+  box-sizing: border-box;
+  border: 0.5px solid #a7a7a7;
   border-radius: 5px;
+  position: absolute;
+  top: 161px;
+  left: 132px;
 `;
 
 const SelectSchool = styled.select`
-  width: 225px;
-  margin: 15px;
+  width: 248px;
+  height: 42px;
   padding: 10px;
-  border-color: #ddd;
+  box-sizing: border-box;
+  border: 0.5px solid #a7a7a7;
   border-radius: 5px;
   color: #6c6c6c;
+  position: absolute;
+  top: 226px;
+  left: 133px;
 `;
 
-const Option = styled.option`
-  color: #ddd;
-`;
+const Option = styled.option``;
 
 const Explanation = styled.p`
   text-align: center;
   color: #6c6c6c;
-  margin-top: 80px;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 25px;
+  position: absolute;
+  top: 55px;
+  left: 132px;
 `;
 
 const Button = styled.button`
-  width: 225px;
-  margin: 15px;
+  width: 248px;
+  height: 42px;
   padding: 10px;
+  box-sizing: border-box;
   border: none;
   background-color: #2d88d4;
   color: #fff;
-  border-radius: 5px;
+  font-weight: bold;
+  border-radius: 4px;
   cursor: pointer;
+  position: absolute;
+  top: 296px;
+  left: 133px;
 `;
 
-const Login = styled.div``;
+const Login = styled.div`
+  position: absolute;
+  top: 352px;
+  left: 132px;
+  width: 253px;
+  text-align: center;
+`;
 
 const Span = styled.span`
   color: #6c6c6c;
@@ -86,16 +109,11 @@ const LoginButton = styled.button`
   cursor: pointer;
 `;
 
+interface props {
+  setCurrentStep: (value: number) => void;
+}
 
-const JoinFirstStep = () => {
-  const navigate = useNavigate();
-  const [secondStep, setSecondStep] = useState(false);
-
-  const goToSecondStep = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    setSecondStep(true);
-  };
-
+const JoinFirstStep = ({ setCurrentStep }: props) => {
   return (
     <Container>
       <Header>Welcome, create your school account</Header>
@@ -103,7 +121,7 @@ const JoinFirstStep = () => {
         <Explanation>
           It is our great pleasure to have <br /> you on board!
         </Explanation>
-        <Form onSubmit={(event) => goToSecondStep(event)}>
+        <Form onSubmit={() => setCurrentStep(2)}>
           <EnterName placeholder="Enter the name of admin"></EnterName>
           <SelectSchool name="select">
             <Option value="1">Select the name of school</Option>
@@ -111,7 +129,6 @@ const JoinFirstStep = () => {
             <Option value="3">선택 2</Option>
           </SelectSchool>
           <Button type="submit">Next</Button>
-          {secondStep && <JoinSecondStep />}
         </Form>
         <Login>
           <Span>Already have an account?</Span>
