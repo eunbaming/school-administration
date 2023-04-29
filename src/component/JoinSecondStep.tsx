@@ -8,11 +8,14 @@ const Container = styled.div`
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -60%);
+  transform: translate(-50%, -50%);
 `;
 
 const Header = styled.h1`
   color: #4f4f4f;
+  font-weight: 600;
+  font-size: 36px;
+  font-family: "KumbhSans";
 `;
 
 const Main = styled.div`
@@ -68,7 +71,8 @@ const ConfirmPasswordLabel = styled.label`
   position: absolute;
   top: 130px;
   left: 142px;
-  color: #667085;
+  color: #8a8a8a;
+  font-size: 14px;
 `;
 
 const Message = styled.p`
@@ -96,7 +100,11 @@ const Button = styled.button`
   cursor: pointer;
 `;
 
-const JoinSecondStep = () => {
+interface props {
+  setCurrentStep: (value: number) => void;
+}
+
+const JoinSecondStep = ({ setCurrentStep }: props) => {
   const [password, setPassword] = useState("");
   const [warning, setWarning] = useState(false);
 
@@ -111,7 +119,7 @@ const JoinSecondStep = () => {
     <Container>
       <Header>Udemy school, Choose your password</Header>
       <Main>
-        <Form>
+        <Form onSubmit={() => setCurrentStep(3)}>
           <ChoosePasswordLabel htmlFor="choose">
             Choose a password
           </ChoosePasswordLabel>

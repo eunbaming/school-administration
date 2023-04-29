@@ -10,11 +10,14 @@ const Container = styled.div`
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -60%);
+  transform: translate(-50%, -45%);
 `;
 
 const Header = styled.h1`
   color: #4f4f4f;
+  font-weight: 600;
+  font-size: 36px;
+  font-family: "KumbhSans";
 `;
 
 const Main = styled.div`
