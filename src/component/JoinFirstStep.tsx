@@ -114,9 +114,13 @@ const LoginButton = styled.button`
 
 interface props {
   setCurrentStep: (value: number) => void;
+  id: string;
+  onChangeId: any;
 }
 
-const JoinFirstStep = ({ setCurrentStep }: props) => {
+const JoinFirstStep = ({ setCurrentStep, id, onChangeId }: props) => {
+  
+
   return (
     <Container>
       <Header>Welcome, create your school account</Header>
@@ -125,11 +129,11 @@ const JoinFirstStep = ({ setCurrentStep }: props) => {
           It is our great pleasure to have <br /> you on board!
         </Explanation>
         <Form onSubmit={() => setCurrentStep(2)}>
-          <EnterName placeholder="Enter the name of admin"></EnterName>
+          <EnterName placeholder="Enter the name of admin" value={id} onChange={(e: any) => onChangeId(e)}></EnterName>
           <SelectSchool name="select">
-            <Option value="1">Select the name of school</Option>
-            <Option value="2">선택 1</Option>
-            <Option value="3">선택 2</Option>
+            <Option value="default">Select the name of school</Option>
+            <Option value="1">school 1 </Option>
+            <Option value="2">school 2</Option>
           </SelectSchool>
           <Button type="submit">Next</Button>
         </Form>

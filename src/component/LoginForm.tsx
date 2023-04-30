@@ -187,7 +187,6 @@ const LoginForm = ({submitLoginForm, navigateSignUp, type, selectType}: props) =
     useEffect(() => {
         setId("");
         setPassword("");
-
     }, [type])
 
     const style = {

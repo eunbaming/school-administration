@@ -102,16 +102,18 @@ const Button = styled.button`
 
 interface props {
   setCurrentStep: (value: number) => void;
+  id: string;
+  password: string;
+  onChangePassword: any;
+  submitSignup: (id: string, password: string) => void;
 }
 
-const JoinSecondStep = ({ setCurrentStep }: props) => {
-  const [password, setPassword] = useState("");
+const JoinSecondStep = ({ setCurrentStep, id, password, onChangePassword, submitSignup }: props) => {
   const [warning, setWarning] = useState(false);
 
   const handlePasswordChange = (
     event: React.ChangeEvent<HTMLInputElement>
   ): void => {
-    setPassword(event.target.value);
     setWarning(event.target.value.length < 8);
   };
 
@@ -126,7 +128,8 @@ const JoinSecondStep = ({ setCurrentStep }: props) => {
           <ChoosePasswordInput
             type="password"
             id="choose"
-            onChange={(event) => handlePasswordChange(event)}
+            value={password}
+            onChange={(event) => onChangePassword(event)}
           />
           <ConfirmPasswordLabel htmlFor="confirm">
             Confirm password
@@ -134,7 +137,7 @@ const JoinSecondStep = ({ setCurrentStep }: props) => {
           <ConfirmPasswordInput type="password" id="confirm" />
 
           {warning && <Message>Must be at least 8 characters.</Message>}
-          <Button>Next</Button>
+          <Button onClick={() => submitSignup(id, password)}>Next</Button>
         </Form>
       </Main>
     </Container>
