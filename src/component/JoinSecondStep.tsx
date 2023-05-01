@@ -4,11 +4,9 @@ import styled from "styled-components";
 const Container = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  height: 100vh;
 `;
 
 const Header = styled.h1`
@@ -108,7 +106,13 @@ interface props {
   submitSignup: (id: string, password: string) => void;
 }
 
-const JoinSecondStep = ({ setCurrentStep, id, password, onChangePassword, submitSignup }: props) => {
+const JoinSecondStep = ({
+  setCurrentStep,
+  id,
+  password,
+  onChangePassword,
+  submitSignup,
+}: props) => {
   const [warning, setWarning] = useState(false);
 
   const handlePasswordChange = (

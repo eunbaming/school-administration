@@ -6,11 +6,9 @@ import { useNavigate } from "react-router-dom";
 const Container = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -45%);
+  height: 100vh;
 `;
 
 const Header = styled.h1`
@@ -119,8 +117,6 @@ interface props {
 }
 
 const JoinFirstStep = ({ setCurrentStep, id, onChangeId }: props) => {
-  
-
   return (
     <Container>
       <Header>Welcome, create your school account</Header>
@@ -129,7 +125,11 @@ const JoinFirstStep = ({ setCurrentStep, id, onChangeId }: props) => {
           It is our great pleasure to have <br /> you on board!
         </Explanation>
         <Form onSubmit={() => setCurrentStep(2)}>
-          <EnterName placeholder="Enter the name of admin" value={id} onChange={(e: any) => onChangeId(e)}></EnterName>
+          <EnterName
+            placeholder="Enter the name of admin"
+            value={id}
+            onChange={(e: any) => onChangeId(e)}
+          ></EnterName>
           <SelectSchool name="select">
             <Option value="default">Select the name of school</Option>
             <Option value="1">school 1 </Option>
