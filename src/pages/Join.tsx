@@ -4,6 +4,7 @@ import axios from "axios";
 import JoinFirstStep from "../component/JoinFirstStep";
 import JoinSecondStep from "../component/JoinSecondStep";
 import JoinThirdStep from "../component/JoinThirdStep";
+import ProgressBar from "../component/ProgressBar";
 
 const Body = styled.body`
   background: #fcfafa;
@@ -62,6 +63,7 @@ const Join = () => {
           />
         )}
         {currentStep === 3 && <JoinThirdStep />}
+        {/* <ProgressBar /> */}
       </Container>
     </Body>
   );
