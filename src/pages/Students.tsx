@@ -1,7 +1,6 @@
-import { faSearch } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
+import ModalArea from "../component/ModalArea";
 
 const Container = styled.div`
   display: flex;
@@ -15,7 +14,9 @@ const StudentArea = styled.div`
   width: 1040px;
   display: flex;
   justify-content: space-between;
+  ali
   padding: 14px 0 14px 16px;
+  margin-bottom: 30px;
 `;
 
 const Student = styled.div`
@@ -109,13 +110,19 @@ const Explanation = styled.div`
 `;
 
 const Students = () => {
+  const [modal, setModal] = useState(false);
+  const goToModal = () => {
+    setModal(true);
+    document.body.style.cssText = `background: #ddd`;
+  };
   return (
     <Container>
+      {modal && <ModalArea />}
       <StudentArea>
         <Student>Students</Student>
         <Button>
           <Export>Export CSV</Export>
-          <Add>Add Student</Add>
+          <Add onClick={goToModal}>Add Student</Add>
         </Button>
       </StudentArea>
       <FilterSearch>

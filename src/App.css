@@ -1,5 +1,8 @@
 h1 {
-  position: absolute;
-  top: 44px;
-  left: 139px;
+  border: none;
+  background: none;
+  color: #4f4f4f;
+  font-family: "KumbhSans";
+  font-size: 18px;
+  font-weight: 500;
 }
