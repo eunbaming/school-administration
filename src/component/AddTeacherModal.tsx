@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 import NoProfileImagePNG from '../assets/noProfile.png';
 import CloseIconPNG from '../assets/icons/close_icon.png';
+import { profile } from 'console';
 
 const Container = styled.div`
     position: absolute;
@@ -164,14 +165,28 @@ opacity: 0.7;
 `;
 
 interface props {
-    addTeacher: () => void;
+    addTeacher: (name: string, teacherClass: string | undefined, gender: string | undefined, subject:string | undefined, phoneNumber: string | undefined, email: string | undefined, identificationNumber: string | undefined, password: string | undefined, about: string | undefined, profileImageUrl: string | undefined) => void;
     closeModal: () => void;
 }
 
 
 const AddTeacherModal = ({addTeacher, closeModal}: props) => {
+    const [name, setName] = useState<string>('');
+    const [phoneNumber, setPhoneNumber] = useState();
+    const [email, setEmail] = useState();
+    const [identificationNumber, setIdentificationNumber] = useState();
+    const [password, setPassword] = useState();
+    const [about, setAbout] = useState();
+
+    const [teacherClass, setTeacherClass] = useState();
+    const [gender, setGender] = useState();
+    const [subject, setSubject] = useState();
+    
+
     const imgInputRef = useRef<HTMLInputElement | null>(null);
     const [profileImageSrc, setProfileImageSrc]: any = useState(NoProfileImagePNG)
+
+    
 
     const onUploadProfileImage = (e: React.ChangeEvent<HTMLInputElement>) => {
         if(!e.target.files) {
@@ -204,7 +219,43 @@ const AddTeacherModal = ({addTeacher, closeModal}: props) => {
 
     const onClickAddTeacher = (e: any) => {
         e.preventDefault();
-        addTeacher(); 
+        addTeacher(name, teacherClass, gender, subject, phoneNumber, email, identificationNumber, password, about, profileImageSrc); 
+    }
+
+    const selectClass = (e: any) => {
+        setTeacherClass(e.target.value);
+    }
+
+    const selectGender = (e: any) => {
+        setGender(e.target.value);
+    }
+
+    const selectSubject = (e: any) => {
+        setSubject(e.target.value)
+    }
+
+    const changeName = (e: any) => {
+        setName(e.target.value)
+    }
+
+    const changePhoneNumber = (e: any) => {
+        setPhoneNumber(e.target.value);
+    }
+
+    const changeEmail = (e: any) => {
+        setEmail(e.target.value);
+    }
+
+    const changeIdentificationNumber = (e: any) => {
+        setIdentificationNumber(e.target.value);
+    }
+
+    const changePassword = (e: any) => {
+        setPassword(e.target.value);
+    }
+
+    const changeAbout = (e: any) => {
+        setAbout(e.target.value);
     }
 
     return (
@@ -217,10 +268,14 @@ const AddTeacherModal = ({addTeacher, closeModal}: props) => {
             style={{display: 'flex', background: 'white'}}>
                 <LeftForm>
                     <InfoLabel>Full name</InfoLabel>
-                    <InfoInput/>
+                    <InfoInput
+                    value={name}
+                    onChange={changeName}
+                    />
                     <div
                     style={{backgroundColor: 'white', display: 'flex', justifyContent: 'space-between'}}>
                         <InfoSelect
+                        onChange={selectClass}
                         style={{flex: 1}}
                         defaultValue={"Class"}>
                             <option disabled hidden>Class</option>
@@ -231,6 +286,7 @@ const AddTeacherModal = ({addTeacher, closeModal}: props) => {
                             <option key={5} value={5}>5</option>
                         </InfoSelect>
                         <InfoSelect
+                        onChange={selectGender}
                         defaultValue={"Gender"}
                         style={{marginLeft: "19px", flex: 1}}>
                             <option disabled hidden>Gender</option>
@@ -239,6 +295,7 @@ const AddTeacherModal = ({addTeacher, closeModal}: props) => {
                         </InfoSelect>
                     </div>
                     <InfoSelect
+                    onChange={selectSubject}
                     defaultValue={"Subject"}>
                         <option disabled hidden>Subject</option>
                         <option key={"English"} value={"English"}>English</option>
@@ -263,15 +320,25 @@ const AddTeacherModal = ({addTeacher, closeModal}: props) => {
                     <InfoLabel>Phone number</InfoLabel>
                     <NumberInput
                     onKeyDown={(e) => ["e", "E", "+"].includes(e.key) && e.preventDefault()}
-                    type={"number"}/>
+                    type={"number"}
+                    value={phoneNumber}
+                    onChange={changePhoneNumber}/>
                     <InfoLabel>Email address</InfoLabel>
-                    <InfoInput/>
+                    <InfoInput
+                    value={email}
+                    onChange={changeEmail}/>
                     <InfoLabel>Identification number</InfoLabel>
-                    <InfoInput/>
+                    <InfoInput
+                    value={identificationNumber}
+                    onChange={changeIdentificationNumber}/>
                     <InfoLabel>Password</InfoLabel>
-                    <InfoInput/>
+                    <InfoInput
+                    value={password}
+                    onChange={changePassword}/>
                     <InfoLabel>About</InfoLabel>
                     <AboutTextarea
+                    value={about}
+                    onChange={changeAbout}
                     rows={6}/>
                     <AddTeacherButtonDiv>
                     <AddTeacherButton

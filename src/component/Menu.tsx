@@ -82,7 +82,7 @@ const RightArrowIcon = styled.img`
 `;
 
 interface props {
-    currentTab: string;
+    currentTab: string | null;
     changeCurrentTab: (tab: string) => void;
 }
 const Menu = ({currentTab, changeCurrentTab}: props) => {

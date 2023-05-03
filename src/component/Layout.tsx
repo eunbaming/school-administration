@@ -10,7 +10,7 @@ padding-left: 15.5rem;
 
 interface props {
     children: any;
-    currentTab: string;
+    currentTab: string | null;
     changeCurrentTab: (tab: string) => void;
 }
 

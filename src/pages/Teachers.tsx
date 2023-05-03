@@ -1,5 +1,7 @@
 import React, {useState} from 'react';
 import styled from 'styled-components';
+import {useDispatch} from 'react-redux';
+import { addTeachers } from '../redux/teachers/state';
 
 import TeacherList from '../component/TeacherList';
 import AddTeacherModal from '../component/AddTeacherModal';
@@ -61,13 +63,29 @@ interface props {
 const Teachers = ({teacherArr}: props) => {
     const [isVisAddTeacherModal, setIsVisAddTeacherModal] = useState(false);
 
+    const dispatch = useDispatch();
+
     const onClickAddTeacherBtn = () => {
         setIsVisAddTeacherModal(!isVisAddTeacherModal)
     }
 
-    const addTeacher = () => {
-
+    const addTeacher = (name: string, teacherClass: string | undefined, gender: string | undefined, subject:string | undefined, phoneNumber: string | undefined, email: string | undefined, identificationNumber: string | undefined, password: string | undefined, about: string | undefined, profileImageUrl: string | undefined) => {
+        
         setIsVisAddTeacherModal(false);
+        const teacherObj = {
+            name,
+            subject,
+            class: teacherClass,
+            email,
+            gender,
+            about,
+            identificationNumber,
+            password,
+            phoneNumber,
+            profileImage: profileImageUrl
+        }
+
+        dispatch(addTeachers([teacherObj]))
     }
 
 
