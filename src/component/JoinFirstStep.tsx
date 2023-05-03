@@ -15,7 +15,7 @@ const Header = styled.h1`
   color: #4f4f4f;
   font-weight: 600;
   font-size: 36px;
-  font-family: "KumbhSans";
+  font-family: "KumbhSans-SemiBold";
 `;
 
 const Main = styled.div`

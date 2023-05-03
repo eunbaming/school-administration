@@ -1,3 +1,8 @@
 import { combineReducers } from "redux";
+import {reducer} from '../school/state'
 
-export default combineReducers({});
+const rootReducer = combineReducers({
+    school: reducer
+});
+
+export default rootReducer;

@@ -5,11 +5,12 @@ import {Link} from 'react-router-dom';
 import SchoolLogoPNG from '../assets/logo.png';
 import DashboardIconPNG from '../assets/icons/dashboard_icon.png';
 import StudentIconPNG from '../assets/icons/student_icon.png';
+import RightArrowIconPNG from '../assets/icons/right_arrow.png';
 
 const Container = styled.div`
 position: fixed;
 left: 0;
-width: 241px;
+width: 15.5rem;
 height: 100vh;
 background-color: #152259;
 `;
@@ -33,7 +34,7 @@ const LogoImage = styled.img`
 const Title = styled.div`
     margin-top: 22px;
     font-size: 14px;
-    font-family: 'KumbhSans';
+    font-family: "KumbhSans-SemiBold";
     font-weight: 600;
     font-size: 14px;
     color: white;
@@ -51,6 +52,7 @@ display: flex;
 flex-direction: row;
 background: #152259;
 align-items: center;
+justify-content: space-between;
 border-radius: 4px;
 user-select: none;
 text-decoration: none;
@@ -67,14 +69,23 @@ height: 15px;
 `;
 
 const CategoryText = styled.span`
-font-family: 'KumbhSans';
+font-family: "KumbhSans-SemiBold";
 font-weight: 600;
 font-size:14px;
 margin-left: 17.33px;
 color: white;
 `;
 
-const Menu = () => {
+const RightArrowIcon = styled.img`
+ width: 5px;
+ height: 10px;   
+`;
+
+interface props {
+    currentTab: string;
+    changeCurrentTab: (tab: string) => void;
+}
+const Menu = ({currentTab, changeCurrentTab}: props) => {
     
     return (
         <Container>
@@ -87,28 +98,51 @@ const Menu = () => {
             </Header>
             <CategoryList>
                 <CategoryItem
-                to={"dashboard"}>
+                onClick={() => changeCurrentTab("dashboard")}
+                style={currentTab === 'dashboard' ? {backgroundColor: '#509CDB'} : {backgroundColor: '#152259'}}
+                to={"/dashboard"}>
+                    <div>
                     <CategoryIcon
                     src={DashboardIconPNG}/>
                     <CategoryText>
                         Dashboard
                     </CategoryText>
+                    </div>
+                    {currentTab === 'dashboard' && (
+                    <RightArrowIcon
+                    src={RightArrowIconPNG}/>
+                    )}
                 </CategoryItem>
                 <CategoryItem
+                onClick={() => changeCurrentTab("teachers")}
+                style={currentTab === 'teachers' ? {backgroundColor: '#509CDB'} : {backgroundColor: '#152259'}}
                 to={"teachers"}>
+                    <div>
                     <CategoryIcon
                     src={DashboardIconPNG}/>
                     <CategoryText>
                         Teachers
                     </CategoryText>
+                    </div>
+                    {currentTab === 'teachers' && (
+                    <RightArrowIcon
+                    src={RightArrowIconPNG}/>
+                    )}
                 </CategoryItem>
                 <CategoryItem
+                onClick={() => changeCurrentTab("students")}
+                style={currentTab === 'students' ? {backgroundColor: '#509CDB'} : {backgroundColor: '#152259'}}
                 to={"students"}>
+                    <div>
                     <StudentIcon
                     src={StudentIconPNG}/>
                     <CategoryText>
-                        Students / classes
+                        Students
                     </CategoryText>
+                    </div>{currentTab === 'students' && (
+                    <RightArrowIcon
+                    src={RightArrowIconPNG}/>
+                    )}
                 </CategoryItem>
             </CategoryList>
         </Container>
