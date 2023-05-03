@@ -10,7 +10,6 @@ const Modal = styled.div`
   left: 323px;
   width: 969px;
   height: 600px;
-  border: 1px solid blue;
   background-color: #fff;
   padding: 50px;
   box-sizing: border-box;
@@ -56,6 +55,8 @@ const Name = styled.input`
   width: 248px;
   height: 40px;
   margin-right: 30px;
+  padding: 5px 0 5px 10px;
+  box-sizing: border-box;
 `;
 
 const Select = styled.select`
@@ -68,6 +69,11 @@ const Select = styled.select`
   color: #c4c4c4;
 `;
 
+const Upload = styled.div`
+  display: flex;
+  justify-content: space-around;
+`;
+
 const EmailPhonePassword = styled.div`
   display: flex;
   flex-direction: column;
@@ -75,64 +81,26 @@ const EmailPhonePassword = styled.div`
   align-items: flex-end;
 `;
 
-const Email = styled.div`
+const Group = styled.div`
   display: flex;
   flex-direction: column;
   margin: 0 20px 10px 0;
 `;
 
-const EmailLabel = styled.label`
+const GroupLabel = styled.label`
   color: #8a8a8a;
   font-size: 14px;
   font-family: "KumbhSans";
 `;
 
-const EmailInput = styled.input`
+const GroupInput = styled.input`
   border: 0.5px solid #a7a7a7;
   border-radius: 4px;
   width: 324px;
   height: 40px;
   margin-right: 30px;
-`;
-
-const Phone = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin: 0 20px 10px 0;
-`;
-
-const PhoneLabel = styled.label`
-  color: #8a8a8a;
-  font-size: 14px;
-  font-family: "KumbhSans";
-`;
-
-const PhoneInput = styled.input`
-  border: 0.5px solid #a7a7a7;
-  border-radius: 4px;
-  width: 324px;
-  height: 40px;
-  margin-right: 30px;
-`;
-
-const PasswordArea = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin: 0 20px 10px 0;
-`;
-
-const PasswordLabel = styled.label`
-  color: #8a8a8a;
-  font-size: 14px;
-  font-family: "KumbhSans";
-`;
-
-const PasswordInput = styled.input`
-  border: 0.5px solid #a7a7a7;
-  border-radius: 4px;
-  width: 324px;
-  height: 40px;
-  margin-right: 30px;
+  padding: 5px 0 5px 10px;
+  box-sizing: border-box;
 `;
 
 const Option = styled.option``;
@@ -140,7 +108,7 @@ const Option = styled.option``;
 const AddStudent = styled.button`
   width: 131px;
   padding: 12px 14px;
-  margin-top: 50px;
+  margin-top: 30px;
   background: #f1f1f1;
   border: none;
   border-radius: 4px;
@@ -148,6 +116,7 @@ const AddStudent = styled.button`
   font-weight: 600;
   font-size: 14px;
   color: #4f4f4f;
+  cursor: pointer;
 `;
 
 const ModalArea = () => {
@@ -165,32 +134,34 @@ const ModalArea = () => {
             <NameInputs>
               <Name />
               <Select>
-                <Option>Class</Option>
-                <Option>1</Option>
-                <Option>2</Option>
+                <Option value="default">Class</Option>
+                <Option value="1">1</Option>
+                <Option value="2">2</Option>
               </Select>
               <Select>
-                <Option>Gender</Option>
-                <Option>1</Option>
-                <Option>2</Option>
+                <Option value="default">Gender</Option>
+                <Option value="1">1</Option>
+                <Option value="2">2</Option>
               </Select>
             </NameInputs>
           </NameArea>
-          <EmailPhonePassword>
-            <Email>
-              <EmailLabel>Email address</EmailLabel>
-              <EmailInput />
-            </Email>
-            <Phone>
-              <PhoneLabel>Phone number</PhoneLabel>
-              <PhoneInput />
-            </Phone>
-            <PasswordArea>
-              <PasswordLabel>Password</PasswordLabel>
-              <PasswordInput />
-            </PasswordArea>
-          </EmailPhonePassword>
-          {/* <ImageForm /> */}
+          <Upload>
+            <ImageForm />
+            <EmailPhonePassword>
+              <Group>
+                <GroupLabel>Email address</GroupLabel>
+                <GroupInput />
+              </Group>
+              <Group>
+                <GroupLabel>Phone number</GroupLabel>
+                <GroupInput />
+              </Group>
+              <Group>
+                <GroupLabel>Password</GroupLabel>
+                <GroupInput />
+              </Group>
+            </EmailPhonePassword>
+          </Upload>
         </Form>
         <AddStudent>Add Student</AddStudent>
       </Modal>

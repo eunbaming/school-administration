@@ -49,6 +49,7 @@ const Add = styled.button`
   padding: 12px 14px 12px 14px;
   border-radius: 5px;
   font-weight: 600;
+  cursor: pointer;
 `;
 
 const FilterSearch = styled.div`
@@ -127,7 +128,7 @@ const Students = () => {
       </StudentArea>
       <FilterSearch>
         <Filter>
-          <Option value="0">Add filter</Option>
+          <Option value="default">Add filter</Option>
           <Option value="1">one</Option>
           <Option value="2">two</Option>
           <Option value="3">three</Option>
