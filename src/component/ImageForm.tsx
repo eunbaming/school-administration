@@ -1,12 +1,15 @@
 import axios from "axios";
 import React, { useMemo, useRef, useState } from "react";
 import styled from "styled-components";
+import NoProfileImg from "../assets/noProfile.png";
 
 const FileUploadContainer = styled.div``;
 
 const FileUploadForm = styled.form``;
 
-const FileInput = styled.input``;
+const FileInput = styled.input`
+  display: none;
+`;
 
 const BlankImage = styled.img`
   width: 200px;
@@ -48,9 +51,7 @@ const ImageForm = () => {
 
   const showImage = useMemo(() => {
     if (!imageFile && imageFile == null) {
-      return (
-        <BlankImage src="https://cdn-icons-png.flaticon.com/512/1330/1330259.png" />
-      );
+      return <BlankImage onClick={handleClickFileInput} src={NoProfileImg} />;
     }
     return (
       <UploadedImage

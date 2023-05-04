@@ -28,7 +28,21 @@ const Container = styled.div`
 
 const Steps = styled.div``;
 
-const Circle = styled.span``;
+const CircleActive = styled.span`
+  width: 20px;
+  height: 20px;
+  display: inline-block;
+  background-color: #8fa9f1;
+  border-radius: 50%;
+`;
+
+const Circle = styled.span`
+  width: 20px;
+  height: 20px;
+  display: inline-block;
+  background-color: #ddd;
+  border-radius: 50%;
+`;
 
 const Progress = styled.div``;
 
@@ -36,17 +50,17 @@ const Indicator = styled.span``;
 
 const ProgressBar = () => {
   const [currentProgress, setCurrentProgress] = useState(1);
-  const circle = useRef();
-  const progressBar = useRef();
+  const circle = useRef<HTMLDivElement>(null);
+  const progressBar = useRef<HTMLSpanElement>(null);
 
   return (
     <Container>
-      <Steps>
-        <Circle></Circle>
+      <Steps ref={circle}>
+        <CircleActive></CircleActive>
         <Circle></Circle>
         <Circle></Circle>
         <Progress>
-          <Indicator></Indicator>
+          <Indicator ref={progressBar}></Indicator>
         </Progress>
       </Steps>
     </Container>

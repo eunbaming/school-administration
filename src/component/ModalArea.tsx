@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import styled from "styled-components";
 import ImageForm from "./ImageForm";
 
@@ -108,7 +108,6 @@ const Option = styled.option``;
 const AddStudent = styled.button`
   width: 131px;
   padding: 12px 14px;
-  margin-top: 30px;
   background: #f1f1f1;
   border: none;
   border-radius: 4px;
@@ -120,19 +119,25 @@ const AddStudent = styled.button`
 `;
 
 const ModalArea = () => {
+  const nameInputRef = useRef<HTMLInputElement>(null);
+
+  const handleFocusName = () => {
+    nameInputRef.current?.focus();
+  };
+
   return (
     <Container>
       <Modal>
         <Add>Add Students</Add>
         <Buttons>
-          <Button>Manually</Button>
+          <Button onClick={handleFocusName}>Manually</Button>
           <Button>Import CSV</Button>
         </Buttons>
         <Form>
           <NameArea>
             <NameLabel>Name</NameLabel>
             <NameInputs>
-              <Name />
+              <Name ref={nameInputRef} />
               <Select>
                 <Option value="default">Class</Option>
                 <Option value="1">1</Option>
@@ -154,6 +159,10 @@ const ModalArea = () => {
               </Group>
               <Group>
                 <GroupLabel>Phone number</GroupLabel>
+                <GroupInput />
+              </Group>
+              <Group>
+                <GroupLabel>Identification number</GroupLabel>
                 <GroupInput />
               </Group>
               <Group>

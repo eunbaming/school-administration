@@ -19,10 +19,15 @@ code {
 
 @font-face {
   font-family: "KumbhSans-Light";
-  src: url(./assets/fonts/KumbhSans-Light.ttf); 
+  src: url(./assets/fonts/KumbhSans-Light.ttf);
 }
 
 @font-face {
   font-family: "KumbhSans-Regular";
   src: url(./assets/fonts/KumbhSans-Regular.ttf);
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url(./assets/fonts/Inter-VariableFont.ttf);
 }
