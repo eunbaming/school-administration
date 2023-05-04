@@ -4,6 +4,8 @@ import styled from "styled-components";
 import SearchIconPNG from "../assets/icons/search_icon.png";
 import ModalArea from "../component/ModalArea";
 import StudentListItem from "../component/StudentListItem";
+import { useDispatch } from "react-redux";
+import { addStudents } from "../redux/students/state";
 
 const Container = styled.div`
   display: flex;
@@ -178,15 +180,45 @@ interface props {
 
 const Students = ({ studentArr }: props) => {
   const [modal, setModal] = useState(false);
+  const dispatch = useDispatch();
+
   const goToModal = () => {
     setModal(true);
+  };
+
+  const addStudent = (
+    name: string,
+    studentClass: string | undefined,
+    gender: string | undefined,
+    phone: string | undefined,
+    email: string | undefined,
+    idNum: string | undefined,
+    password: string | undefined,
+    // about: string | undefined,
+    profileImageUrl: string | undefined
+  ) => {
+    setModal(false);
+
+    const studentObj = {
+      name,
+      class: studentClass,
+      gender,
+      email,
+      // about,
+      idNum,
+      password,
+      phone,
+      profileImage: profileImageUrl,
+    };
+
+    dispatch(addStudents([studentObj]));
   };
 
   return (
     <>
       {modal && <BlackScreen />}
       <Container>
-        {modal && <ModalArea />}
+        {modal && <ModalArea addStudent={addStudent} />}
         <StudentArea>
           <Student>Students</Student>
           <Add onClick={goToModal}>Add Student</Add>

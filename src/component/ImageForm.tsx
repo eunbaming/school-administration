@@ -72,9 +72,6 @@ const ImageForm = () => {
           ref={fileInputRef}
           onChange={(event) => uploadProfile(event)}
         />
-        {/* <FileUploadButton type="button" onClick={handleClickFileInput}>
-          Upload
-        </FileUploadButton> */}
       </FileUploadForm>
     </FileUploadContainer>
   );
