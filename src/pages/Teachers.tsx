@@ -5,24 +5,27 @@ import { addTeachers } from '../redux/teachers/state';
 
 import TeacherList from '../component/TeacherList';
 import AddTeacherModal from '../component/AddTeacherModal';
+import TeacherDetail from '../component/TeacherDetail';
+import ListHeader from '../component/ListHeader';
 
 const Container = styled.div`
 display: flex;
 flex-direction: column;
 justify-content: center;
-align-items: center;
 background-color: white;
-padding-top: 60px;
 padding-bottom: 120px;
 `;
 
 const Header = styled.div`
+position: fixed;
+top: 0;
+background-color: black;
 width: 75vw;
 display: flex;
 flex-direction: row;
 align-items: center;
 justify-content: space-between;
-padding: 14px 8px 14px 8px;  
+padding: 74px 8px 14px 8px;  
 `;
 
 const TeachersTitle = styled.span`
@@ -45,11 +48,17 @@ color: white;
 border-radius: 4px;
 `;
 
+const TeacherListContainer = styled.div`
+display: flex;
+flex-direction: row;
+`;
+
 interface BodyProps {
     isVisAddTeacherModal: boolean;
 }
 
 const BlackScreen = styled.div<BodyProps>`
+z-index: 15;
 position: fixed;
 background-color: #00000050;
 width: 100vw;
@@ -65,7 +74,7 @@ const Teachers = ({teacherArr}: props) => {
 
     const dispatch = useDispatch();
 
-    const onClickAddTeacherBtn = () => {
+    const onClickAddTeacherButton = () => {
         setIsVisAddTeacherModal(!isVisAddTeacherModal)
     }
 
@@ -96,21 +105,19 @@ const Teachers = ({teacherArr}: props) => {
         isVisAddTeacherModal/>
         )}
         <Container>
-            <Header>
-                <TeachersTitle>
-                    Teachers
-                </TeachersTitle>
-                <AddTeacherBtn onClick={() => onClickAddTeacherBtn()}>Add Teacher</AddTeacherBtn>
-            </Header>
-
-            <TeacherList
-            teacherArr={teacherArr}/>
-            {isVisAddTeacherModal && (
+            <ListHeader
+            onClickAddTeacherButton={onClickAddTeacherButton}/>
+            <TeacherListContainer>
+                <TeacherList
+                teacherArr={teacherArr}/>
+            </TeacherListContainer>
+            
+        </Container>
+        {isVisAddTeacherModal && (
                 <AddTeacherModal
                 closeModal={() => setIsVisAddTeacherModal(false)}
                 addTeacher={addTeacher}/>
             )}
-        </Container>
         </>
     )
 }

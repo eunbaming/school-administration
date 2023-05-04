@@ -1,64 +1,18 @@
-import React from 'react';
+import React, {useState} from 'react';
 import styled from 'styled-components';
 
+import TeacherDetail from './TeacherDetail';
 import SearchIconPNG from '../assets/icons/search_icon.png';
 import TeacherListItem from './TeacherListItem';
 
 const Container = styled.div`
 display: flex;
 flex-direction: column;
-width: 75vw;
-`;
-
-const SearchBar = styled.div`
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-`;
-
-const SearchFilterSelect = styled.select`
-color: #c3c3c3;
-font-size: 14px;
-font-weight: 500;
-padding: 16px;
-border: none;
-&:focus {
-        outline: none;
-    }
-`;
-
-const SearchInputDiv = styled.div`
-margin-left: 30px;
-flex: 1;
-    display: flex;
-    flex-direction: row;
-    background-color: #FCFAFA;
-    align-items: center;
-    padding-left: 16px;
-`;
-
-const SearchInput = styled.input`
-flex: 1;
-    font-family: "KumbhSans-SemiBold";
-    font-weight: 500;
-    font-size: 14px;
-    color: #8A8A8A;
-    background-color: #FCFAFA;
-    border: none;
-    padding: 16px;
-
-    &:focus {
-        outline: none;
-    }
-`;
-
-const SearchIcon = styled.img`
-    width: 16px;
-    height: 16px;
+padding-left: 40px;
 `;
 
 const TeachersDiv = styled.div`
-margin-top: 10px;
+margin-top: 26.5vh;
 background-color: #FCFAFA;
 display: flex;
 `;
@@ -85,22 +39,19 @@ font-size: 14px;
 color: #4F4F4F;
 `;
 
-const CategoryDiv = styled.div`
-display: flex;
- background-color: white;
- padding-top: 16px;
-`;
 
 const TeacherListDiv = styled.div`
-flex: 1;
+margin-top: 26.5vh;
+top: 0;
+bottom: 0;
+width: 59.5vw;
+overflow-y: scroll;
+position: fixed;
 `;
 
-const CategoryItem = styled.span`
-    padding: 0px 8px 16px 8px;
-    font-family: "KumbhSans-SemiBold";
-    font-size: 14px;
-    font-weight: 700;
-    background-color: white;   
+const TeacherListAndDetailDiv = styled.div`
+display: flex;
+flex-direction: row;
 `;
 
 interface props {
@@ -108,11 +59,18 @@ interface props {
 }
 
 const TeacherList = ({teacherArr}: props) => {
+    const [curTeacherIndex, setCurTeacherIndex] = useState(0);
+
+    const selectTeacherListItem = (index: number) => {
+
+        setCurTeacherIndex(index); 
+    }
 
     
 
     return (
         <Container>
+            {/*
             <SearchBar>
                 <SearchFilterSelect 
                 defaultValue={"filter"}>
@@ -129,6 +87,7 @@ const TeacherList = ({teacherArr}: props) => {
                     />
                 </SearchInputDiv>
             </SearchBar>
+    */}
             <TeachersDiv>
                 {teacherArr.length === 0 && (
                     <NoTeacherDiv>
@@ -137,7 +96,9 @@ const TeacherList = ({teacherArr}: props) => {
                     </NoTeacherDiv>
                 )}
                 {teacherArr.length > 0 && (
+                    <TeacherListAndDetailDiv>
                     <TeacherListDiv>
+                        {/*
                     <CategoryDiv>
                         <CategoryItem
                         style={{flex: 1}}>
@@ -156,21 +117,28 @@ const TeacherList = ({teacherArr}: props) => {
                         style={{flex: 1}}>
                             Gender
                         </CategoryItem>
+                        {
                         <CategoryItem
                         style={{flex: 1.5}}>
                             Email
                         </CategoryItem>
+                }
                     </CategoryDiv>
+
+                */}
                     {teacherArr.map((item, index) => {
                         return (
                             <TeacherListItem
+                            index={index}
+                            selectTeacherListItem={selectTeacherListItem}
                             key={index}
                             teacher={item}/>
                         )
-                    })
-
-                    }
+                    })}
                     </TeacherListDiv>
+                    <TeacherDetail
+                    teacher={teacherArr[curTeacherIndex]}/>
+                    </TeacherListAndDetailDiv>
                 )}
             </TeachersDiv>
         </Container>

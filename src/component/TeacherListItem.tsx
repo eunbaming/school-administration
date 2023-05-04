@@ -2,7 +2,8 @@ import React from 'react'
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
-const Container = styled(Link)`
+const Container = styled.div`
+width: 60vw;
 display: flex;
 flex: 1;    
 text-decoration: none;
@@ -64,13 +65,15 @@ font-family: 'KumbhSans-Regular';
 
 
 interface props {
-    teacher: any
+    teacher: any,
+    selectTeacherListItem: (index: number) => void,
+    index: number,
 }
 
-const TeacherListItem = ({teacher}: props) => {
+const TeacherListItem = ({teacher, selectTeacherListItem, index}: props) => {
     return (
         <Container
-        to={`${teacher.name}`}>
+        onClick={() => selectTeacherListItem(index)}>
             <NameDiv>
                 <ProfileImg
                 src={teacher.profileImage}/>
@@ -85,9 +88,11 @@ const TeacherListItem = ({teacher}: props) => {
             <GenderDiv>
                 {teacher.gender}
             </GenderDiv>
+            {/*
             <EmailDiv>
                 {teacher.email}
             </EmailDiv>
+            */}
         </Container>
 
     )

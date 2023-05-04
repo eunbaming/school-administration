@@ -6,13 +6,16 @@ import CloseIconPNG from '../assets/icons/close_icon.png';
 import { profile } from 'console';
 
 const Container = styled.div`
+z-index: 20;
     position: absolute;
     top: 65px;
+    bottom: 100px;
+    right: 150px;
     width: 62vw;
     height: 45vw;
     background-color: white;
     padding-top: 65px;
-    padding-bottom: 80px;
+    padding-bottom: 100px;
 `;
 
 const TitleDiv = styled.div`
