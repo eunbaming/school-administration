@@ -1,10 +1,14 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import axios from "axios";
+import axios from 'axios';
+
 import JoinFirstStep from "../component/JoinFirstStep";
 import JoinSecondStep from "../component/JoinSecondStep";
 import JoinThirdStep from "../component/JoinThirdStep";
 import ProgressBar from "../component/ProgressBar";
+
+import { signup } from "../server/auth";
+
 
 const Body = styled.body`
   background: #fcfafa;
@@ -29,18 +33,15 @@ const Join = () => {
   };
 
   const submitSignup = (id: string, password: string) => {
-    axios
-      .post("http://15.164.100.35:12044/admin/sign-up", {
-        admin_name: id,
-        admin_pwd: password,
-        school_code: schoolCode,
-      })
-      .then((response) => {
-        console.log("signup response", response);
-      })
-      .catch((error) => {
-        console.log("signup error", error);
-      });
+
+    
+    signup(id, password)
+    .then((response) => {
+      console.log("signup response", response);
+    })
+    .catch((error) => {
+      console.log("signup error", error);
+    });
   };
 
   return (

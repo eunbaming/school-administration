@@ -6,17 +6,18 @@ import SMSIconPNG from '../assets/icons/sms_icon.png';
 
 const Container = styled.div`
 margin-top: 26.5vh;
-padding-bottom: 100px;
 position: fixed;
 top: 0;
 bottom: 0;
-right: 15px;
+right: 0px;
 width: 20vw;
 overflow-y: scroll;
-
-    display: flex;
-    flex-direction: column;
-    background-color: white;
+display: flex;
+flex-direction: column;
+background-color: white;
+::-webkit-scrollbar {
+    display: none;
+}
 `;
 
 const ProfileDiv = styled.div`
@@ -27,8 +28,8 @@ const ProfileDiv = styled.div`
 `;
 
 const ProfileImage = styled.img`
-    width: 180px;
-    height: 180px;
+    width: 14vw;
+    height: 14vw;
     border-radius: 200;
 `;
 
@@ -100,6 +101,26 @@ font-size: 12px;
 font-weight: 400;
 `;
 
+const Footer = styled.div`
+padding-right: 10px;
+margin-top: 100px;
+padding-bottom: 30px;
+text-align: right;
+`;
+
+const EditText = styled.span`
+font-family: 'KumbhSans-Regular';
+font-size: 17px;
+color: #A7A7A7;
+margin-right: 15px;
+`;
+
+const RemoveText = styled.span`
+font-family: 'KumbhSans-Regular';
+font-size: 17px;
+color: #FF4D4D;
+`;
+
 interface props {
     teacher: any
 }
@@ -169,7 +190,7 @@ const TeacherDetail = ({teacher}: props) => {
             <AboutDiv>
                 <InfoLabelText>About</InfoLabelText>
                 <InfoValueText
-                style={{whiteSpace: 'pre-wrap'}}>{teacher.about}asdjalksdjsakldjalksdjklasdjlk klasdjkladjlakdjsdlkjdlkadjlaksdj asdjakldjdakljlk djaksdjaslkdj askldjadlkjadlk jlkadjklasdjaklsdj ksdskdjk sjdks jksdjksdj ksjd ksjd ksjdksjd ksjdk djksdjksjd ksj ksdjksjd ksdj ksjdks jdksj kdjskdj ksdj skdj ksj skdskjd skjd ksjdk sjdkjs kdjs kjdks jdksj dksjdksjdk sjdk jskdj skd s sdkajdaljd kjdksjdjaksdjaslkdj askldjadlkjadlk jlkadjklasdjaklsdj ksdskdjk sjdks jksdjksdj ksjd ksjd ksjdksjd ksjdk djksdjksjd ksj ksdjksjd ksdj ksjdks jdksj kdjskdj ksdj skdj ksj skdskjd skjd ksjdk sjdkjs kdjs kjdks jdksj dksjdksjdk sjdk jskdj skd s sdkajdaljd kjdksjasdjalksdjsakldjalksdjklasdjlk klasdjkladjlakdjsdlkjdlkadjlaksdj asdjakldjdakljlk djaksdjaslkdj askldjadlkjadlk jlkadjklasdjaklsdj ksdskdjk sjdks jksdjksdj ksjd ksjd ksjdksjd ksjdk djksdjksjd ksj ksdjksjd ksdj ksjdks jdksj kdjskdj ksdj skdj ksj skdskjd skjd ksjdk sjdkjs kdjs kjdks jdksj dksjdksjdk sjdk jskdj skd s sdkajdaljd kjdksjdjaksdjaslkdj askldjadlkjadlk jlkadjklasdjaklsdj ksdskdjk sjdks jksdjksdj ksjd ksjd ksjdksjd ksjdk djksdjksjd ksj ksdjksjd ksdj ksjdks jdksj kdjskdj ksdj skdj ksj skdskjd skjd ksjdk sjdkjs kdjs kjdks jdksj dksjdksjdk sjdk jskdj skd s sdkajdaljd kjdksjasdjalksdjsakldjalksdjklasdjlk klasdjkladjlakdjsdlkjdlkadjlaksdj asdjakldjdakljlk djaksdjaslkdj askldjadlkjadlk jlkadjklasdjaklsdj ksdskdjk sjdks jksdjksdj ksjd ksjd ksjdksjd ksjdk djksdjksjd ksj ksdjksjd ksdj ksjdks jdksj kdjskdj ksdj skdj ksj skdskjd skjd ksjdk sjdkjs kdjs kjdks jdksj dksjdksjdk sjdk jskdj skd s sdkajdaljd kjdksjdjaksdjaslkdj askldjadlkjadlk jlkadjklasdjaklsdj ksdskdjk sjdks jksdjksdj ksjd ksjd ksjdksjd ksjdk djksdjksjd ksj ksdjksjd ksdj ksjdks jdksj kdjskdj ksdj skdj ksj skdskjd skjd ksjdk sjdkjs kdjs kjdks jdksj dksjdksjdk sjdk jskdj skd s sdkajdaljd kjdksj</InfoValueText>
+                style={{whiteSpace: 'pre-wrap'}}>{teacher.about}</InfoValueText>
             </AboutDiv>
             <ConnectItemDiv
             style={{marginTop: 30}}>
@@ -179,6 +200,18 @@ const TeacherDetail = ({teacher}: props) => {
                     {teacher.phoneNumber}
                 </ConnectValue>
             </ConnectItemDiv>
+            <ConnectItemDiv
+            style={{marginTop: 10}}>
+                <ConnectIcon
+                src={SMSIconPNG}/>
+                <ConnectValue>
+                    {teacher.email}
+                </ConnectValue>
+            </ConnectItemDiv>
+            <Footer>
+                <EditText>Edit</EditText>
+                <RemoveText>Delete</RemoveText>
+            </Footer>
         </Container>
     )
 }

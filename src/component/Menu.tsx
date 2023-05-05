@@ -6,6 +6,7 @@ import SchoolLogoPNG from '../assets/logo.png';
 import DashboardIconPNG from '../assets/icons/dashboard_icon.png';
 import StudentIconPNG from '../assets/icons/student_icon.png';
 import RightArrowIconPNG from '../assets/icons/right_arrow.png';
+import BankIconPNG from '../assets/icons/bank_icon.png';
 
 const Container = styled.div`
 position: fixed;
@@ -63,6 +64,11 @@ width: 13.33px;
 height: 13.33px;
 `;
 
+const TeacherIcon = styled.img`
+width: 15px;
+height: 15px;  
+`;
+
 const StudentIcon = styled.img`
 width: 15px;
 height: 15px;
@@ -118,8 +124,8 @@ const Menu = ({currentTab, changeCurrentTab}: props) => {
                 style={currentTab === 'teachers' ? {backgroundColor: '#509CDB'} : {backgroundColor: '#152259'}}
                 to={"teachers"}>
                     <div>
-                    <CategoryIcon
-                    src={DashboardIconPNG}/>
+                    <TeacherIcon
+                    src={BankIconPNG}/>
                     <CategoryText>
                         Teachers
                     </CategoryText>

@@ -2,7 +2,12 @@ import React from 'react'
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
-const Container = styled.div`
+interface TeacherItemProps {
+    index: number,
+    curTeacherIndex: number,
+}
+
+const Container = styled.div<TeacherItemProps>`
 width: 60vw;
 display: flex;
 flex: 1;    
@@ -11,11 +16,9 @@ color: #4f4f4f;
 font-size: 14px;
 line-height: 15px;
 letter-spacing: 0em;
-:nth-child(even) {
-    background-color: #EBF6FF70;
-}
 
-background-color: white;
+
+background-color: ${(props) => props.index === props.curTeacherIndex ? '#509CDB' : props.index % 2 === 0 ? '#F3FAFF' : '#ffffff'};
 user-select: none;
 `;
 
@@ -65,14 +68,17 @@ font-family: 'KumbhSans-Regular';
 
 
 interface props {
+    curTeacherIndex: number,
     teacher: any,
     selectTeacherListItem: (index: number) => void,
     index: number,
 }
 
-const TeacherListItem = ({teacher, selectTeacherListItem, index}: props) => {
+const TeacherListItem = ({teacher, selectTeacherListItem, index, curTeacherIndex}: props) => {
     return (
         <Container
+        index={index}
+        curTeacherIndex={curTeacherIndex}
         onClick={() => selectTeacherListItem(index)}>
             <NameDiv>
                 <ProfileImg

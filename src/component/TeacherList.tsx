@@ -12,7 +12,6 @@ padding-left: 40px;
 `;
 
 const TeachersDiv = styled.div`
-margin-top: 26.5vh;
 background-color: #FCFAFA;
 display: flex;
 `;
@@ -41,12 +40,15 @@ color: #4F4F4F;
 
 
 const TeacherListDiv = styled.div`
-margin-top: 26.5vh;
+margin-top: 27vh;
 top: 0;
 bottom: 0;
 width: 59.5vw;
 overflow-y: scroll;
 position: fixed;
+::-webkit-scrollbar {
+    display: none;
+}
 `;
 
 const TeacherListAndDetailDiv = styled.div`
@@ -70,24 +72,6 @@ const TeacherList = ({teacherArr}: props) => {
 
     return (
         <Container>
-            {/*
-            <SearchBar>
-                <SearchFilterSelect 
-                defaultValue={"filter"}>
-                    <option key={0} value={"filter"} disabled hidden>filter</option>
-                    <option key={1} value={"name"}>name</option>
-                    <option key={2} value={"class"}>class</option>
-                </SearchFilterSelect>
-                <SearchInputDiv>
-                    <SearchIcon
-                    src={SearchIconPNG}
-                    />
-                    <SearchInput
-                    placeholder='Search for a Teacher by name or email'
-                    />
-                </SearchInputDiv>
-            </SearchBar>
-    */}
             <TeachersDiv>
                 {teacherArr.length === 0 && (
                     <NoTeacherDiv>
@@ -98,37 +82,10 @@ const TeacherList = ({teacherArr}: props) => {
                 {teacherArr.length > 0 && (
                     <TeacherListAndDetailDiv>
                     <TeacherListDiv>
-                        {/*
-                    <CategoryDiv>
-                        <CategoryItem
-                        style={{flex: 1}}>
-                            Name
-                        </CategoryItem>
-                        <CategoryItem
-                        style={{flex: 1}}>
-                            Subject
-                        </CategoryItem>
-                        <CategoryItem
-                        style={{flex: 1}}>
-                            Class
-                        </CategoryItem>
-
-                        <CategoryItem
-                        style={{flex: 1}}>
-                            Gender
-                        </CategoryItem>
-                        {
-                        <CategoryItem
-                        style={{flex: 1.5}}>
-                            Email
-                        </CategoryItem>
-                }
-                    </CategoryDiv>
-
-                */}
                     {teacherArr.map((item, index) => {
                         return (
                             <TeacherListItem
+                            curTeacherIndex={curTeacherIndex}
                             index={index}
                             selectTeacherListItem={selectTeacherListItem}
                             key={index}

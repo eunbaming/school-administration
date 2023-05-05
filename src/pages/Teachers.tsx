@@ -8,6 +8,9 @@ import AddTeacherModal from '../component/AddTeacherModal';
 import TeacherDetail from '../component/TeacherDetail';
 import ListHeader from '../component/ListHeader';
 
+const FullContainer = styled.div`
+`;
+
 const Container = styled.div`
 display: flex;
 flex-direction: column;
@@ -16,37 +19,6 @@ background-color: white;
 padding-bottom: 120px;
 `;
 
-const Header = styled.div`
-position: fixed;
-top: 0;
-background-color: black;
-width: 75vw;
-display: flex;
-flex-direction: row;
-align-items: center;
-justify-content: space-between;
-padding: 74px 8px 14px 8px;  
-`;
-
-const TeachersTitle = styled.span`
-font-family: 'KumbhSans-SemiBold';
-font-size: 16px;
-font-weight: 500;
-line-height: 20px;
-color: #4F4F4F;
-`;
-
-const AddTeacherBtn = styled.button`
-padding: 12px 14px;
-font-family: 'KumbhSans-SemiBold';
-font-size: 14px;
-font-weight: 600;
-line-height: 17px;
-background-color: #509CDB;
-border: none;
-color: white;
-border-radius: 4px;
-`;
 
 const TeacherListContainer = styled.div`
 display: flex;
@@ -58,7 +30,7 @@ interface BodyProps {
 }
 
 const BlackScreen = styled.div<BodyProps>`
-z-index: 15;
+z-index: 31;
 position: fixed;
 background-color: #00000050;
 width: 100vw;
@@ -99,7 +71,7 @@ const Teachers = ({teacherArr}: props) => {
 
 
     return (
-        <>
+        <FullContainer>
         {isVisAddTeacherModal && (
         <BlackScreen
         isVisAddTeacherModal/>
@@ -118,7 +90,7 @@ const Teachers = ({teacherArr}: props) => {
                 closeModal={() => setIsVisAddTeacherModal(false)}
                 addTeacher={addTeacher}/>
             )}
-        </>
+        </FullContainer>
     )
 }
 

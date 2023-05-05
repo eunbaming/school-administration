@@ -1,11 +1,11 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import {useSelector} from 'react-redux';
 
 import LoginForm from '../component/LoginForm';
-import {rootUrl} from '../server';
+import { login } from '../server/auth';
 
 const Container = styled.div`
 width: 100vw;
@@ -29,6 +29,11 @@ const Login = () => {
 
     const navigate = useNavigate();
 
+    useEffect(() => {
+        localStorage.setItem('currentTab', 'dashboard')
+
+    }, [])
+
     const selectType = (selectedType: string) => {
         if(selectedType !== type) {
             setType(selectedType);
@@ -44,22 +49,14 @@ const Login = () => {
 
             console.log("submitLoginForm type admin");
 
-            
-            axios.post(`${rootUrl}/admin/login`, {
-                admin_name: id,
-                admin_pwd: password,
-            })
-            .then((response: any) => {
+           
+           login(id, password).then((data) => {
+            console.log("login succress", data)
             navigate('dashboard');
-            console.log("login success response", response);
-            })
-            .catch((error: any) => {
-            console.log("login failure error", error);
-
-            alert("ID or password do not match.")
-            })
-            
-            
+           })
+           .catch((error) => {
+            console.log("login failed", error)
+           })        
         }
     }
 

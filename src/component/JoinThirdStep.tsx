@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 const Container = styled.div`
   display: flex;
@@ -37,18 +38,21 @@ const Explanation = styled.h1`
   color: #4f4f4f;
 `;
 
-const Button = styled.button`
+const Button = styled(Link)`
   width: 248px;
   height: 42px;
   margin-top: 35px;
-  padding: 10px;
+  padding: 12px 65px;
   box-sizing: border-box;
   border: none;
   background-color: #2d88d4;
   color: #fff;
-  font-weight: bold;
   border-radius: 4px;
+  font-family: 'KumbhSans-SemiBold';
+  font-size: 14px;
+  font-weight: 700;
   cursor: pointer;
+  text-decoration: none;
 `;
 
 const JoinThirdStep = () => {
@@ -59,7 +63,8 @@ const JoinThirdStep = () => {
         <Explanation>
           Sign up success <br /> go to main page?
         </Explanation>
-        <Button>go to main page</Button>
+        <Button
+        to={"/dashboard"}>go to main page</Button>
       </Main>
     </Container>
   );

@@ -8,7 +8,7 @@ import SearchIconPNG from '../assets/icons/search_icon.png';
 const Container = styled.div`
 z-index: 10;
 position: fixed;
-top: 0;
+top: 0.5rem;
 background-color: white;
 height: 26.5vh;
 width: 83.1vw;

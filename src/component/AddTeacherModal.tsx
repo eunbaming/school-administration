@@ -6,13 +6,14 @@ import CloseIconPNG from '../assets/icons/close_icon.png';
 import { profile } from 'console';
 
 const Container = styled.div`
-z-index: 20;
+min-width: 35rem;
+z-index: 32;
     position: absolute;
-    top: 65px;
-    bottom: 100px;
-    right: 150px;
+    top: 80px;
+    bottom: 0px;
+    left: 20rem;
     width: 62vw;
-    height: 45vw;
+    height: 85vh;
     background-color: white;
     padding-top: 65px;
     padding-bottom: 100px;
@@ -35,6 +36,7 @@ display: flex;
 `;
 
 const LeftForm = styled.div`
+backgground-color: white;
 margin-top: 13px;
 flex: 1;
   display: flex;
@@ -42,6 +44,7 @@ flex: 1;
 `;
 
 const RightForm = styled.div`
+background-color: white;
 margin-top: 13px;
 margin-left: 60px;
 flex: 1;
@@ -128,8 +131,10 @@ margin-top: 55px;
 `;
 
 const ProfileImg = styled.img`
- width: 265px;
- height: 265px;
+ width: 18vw;
+ height: 18vw;
+ min-width: 13rem;
+ min-height: 13rem;
  border-radius: 200px;
  z-index: 10;
  object-fit: cover;
