@@ -205,7 +205,7 @@ const Students = ({ studentArr }: props) => {
       gender,
       email,
       // about,
-      idNum,
+      id: idNum,
       password,
       phone,
       profileImage: profileImageUrl,
@@ -218,7 +218,7 @@ const Students = ({ studentArr }: props) => {
     <>
       {modal && <BlackScreen />}
       <Container>
-        {modal && <ModalArea addStudent={addStudent} />}
+        {modal && <ModalArea addStudent={addStudent} setModal={setModal} />}
         <StudentArea>
           <Student>Students</Student>
           <Add onClick={goToModal}>Add Student</Add>

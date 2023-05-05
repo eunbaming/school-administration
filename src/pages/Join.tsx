@@ -16,7 +16,11 @@ const Body = styled.body`
 `;
 
 // const Container = styled.div``;
-const Container = styled.div``;
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+`;
 
 const Join = () => {
   const [currentStep, setCurrentStep] = useState(1);
@@ -64,7 +68,7 @@ const Join = () => {
           />
         )}
         {currentStep === 3 && <JoinThirdStep />}
-        {/* <ProgressBar /> */}
+        <ProgressBar currentStep={currentStep} />
       </Container>
     </Body>
   );

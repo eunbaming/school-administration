@@ -1,14 +1,7 @@
 import React, { useRef, useState } from "react";
 import styled from "styled-components";
 
-const Container = styled.div`
-  // display: flex;
-  // justify-content: center;
-  // align-items: center;
-  // hi
-  position: relative;
-  bottom: 70px;
-`;
+const Container = styled.div``;
 
 // const Hr = styled.hr`
 //   width: 700px;
@@ -26,7 +19,10 @@ const Container = styled.div`
 //   height: 15px;
 // `;
 
-const Steps = styled.div``;
+const Steps = styled.div`
+  display: flex;
+  justify-content: center;
+`;
 
 const CircleActive = styled.span`
   width: 20px;
@@ -36,19 +32,27 @@ const CircleActive = styled.span`
   border-radius: 50%;
 `;
 
-const Circle = styled.span`
+const Circle = styled.span<circleProps>`
   width: 20px;
   height: 20px;
   display: inline-block;
-  background-color: #ddd;
+  background-color: ${(props) => (props.active ? "#8fa9f1" : "#ddd")};
   border-radius: 50%;
 `;
+
+interface circleProps {
+  active?: boolean;
+}
 
 const Progress = styled.div``;
 
 const Indicator = styled.span``;
 
-const ProgressBar = () => {
+interface props {
+  currentStep: number;
+}
+
+const ProgressBar = ({ currentStep }: props) => {
   const [currentProgress, setCurrentProgress] = useState(1);
   const circle = useRef<HTMLDivElement>(null);
   const progressBar = useRef<HTMLSpanElement>(null);
@@ -56,9 +60,9 @@ const ProgressBar = () => {
   return (
     <Container>
       <Steps ref={circle}>
-        <CircleActive></CircleActive>
-        <Circle></Circle>
-        <Circle></Circle>
+        <Circle active={currentStep === 1}></Circle>
+        <Circle active={currentStep === 2}></Circle>
+        <Circle active={currentStep === 3}></Circle>
         <Progress>
           <Indicator ref={progressBar}></Indicator>
         </Progress>

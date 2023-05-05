@@ -126,10 +126,11 @@ interface props {
     gender: string | undefined,
     phone: string | undefined,
     email: string | undefined,
-    idNum: string | undefined,
+    id: string | undefined,
     password: string | undefined,
     profileImageUrl: string | undefined
   ) => void;
+  setModal: (value: boolean) => void;
 }
 
 const FileUploadContainer = styled.div``;
@@ -157,7 +158,7 @@ type UploadImage = {
   type: string;
 };
 
-const ModalArea = ({ addStudent }: props) => {
+const ModalArea = ({ addStudent, setModal }: props) => {
   const nameInputRef = useRef<HTMLInputElement>(null);
 
   const [name, setName] = useState("");
@@ -174,7 +175,17 @@ const ModalArea = ({ addStudent }: props) => {
 
   const addStudentRender = (event: any) => {
     event.preventDefault();
-    // addStudent(name, selectClass, gender, phone, email, idNum, password, );
+    setModal(false);
+    addStudent(
+      name,
+      selectClass,
+      gender,
+      phone,
+      email,
+      idNum,
+      password,
+      imageFile?.thumbnail
+    );
   };
 
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -301,8 +312,8 @@ const ModalArea = ({ addStudent }: props) => {
               </Group>
             </EmailPhonePassword>
           </Upload>
+          <AddStudent type="submit">Add Student</AddStudent>
         </Form>
-        <AddStudent>Add Student</AddStudent>
       </Modal>
     </Container>
   );

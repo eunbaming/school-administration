@@ -8,7 +8,7 @@ const Container = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  // height: 100vh;
 `;
 
 const Header = styled.h1`
@@ -16,6 +16,7 @@ const Header = styled.h1`
   font-weight: 600;
   font-size: 36px;
   font-family: "KumbhSans-SemiBold";
+  margin-top: 100px;
 `;
 
 const Main = styled.div`
