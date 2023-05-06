@@ -6,6 +6,7 @@ interface props {
 }
 
 const Container = styled.div`
+  width: 60vw;
   display: flex;
   flex: 1;
   text-decoration: none;
@@ -13,11 +14,8 @@ const Container = styled.div`
   font-size: 14px;
   line-height: 15px;
   letter-spacing: 0em;
-  :nth-child(even) {
-    background-color: #ebf6ff70;
-  }
 
-  background-color: white;
+  background-color: #fff;
   user-select: none;
 `;
 
@@ -34,7 +32,7 @@ const StudentIdDiv = styled.div`
   font-family: "KumbhSans-Regular";
 `;
 const EmailDiv = styled.div`
-  flex: 1.5;
+  flex: 1.6;
   padding: 16px 8px;
   font-family: "KumbhSans-Regular";
 `;

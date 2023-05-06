@@ -34,7 +34,7 @@ const Dashboard = () => {
   useEffect(() => {
     //getTeachers();
     dispatch(addTeachers(TEACHERS_DATA));
-    //dispatch(addStudents(STUDENTS_DATA));
+    dispatch(addStudents(STUDENTS_DATA));
   }, []);
 
   const changeCurrentTab = (tab: string) => {
@@ -349,6 +349,119 @@ const TEACHERS_DATA = [
     about:
       "Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ullamco cillum dolor. Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum. Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ullamco cillum dolor. Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum. ",
     age: 30,
+    phoneNumber: "010-1234-5678",
+  },
+];
+
+const STUDENTS_DATA = [
+  {
+    name: "Eneh Mercy",
+    class: "JSS 2",
+    email: "michelle.rivera@example.com",
+    id: 703703,
+    gender: "Female",
+    profileImage: "/profileImages/Eneh_Mercy.png",
+    about:
+      "Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ullamco cillum dolor. Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum. Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ullamco cillum dolor. Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum. ",
+    phoneNumber: "010-1234-5678",
+  },
+  {
+    name: "Marvin McKinney",
+    class: "JSS 3",
+    email: "kenzi.lawson@example.com",
+    id: 877037,
+    gender: "Female",
+    profileImage: "/profileImages/Marvin_McKinney.png",
+    about:
+      "Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ullamco cillum dolor. Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum. Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ullamco cillum dolor. Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum. ",
+    phoneNumber: "010-1234-5678",
+  },
+  {
+    name: "Brooklyn Simmons",
+    class: "SS 3",
+    email: "nathan.roberts@example.com",
+    id: 370357,
+    gender: "Female",
+    profileImage: "/profileImages/Brooklyn_Simmons.png",
+    about:
+      "Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ullamco cillum dolor. Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum. Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ullamco cillum dolor. Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum. ",
+    phoneNumber: "010-1234-5678",
+  },
+  {
+    name: "Dianne Russell",
+    class: "SS 3",
+    email: "felicia.reid@example.com",
+    id: 870316,
+    gender: "Male",
+    profileImage: "/profileImages/Dianne_Russell.png",
+    about:
+      "Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ullamco cillum dolor. Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum. Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ullamco cillum dolor. Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum. ",
+    phoneNumber: "010-1234-5678",
+  },
+  {
+    name: "Cody Fisher",
+    class: "SS 3",
+    email: "tim.jennings@example.com",
+    id: 547030,
+    gender: "Female",
+    profileImage: "/profileImages/Cody_Fisher.png",
+    about:
+      "Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ullamco cillum dolor. Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum. Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ullamco cillum dolor. Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum. ",
+    phoneNumber: "010-1234-5678",
+  },
+  {
+    name: "Guy Hawkins",
+    class: "JSS 1",
+    email: "alma.lawson@example.com",
+    id: 270374,
+    gender: "Female",
+    profileImage: "/profileImages/Guy_Hawkins.png",
+    about:
+      "Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ullamco cillum dolor. Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum. Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ullamco cillum dolor. Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum. ",
+    phoneNumber: "010-1234-5678",
+  },
+  {
+    name: "Devon Lane",
+    class: "JSS 3",
+    email: "debra.holt@example.com",
+    id: 970322,
+    gender: "Female",
+    profileImage: "/profileImages/Devon_Lane.png",
+    about:
+      "Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ullamco cillum dolor. Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum. Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ullamco cillum dolor. Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum. ",
+    phoneNumber: "010-1234-5678",
+  },
+  {
+    name: "Ronald Richards",
+    class: "JSS 4",
+    email: "deanna.curtis@example.com",
+    id: 570336,
+    gender: "Male",
+    profileImage: "/profileImages/Ronald_Richards.png",
+    about:
+      "Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ullamco cillum dolor. Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum. Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ullamco cillum dolor. Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum. ",
+    phoneNumber: "010-1234-5678",
+  },
+  {
+    name: "Bessie Cooper",
+    class: "JSS 5",
+    email: "jackson.graham@example.com",
+    id: 570356,
+    gender: "Female",
+    profileImage: "/profileImages/Bessie_Cooper.png",
+    about:
+      "Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ullamco cillum dolor. Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum. Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ullamco cillum dolor. Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum. ",
+    phoneNumber: "010-1234-5678",
+  },
+  {
+    name: "Savannah Nguyen",
+    class: "JSS 1",
+    email: "dolores.chambers@example.com",
+    id: 177037,
+    gender: "Female",
+    profileImage: "/profileImages/Savannah_Nguyen.png",
+    about:
+      "Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ullamco cillum dolor. Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum. Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ullamco cillum dolor. Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum. ",
     phoneNumber: "010-1234-5678",
   },
 ];
