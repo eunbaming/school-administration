@@ -1,10 +1,14 @@
 import React from 'react'
 import styled from 'styled-components';
+import {useDispatch} from 'react-redux';
+
+import { setEditModal, deleteTeacher } from '../redux/teachers/state';
 
 import CallIconPGN from '../assets/icons/call_icon.png';
 import SMSIconPNG from '../assets/icons/sms_icon.png'; 
 
 const Container = styled.div`
+
 margin-top: 26.5vh;
 position: fixed;
 top: 0;
@@ -21,6 +25,7 @@ background-color: white;
 `;
 
 const ProfileDiv = styled.div`
+margin-top: 20px;
   background-color: white;
   display: flex;
   flex-direction: column;
@@ -30,7 +35,7 @@ const ProfileDiv = styled.div`
 const ProfileImage = styled.img`
     width: 14vw;
     height: 14vw;
-    border-radius: 200;
+    border-radius: 200px;
 `;
 
 const NameDiv = styled.div`
@@ -102,7 +107,7 @@ font-weight: 400;
 `;
 
 const Footer = styled.div`
-padding-right: 10px;
+padding-right: 25px;
 margin-top: 100px;
 padding-bottom: 30px;
 text-align: right;
@@ -113,19 +118,31 @@ font-family: 'KumbhSans-Regular';
 font-size: 17px;
 color: #A7A7A7;
 margin-right: 15px;
+cursor: pointer;
 `;
 
 const RemoveText = styled.span`
 font-family: 'KumbhSans-Regular';
 font-size: 17px;
 color: #FF4D4D;
+cursor: pointer;
 `;
 
 interface props {
-    teacher: any
+    index: number;
+    teacher: any;
 }
 
-const TeacherDetail = ({teacher}: props) => {
+const TeacherDetail = ({teacher, index}: props) => {
+    const dispatch = useDispatch();
+
+    const onClickEdit = () => {
+        dispatch(setEditModal(true))
+    }
+
+    const onClickDelete = () => {
+        dispatch(deleteTeacher(index))
+    }
 
     return (
         <Container>
@@ -174,7 +191,7 @@ const TeacherDetail = ({teacher}: props) => {
                 Identification Number
             </InfoLabelText>
             <InfoValueText>
-                {1111}
+                {teacher.identificationNumber}
             </InfoValueText>
             </InfoItemDiv>
             <InfoItemDiv>
@@ -182,7 +199,7 @@ const TeacherDetail = ({teacher}: props) => {
                 Password
             </InfoLabelText>
             <InfoValueText>
-                {1111}
+                {teacher.password}
             </InfoValueText>
             </InfoItemDiv>
 
@@ -209,8 +226,8 @@ const TeacherDetail = ({teacher}: props) => {
                 </ConnectValue>
             </ConnectItemDiv>
             <Footer>
-                <EditText>Edit</EditText>
-                <RemoveText>Delete</RemoveText>
+                <EditText onClick={() => onClickEdit()}>Edit</EditText>
+                <RemoveText onClick={() => onClickDelete()}>Delete</RemoveText>
             </Footer>
         </Container>
     )

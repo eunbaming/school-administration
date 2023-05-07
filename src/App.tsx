@@ -7,24 +7,20 @@ import {addSchool} from './redux/school/state';
 import Login from './pages/Login';
 import Dashboard from "./pages/Dashboard";
 import Join from "./pages/Join";
-import {rootUrl} from './server';
 
+import {rootUrl} from './server';
+import { getSchools } from './server/school';
 
 function App() {
   const {schools} = useSelector((state: any) => state.school);
   const dispatch = useDispatch();
-  console.log("schools", schools);
 
   useEffect(() => {
-    axios.get(`${rootUrl}/school/all`)
-    .then((response) => {
-      console.log("response", response.data.data);
-      dispatch(addSchool(response.data.data));
-      
+    getSchools().then((response: any) => {
+      console.log("Get Schools success", response)
+      dispatch(addSchool(response.data))
     })
-    .catch((error) => {
-      console.log("error", error)
-    })
+    .catch((error: any) => console.log("Get Schols Failed", error));
   }, [])
 
   return (

@@ -33,39 +33,40 @@ const Login = () => {
     localStorage.setItem("currentTab", "dashboard");
   }, []);
 
-  const selectType = (selectedType: string) => {
-    if (selectedType !== type) {
-      setType(selectedType);
-    }
-  };
+    
+    const selectType = (selectedType: string) => {
+        if(selectedType !== type) {
+            setType(selectedType);
+        }
+    }    
 
-  const submitLoginForm = (
-    event: any,
-    id: string,
-    password: string,
-    school?: string
-  ) => {
-    event.preventDefault();
-    if (
-      type === "user" &&
-      id.length > 0 &&
-      password.length > 0 &&
-      school !== "default"
-    ) {
-      navigate("dashboard");
-    } else if (type === "admin" && id.length > 0 && password.length > 0) {
-      console.log("submitLoginForm type admin");
+    const submitLoginForm = (event: any, id: string, password: string, school?: string) => {
+        
+        event.preventDefault()
+        if(type === 'user' && id.length > 0 && password.length > 0 && school !== 'default') {
+            navigate('dashboard');
+        } else if(type === 'admin' && id.length > 0 && password.length > 0) {
 
-      login(id, password)
-        .then((data) => {
-          console.log("login succress", data);
-          navigate("dashboard");
-        })
-        .catch((error) => {
-          console.log("login failed", error);
-        });
+            console.log("submitLoginForm type admin");
+
+           
+           login(id, password).then((response: any) => {
+
+            console.log("login response", response)
+            if(response.data.message === '존재하지 않는 유저입니다.') {
+                alert('ID or Password do not match')
+            } else if(response.data.refreshToken && response.data.accessToken){
+                localStorage.setItem('refreshToken', response.data.refreshToken)
+                localStorage.setItem('accessToken', response.data.accessToken)
+                navigate('dashboard');
+            }
+           })
+           .catch((error) => {
+            console.log("login failed", error)
+           })        
+        }
     }
-  };
+
 
   const navigateSignUp = () => {
     navigate("join");

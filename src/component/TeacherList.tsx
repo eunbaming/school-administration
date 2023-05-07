@@ -17,9 +17,13 @@ display: flex;
 `;
 
 const NoTeacherDiv = styled.div`
-flex: 1;
-min-height: 60vh;
+margin-top: 27vh;
+position: fixed;
+top: 0;
+bottom: 0;
+width: 60vw;
 display: flex;
+background-color: #FCFAFA;
 flex-direction: column;
 align-items: center;
 justify-content: center;
@@ -43,7 +47,8 @@ const TeacherListDiv = styled.div`
 margin-top: 27vh;
 top: 0;
 bottom: 0;
-width: 59.5vw;
+width: 60vw;
+background-color: #FCFAFA;
 overflow-y: scroll;
 position: fixed;
 ::-webkit-scrollbar {
@@ -57,11 +62,12 @@ flex-direction: row;
 `;
 
 interface props {
-    teacherArr: any[]
+    teacherArr: any[];
+    curTeacherIndex: number;
+    setCurTeacherIndex: (index: number) => void;
 }
 
-const TeacherList = ({teacherArr}: props) => {
-    const [curTeacherIndex, setCurTeacherIndex] = useState(0);
+const TeacherList = ({teacherArr, curTeacherIndex, setCurTeacherIndex}: props) => {
 
     const selectTeacherListItem = (index: number) => {
 
@@ -94,6 +100,7 @@ const TeacherList = ({teacherArr}: props) => {
                     })}
                     </TeacherListDiv>
                     <TeacherDetail
+                    index={curTeacherIndex}
                     teacher={teacherArr[curTeacherIndex]}/>
                     </TeacherListAndDetailDiv>
                 )}

@@ -36,12 +36,20 @@ const Join = () => {
     setPassword(e.target.value);
   };
 
-  const submitSignup = (id: string, password: string) => {
+  const submitSignup = (e: any, id: string, password: string) => {
+    e.preventDefault();
 
     
     signup(id, password)
     .then((response) => {
       console.log("signup response", response);
+      if(response.data.message === "이미 사용중인 이메일입니다.") {
+        alert("The ID that already exists");
+      } else if(response.data.message === '회원가입 성공') {
+        localStorage.setItem("refreshToken", response.data.data.refreshToken);
+        localStorage.setItem("accessToken", response.data.data.accessToken);
+        setCurrentStep(3);
+      }
     })
     .catch((error) => {
       console.log("signup error", error);

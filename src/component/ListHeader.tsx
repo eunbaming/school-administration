@@ -1,5 +1,7 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import styled from 'styled-components';
+import {useDispatch, useSelector} from 'react-redux';
+import { setFilter, setFilteredTeachers } from '../redux/teachers/state';
 
 import SearchIconPNG from '../assets/icons/search_icon.png';
 
@@ -104,7 +106,6 @@ display: flex;
  padding-top: 16px;
  padding-left: 47px;
  width: 60vw;
- 
 `;
 
 const CategoryItem = styled.span`
@@ -119,6 +120,37 @@ interface props {
 }
 
 const ListHeader = ({onClickAddTeacherButton}: props) => {
+    const [keyword, setKeyword] = useState('');
+    const {filter, teachers} = useSelector((state: any) => state.teacher);
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        searchTeachers(keyword);
+    }, [keyword])
+
+    useEffect(() => {
+        console.log("filter", filter);
+    }, [filter])
+
+    const searchTeachers = (keywordValue: string) => {
+        const filteredTeachers = teachers.filter((item: any) => {
+            if(filter === 'phone number') {
+                return item['phoneNumber'].includes(keywordValue)
+            }
+            if(filter === 'class') {
+                return item[filter].includes(keywordValue)
+            } else {
+                return item[filter].toLowerCase().includes(keywordValue.toLowerCase())
+            }
+        })
+
+        dispatch(setFilteredTeachers(filteredTeachers))
+
+    }
+
+    const selectFilter = (e: any) => {
+        dispatch(setFilter(e.target.value));
+    }
 
     return (
         <Container>
@@ -129,18 +161,23 @@ const ListHeader = ({onClickAddTeacherButton}: props) => {
             </TitleDiv>
 
             <SearchBar>
-                <SearchFilterSelect 
-                defaultValue={"filter"}>
-                    <option key={0} value={"filter"} disabled hidden>filter</option>
-                    <option key={1} value={"name"}>name</option>
-                    <option key={2} value={"class"}>class</option>
+                <SearchFilterSelect onChange={selectFilter}
+                defaultValue={"name"}>
+                    <option key={"name"} value={"name"}>name</option>
+                    <option key={"subject"} value={"subject"}>subject</option>
+                    <option key={"class"} value={"class"}>class</option>
+                    <option key={"gender"} value={"gender"}>gender</option>
+                    <option key={"email"} value={"email"}>email</option>
+                    <option key={"phoneNumber"} value={"phone number"}>phone number</option>
                 </SearchFilterSelect>
                 <SearchInputDiv>
                     <SearchIcon
                     src={SearchIconPNG}
                     />
                     <SearchInput
-                    placeholder='Search for a Teacher by name or email'
+                    value={keyword}
+                    onChange={(e) => setKeyword(e.target.value)}
+                    placeholder={`Search for a Teacher by ${filter}`}
                     />
                 </SearchInputDiv>
             </SearchBar>

@@ -2,6 +2,7 @@ import {rootUrl} from './index';
 import axios from 'axios';
 
 export const signup = (id: string, password: string) => {
+    console.log("signup id password", id, password)
     const promise = axios.post(`${rootUrl}/api/users`, {
         email: id,
         password: password,

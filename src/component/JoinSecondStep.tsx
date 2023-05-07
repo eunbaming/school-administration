@@ -103,7 +103,7 @@ interface props {
   id: string;
   password: string;
   onChangePassword: any;
-  submitSignup: (id: string, password: string) => void;
+  submitSignup: (e: any, id: string, password: string) => void;
 }
 
 const JoinSecondStep = ({
@@ -125,7 +125,7 @@ const JoinSecondStep = ({
     <Container>
       <Header>Udemy school, Choose your password</Header>
       <Main>
-        <Form onSubmit={() => setCurrentStep(3)}>
+        <Form onSubmit={(e: any) => submitSignup(e, id, password)}>
           <ChoosePasswordLabel htmlFor="choose">
             Choose a password
           </ChoosePasswordLabel>
@@ -141,7 +141,7 @@ const JoinSecondStep = ({
           <ConfirmPasswordInput type="password" id="confirm" />
 
           {warning && <Message>Must be at least 8 characters.</Message>}
-          <Button onClick={() => submitSignup(id, password)}>Next</Button>
+          <Button type={"submit"}>Sign up</Button>
         </Form>
       </Main>
     </Container>

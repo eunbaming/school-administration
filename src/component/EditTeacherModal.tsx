@@ -1,9 +1,9 @@
 import React, {useRef, useState, useEffect} from 'react';
+import {useDispatch} from 'react-redux';
+import {editTeacher, setEditModal} from '../redux/teachers/state'; 
 import styled from 'styled-components';
 
-import { useDispatch } from 'react-redux';
-import { setAddModal } from '../redux/teachers/state';
-
+import NoProfileImagePNG from '../assets/noProfile.png';
 import CloseIconPNG from '../assets/icons/close_icon.png';
 import BlankProfileImagePNG from '../assets/blank_profile.jpg';
 
@@ -15,23 +15,23 @@ top: 30px;
 left: 20rem;
 width: 62vw;
 background-color: white;
-    padding-top: 32px;
-    padding-left: 30px;
-    padding-right: 30px;
-    padding-bottom: 32px;
+padding-top: 32px;
+padding-left: 30px;
+padding-right: 30px;
+padding-bottom: 32px;
 `;
 
 const TitleDiv = styled.div`
-    font-family: "KumbhSans-SemiBold";
-    font-size: 32px;
-    font-weight: 600;
-    line-height: 40px;
-    color: #4F4F4F;
+font-family: "KumbhSans-SemiBold";
+font-size: 32px;
+font-weight: 600;
+line-height: 40px;
+color: #4F4F4F;
 `
 
 const AddTeacherForm = styled.form`
 display: flex;
-    flex-direction: column;
+flex-direction: column;
 
 `;
 
@@ -39,8 +39,8 @@ const LeftForm = styled.div`
 backgground-color: white;
 margin-top: 13px;
 flex: 1;
-  display: flex;
-  flex-direction: column;  
+display: flex;
+flex-direction: column;  
 `;
 
 const RightForm = styled.div`
@@ -48,13 +48,13 @@ background-color: white;
 margin-top: 13px;
 margin-left: 60px;
 flex: 1;
-    display: flex;
-    flex-direction: column;
+display: flex;
+flex-direction: column;
 `;
 
 const InfoLabel = styled.span`
 margin-top: 27px;
-    font-family: "KumbhSans-Regular";
+font-family: "KumbhSans-Regular";
     font-size: 14px;
     font-weight: 500;
     line-height: 17px;
@@ -175,31 +175,30 @@ width: 25px;
 height: 25px;
 opacity: 0.7;
 `;
-
 interface props {
-    addTeacher: (name: string, teacherClass: string | undefined, gender: string | undefined, subject:string | undefined, phoneNumber: string | undefined, email: string | undefined, identificationNumber: string | undefined, password: string | undefined, about: string | undefined, profileImageUrl: string | undefined) => void;
+    teacher: any,
+    submitEditTeacher: (name: string, teacherClass: string | undefined, gender: string | undefined, subject:string | undefined, phoneNumber: string | undefined, email: string | undefined, identificationNumber: string | undefined, password: string | undefined, about: string | undefined, profileImageUrl: string | undefined) => void;
     closeModal: () => void;
 }
 
 
-const AddTeacherModal = ({addTeacher, closeModal}: props) => {
+const EditTeacherModal = ({teacher, submitEditTeacher, closeModal}: props) => {
     const [isVaild, setIsVaild] = useState(false);
-    const [name, setName] = useState<string>('');
-    const [phoneNumber, setPhoneNumber] = useState('');
-    const [email, setEmail] = useState('');
-    const [identificationNumber, setIdentificationNumber] = useState('');
-    const [password, setPassword] = useState('');
-    const [about, setAbout] = useState('');
+    const [name, setName] = useState<string>(teacher.name);
+    const [phoneNumber, setPhoneNumber] = useState(teacher.phoneNumber);
+    const [email, setEmail] = useState(teacher.email);
+    const [identificationNumber, setIdentificationNumber] = useState(teacher.identificationNumber);
+    const [password, setPassword] = useState(teacher.password);
+    const [about, setAbout] = useState(teacher.about);
 
-    const [teacherClass, setTeacherClass] = useState('');
-    const [gender, setGender] = useState('');
-    const [subject, setSubject] = useState('');
-
-    const dispatch = useDispatch(); 
+    const [teacherClass, setTeacherClass] = useState(teacher.class);
+    const [gender, setGender] = useState(teacher.gender);
+    const [subject, setSubject] = useState(teacher.subject);
     
-
     const imgInputRef = useRef<HTMLInputElement | null>(null);
-    const [profileImageSrc, setProfileImageSrc]: any = useState(BlankProfileImagePNG);
+    const [profileImageSrc, setProfileImageSrc]: any = useState(teacher.profileImage);
+
+    const dispatch = useDispatch();
 
     useEffect(() => {
         if(name.length > 0 && phoneNumber.length > 0 && email.length > 0 && identificationNumber.length > 0 && password.length > 0 &&teacherClass.length > 0 && gender.length > 0 && subject.length > 0) {
@@ -241,12 +240,12 @@ const AddTeacherModal = ({addTeacher, closeModal}: props) => {
         imgInputRef.current.click();
     }
 
-    const onClickAddTeacher = (e: any) => {
+    const onClickEditTeacher = (e: any) => {
         e.preventDefault();
 
         if(isVaild) {
-            dispatch(setAddModal(false));
-            addTeacher(name, teacherClass, gender, subject, phoneNumber, email, identificationNumber, password, about, profileImageSrc); 
+            dispatch(setEditModal(false))
+            submitEditTeacher(name, teacherClass, gender, subject, phoneNumber, email, identificationNumber, password, about, profileImageSrc); 
         } 
     }
 
@@ -288,9 +287,9 @@ const AddTeacherModal = ({addTeacher, closeModal}: props) => {
 
     return (
         <Container> 
-            <AddTeacherForm onSubmit={(e: React.FormEvent<HTMLFormElement>) => onClickAddTeacher(e)}>
+            <AddTeacherForm onSubmit={(e: React.FormEvent<HTMLFormElement>) => onClickEditTeacher(e)}>
             <TitleDiv>
-                Add Teacher
+                Edit Teacher
             </TitleDiv>
             <div
             style={{display: 'flex', background: 'white'}}>
@@ -305,7 +304,7 @@ const AddTeacherModal = ({addTeacher, closeModal}: props) => {
                         <InfoSelect
                         onChange={selectClass}
                         style={{flex: 1}}
-                        defaultValue={"Class"}>
+                        defaultValue={teacherClass}>
                             <option disabled hidden>Class</option>
                             <option key={1} value={1}>1</option>
                             <option key={2} value={2}>2</option>
@@ -315,7 +314,7 @@ const AddTeacherModal = ({addTeacher, closeModal}: props) => {
                         </InfoSelect>
                         <InfoSelect
                         onChange={selectGender}
-                        defaultValue={"Gender"}
+                        defaultValue={gender}
                         style={{marginLeft: "19px", flex: 1}}>
                             <option disabled hidden>Gender</option>
                             <option key={"Male"} value={"Male"}>Male</option>
@@ -324,7 +323,7 @@ const AddTeacherModal = ({addTeacher, closeModal}: props) => {
                     </span>
                     <InfoSelect
                     onChange={selectSubject}
-                    defaultValue={"Subject"}>
+                    defaultValue={subject}>
                         <option disabled hidden>Subject</option>
                         <option key={"English"} value={"English"}>English</option>
                         <option key={"Math"} value={"Math"}>Math</option>
@@ -383,4 +382,4 @@ const AddTeacherModal = ({addTeacher, closeModal}: props) => {
     )
 }
 
-export default AddTeacherModal
+export default EditTeacherModal;
