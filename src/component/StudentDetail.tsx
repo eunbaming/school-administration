@@ -3,6 +3,8 @@ import styled from "styled-components";
 
 import CallIconPGN from "../assets/icons/call_icon.png";
 import SMSIconPNG from "../assets/icons/sms_icon.png";
+import { useDispatch } from "react-redux";
+import { setEditModal } from "../redux/students/state";
 
 interface props {
   student: any;
@@ -124,6 +126,11 @@ const RemoveText = styled.span`
 `;
 
 const StudentDetail = ({ student }: props) => {
+  const dispatch = useDispatch();
+  const onClickEdit = () => {
+    dispatch(setEditModal(true));
+  };
+
   return (
     <Container>
       <ProfileDiv>
@@ -169,7 +176,7 @@ const StudentDetail = ({ student }: props) => {
       </ConnectItemDiv>
 
       <Footer>
-        <EditText>Edit</EditText>
+        <EditText onClick={() => onClickEdit()}>Edit</EditText>
         <RemoveText>Delete</RemoveText>
       </Footer>
     </Container>

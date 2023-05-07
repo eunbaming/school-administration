@@ -86,6 +86,7 @@ const StudentListComponent = ({
                   <StudentListItem
                     index={index}
                     selectStudentListItem={selectStudentListItem}
+                    curStudentIndex={curStudentIndex}
                     key={index}
                     student={item}
                   />

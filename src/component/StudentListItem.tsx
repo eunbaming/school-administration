@@ -1,7 +1,12 @@
 import React from "react";
 import styled from "styled-components";
 
-const Container = styled.div`
+interface StudentItemProps {
+  index: number;
+  curStudentIndex: number;
+}
+
+const Container = styled.div<StudentItemProps>`
   width: 60vw;
   display: flex;
   flex: 1;
@@ -11,7 +16,12 @@ const Container = styled.div`
   line-height: 15px;
   letter-spacing: 0em;
 
-  background-color: #fff;
+  background-color: ${(props) =>
+    props.index === props.curStudentIndex
+      ? "#509CDB"
+      : props.index % 2 === 0
+      ? "#f3faff"
+      : "#fff"};
   user-select: none;
 `;
 
@@ -56,13 +66,23 @@ const ProfileImg = styled.img`
 
 interface props {
   index: number;
+  curStudentIndex: number;
   selectStudentListItem: (index: number) => void;
   student: any;
 }
 
-const StudentListItem = ({ index, selectStudentListItem, student }: props) => {
+const StudentListItem = ({
+  index,
+  curStudentIndex,
+  selectStudentListItem,
+  student,
+}: props) => {
   return (
-    <Container onClick={() => selectStudentListItem(index)}>
+    <Container
+      index={index}
+      curStudentIndex={curStudentIndex}
+      onClick={() => selectStudentListItem(index)}
+    >
       <NameDiv>
         <ProfileImg src={student.profileImage} />
         {student.name}

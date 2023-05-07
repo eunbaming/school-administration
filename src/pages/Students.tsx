@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import styled from "styled-components";
 
 import ModalArea from "../component/ModalArea";
-import StudentListItem from "../component/StudentListItem";
-import { useDispatch } from "react-redux";
-import { addStudents } from "../redux/students/state";
+import { useDispatch, useSelector } from "react-redux";
+import { addStudents, editStudent } from "../redux/students/state";
 import ListStudentHeader from "../component/ListStudentHeader";
 import StudentListComponent from "../component/StudentListComponent";
+import EditStudentModal from "../component/EditStudentModal";
 
 const FullContainer = styled.div``;
 
@@ -19,18 +19,6 @@ const Container = styled.div`
 `;
 
 const StudentListContainer = styled.div`
-  // width: 952px;
-  // height: 419px;
-  // background-color: #fcfafa;
-  // margin: 20px;
-  // display: flex;
-  // flex-direction: column;
-  // justify-content: center;
-  // align-items: center;
-  // margin-top: 10px;
-  // background-color: #fcfafa;
-  // display: flex;
-  // width: 75vw;
   display: flex;
   flex-direction: row;
 `;
@@ -50,7 +38,11 @@ interface props {
 const Students = ({ studentArr }: props) => {
   const [modal, setModal] = useState(false);
   const [curStudentIndex, setCurStudentIndex] = useState(0);
+
   const dispatch = useDispatch();
+  const { students, isVisEditModal } = useSelector(
+    (state: any) => state.student
+  );
 
   const onClickAddStudentButton = () => {
     setModal(true);
@@ -84,10 +76,41 @@ const Students = ({ studentArr }: props) => {
     dispatch(addStudents([studentObj]));
   };
 
+  const submitEditStudent = (
+    name: string,
+    studentClass: string | undefined,
+    gender: string | undefined,
+    phone: string | undefined,
+    email: string | undefined,
+    idNum: string | undefined,
+    password: string | undefined,
+    // about: string | undefined,
+    profileImageUrl: string | undefined
+  ) => {
+    const student = {
+      name,
+      class: studentClass,
+      email,
+      gender,
+      idNum,
+      password,
+      phone,
+      profileImage: profileImageUrl,
+    };
+
+    dispatch(editStudent(student, curStudentIndex));
+  };
+
   return (
     <FullContainer>
-      {modal && <BlackScreen />}
+      {(modal || isVisEditModal) && <BlackScreen />}
       {modal && <ModalArea addStudent={addStudent} setModal={setModal} />}
+      {isVisEditModal && (
+        <EditStudentModal
+          student={students[curStudentIndex]}
+          submitEditStudent={submitEditStudent}
+        />
+      )}
       <Container>
         <ListStudentHeader onClickAddStudentButton={onClickAddStudentButton} />
         <StudentListContainer>
