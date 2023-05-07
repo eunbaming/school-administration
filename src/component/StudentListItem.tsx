@@ -1,10 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 
-interface props {
-  student: any;
-}
-
 const Container = styled.div`
   width: 60vw;
   display: flex;
@@ -26,11 +22,13 @@ const NameDiv = styled.div`
   display: flex;
   align-items: center;
 `;
+
 const StudentIdDiv = styled.div`
   flex: 1;
   padding: 16px 8px;
   font-family: "KumbhSans-Regular";
 `;
+
 const EmailDiv = styled.div`
   flex: 1.6;
   padding: 16px 8px;
@@ -42,6 +40,7 @@ const ClassDiv = styled.div`
   padding: 16px 8px;
   font-family: "KumbhSans-Regular";
 `;
+
 const GenderDiv = styled.div`
   flex: 1;
   padding: 16px 8px;
@@ -55,9 +54,15 @@ const ProfileImg = styled.img`
   height: 24px;
 `;
 
-const StudentListItem = ({ student }: props) => {
+interface props {
+  index: number;
+  selectStudentListItem: (index: number) => void;
+  student: any;
+}
+
+const StudentListItem = ({ index, selectStudentListItem, student }: props) => {
   return (
-    <Container>
+    <Container onClick={() => selectStudentListItem(index)}>
       <NameDiv>
         <ProfileImg src={student.profileImage} />
         {student.name}

@@ -8,6 +8,8 @@ import { addStudents } from "../redux/students/state";
 import ListStudentHeader from "../component/ListStudentHeader";
 import StudentListComponent from "../component/StudentListComponent";
 
+const FullContainer = styled.div``;
+
 const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -34,6 +36,7 @@ const StudentListContainer = styled.div`
 `;
 
 const BlackScreen = styled.div`
+  z-index: 31;
   position: fixed;
   background-color: #00000050;
   width: 100vw;
@@ -46,6 +49,7 @@ interface props {
 
 const Students = ({ studentArr }: props) => {
   const [modal, setModal] = useState(false);
+  const [curStudentIndex, setCurStudentIndex] = useState(0);
   const dispatch = useDispatch();
 
   const onClickAddStudentButton = () => {
@@ -81,14 +85,20 @@ const Students = ({ studentArr }: props) => {
   };
 
   return (
-    <Container>
+    <FullContainer>
       {modal && <BlackScreen />}
       {modal && <ModalArea addStudent={addStudent} setModal={setModal} />}
-      <ListStudentHeader onClickAddStudentButton={onClickAddStudentButton} />
-      <StudentListContainer>
-        <StudentListComponent studentArr={studentArr} />
-      </StudentListContainer>
-    </Container>
+      <Container>
+        <ListStudentHeader onClickAddStudentButton={onClickAddStudentButton} />
+        <StudentListContainer>
+          <StudentListComponent
+            curStudentIndex={curStudentIndex}
+            setCurStudentIndex={setCurStudentIndex}
+            studentArr={studentArr}
+          />
+        </StudentListContainer>
+      </Container>
+    </FullContainer>
   );
 };
 

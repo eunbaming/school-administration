@@ -6,6 +6,7 @@ import NoProfileImg from "../assets/noProfile.png";
 const Container = styled.div``;
 
 const Modal = styled.div`
+  z-index: 32;
   position: absolute;
   top: 57px;
   left: 323px;
