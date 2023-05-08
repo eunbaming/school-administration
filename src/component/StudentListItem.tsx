@@ -1,11 +1,12 @@
 import React from "react";
 import styled from "styled-components";
 
-interface props {
-  student: any;
+interface StudentItemProps {
+  index: number;
+  curStudentIndex: number;
 }
 
-const Container = styled.div`
+const Container = styled.div<StudentItemProps>`
   width: 60vw;
   display: flex;
   flex: 1;
@@ -15,7 +16,12 @@ const Container = styled.div`
   line-height: 15px;
   letter-spacing: 0em;
 
-  background-color: #fff;
+  background-color: ${(props) =>
+    props.index === props.curStudentIndex
+      ? "#509CDB"
+      : props.index % 2 === 0
+      ? "#f3faff"
+      : "#fff"};
   user-select: none;
 `;
 
@@ -26,11 +32,13 @@ const NameDiv = styled.div`
   display: flex;
   align-items: center;
 `;
+
 const StudentIdDiv = styled.div`
   flex: 1;
   padding: 16px 8px;
   font-family: "KumbhSans-Regular";
 `;
+
 const EmailDiv = styled.div`
   flex: 1.6;
   padding: 16px 8px;
@@ -42,6 +50,7 @@ const ClassDiv = styled.div`
   padding: 16px 8px;
   font-family: "KumbhSans-Regular";
 `;
+
 const GenderDiv = styled.div`
   flex: 1;
   padding: 16px 8px;
@@ -55,9 +64,25 @@ const ProfileImg = styled.img`
   height: 24px;
 `;
 
-const StudentListItem = ({ student }: props) => {
+interface props {
+  index: number;
+  curStudentIndex: number;
+  selectStudentListItem: (index: number) => void;
+  student: any;
+}
+
+const StudentListItem = ({
+  index,
+  curStudentIndex,
+  selectStudentListItem,
+  student,
+}: props) => {
   return (
-    <Container>
+    <Container
+      index={index}
+      curStudentIndex={curStudentIndex}
+      onClick={() => selectStudentListItem(index)}
+    >
       <NameDiv>
         <ProfileImg src={student.profileImage} />
         {student.name}

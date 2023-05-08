@@ -1,7 +1,11 @@
-import React, { useRef, useState, useMemo } from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
-import ImageForm from "./ImageForm";
+import { useState, useRef } from "react";
+import { useMemo } from "react";
+
 import NoProfileImg from "../assets/noProfile.png";
+import { useDispatch } from "react-redux";
+import { setEditModal } from "../redux/teachers/state";
 
 const Container = styled.div``;
 
@@ -107,10 +111,14 @@ const GroupInput = styled.input`
 
 const Option = styled.option``;
 
-const AddStudent = styled.button`
+interface AddStudentButtonProps {
+  isValid: boolean;
+}
+
+const AddStudent = styled.button<AddStudentButtonProps>`
   width: 131px;
   padding: 12px 14px;
-  background: #f1f1f1;
+  background-color: ${(props) => (props.isValid ? "#509CDB" : "#E9E9E9")};
   border: none;
   border-radius: 4px;
   font-family: "KumbhSans";
@@ -121,17 +129,17 @@ const AddStudent = styled.button`
 `;
 
 interface props {
-  addStudent: (
+  student: any;
+  submitEditStudent: (
     name: string,
     studentClass: string | undefined,
     gender: string | undefined,
     phone: string | undefined,
     email: string | undefined,
-    id: string | undefined,
+    idNum: string | undefined,
     password: string | undefined,
     profileImageUrl: string | undefined
   ) => void;
-  setModal: (value: boolean) => void;
 }
 
 const FileUploadContainer = styled.div``;
@@ -159,34 +167,34 @@ type UploadImage = {
   type: string;
 };
 
-const ModalArea = ({ addStudent, setModal }: props) => {
-  const nameInputRef = useRef<HTMLInputElement>(null);
+const EditStudentModal = ({ student, submitEditStudent }: props) => {
+  const [isValid, setIsValid] = useState(false);
+  const dispatch = useDispatch();
 
-  const [name, setName] = useState("");
-  const [selectClass, setSelectClass] = useState();
-  const [gender, setGender] = useState();
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
-  const [idNum, setIdNum] = useState("");
-  const [password, setPassword] = useState("");
+  const [name, setName] = useState(student.name);
+  const [selectClass, setSelectClass] = useState(student.class);
+  const [gender, setGender] = useState(student.gender);
+  const [email, setEmail] = useState(student.email);
+  const [phone, setPhone] = useState(student.phone);
+  const [idNum, setIdNum] = useState(student.idNum);
+  const [password, setPassword] = useState(student.password);
 
-  const handleFocusName = () => {
-    nameInputRef.current?.focus();
-  };
-
-  const addStudentRender = (event: any) => {
+  const onClickEditStudent = (event: any) => {
     event.preventDefault();
-    setModal(false);
-    addStudent(
-      name,
-      selectClass,
-      gender,
-      phone,
-      email,
-      idNum,
-      password,
-      imageFile?.thumbnail
-    );
+
+    if (isValid) {
+      dispatch(setEditModal(false));
+      submitEditStudent(
+        name,
+        selectClass,
+        gender,
+        phone,
+        email,
+        idNum,
+        password,
+        imageFile?.thumbnail
+      );
+    }
   };
 
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -194,7 +202,6 @@ const ModalArea = ({ addStudent, setModal }: props) => {
   const handleClickFileInput = () => {
     fileInputRef.current?.click();
   };
-
   const uploadProfile = (event: React.ChangeEvent<HTMLInputElement>) => {
     const fileList = event.target.files;
     // const length = fileList?.length;
@@ -208,7 +215,6 @@ const ModalArea = ({ addStudent, setModal }: props) => {
       });
     }
   };
-
   const showImage = useMemo(() => {
     if (!imageFile && imageFile == null) {
       return <BlankImage onClick={handleClickFileInput} src={NoProfileImg} />;
@@ -225,20 +231,17 @@ const ModalArea = ({ addStudent, setModal }: props) => {
   return (
     <Container>
       <Modal>
-        <Add>Add Students</Add>
-        <Buttons>
-          <Button onClick={handleFocusName}>Manually</Button>
-          <Button>Import CSV</Button>
-        </Buttons>
-        <Form onSubmit={(event) => addStudentRender(event)}>
+        <Add>Edit Student</Add>
+        <Form onSubmit={(event) => onClickEditStudent(event)}>
           <NameArea>
             <NameLabel>Name</NameLabel>
             <NameInputs>
               <Name
-                ref={nameInputRef}
+                value={name}
                 onChange={(event) => setName(event.target.value)}
               />
               <Select
+                defaultValue={selectClass}
                 onChange={(event: any) => setSelectClass(event.target.value)}
               >
                 <Option disabled hidden>
@@ -260,7 +263,10 @@ const ModalArea = ({ addStudent, setModal }: props) => {
                   5
                 </Option>
               </Select>
-              <Select onChange={(event: any) => setGender(event.target.value)}>
+              <Select
+                defaultValue={gender}
+                onChange={(event: any) => setGender(event.target.value)}
+              >
                 <Option disabled hidden>
                   Gender
                 </Option>
@@ -290,34 +296,44 @@ const ModalArea = ({ addStudent, setModal }: props) => {
               <Group>
                 <GroupLabel>Email address</GroupLabel>
                 <GroupInput
+                  value={email}
                   onChange={(event) => setEmail(event.target.value)}
                 />
               </Group>
               <Group>
                 <GroupLabel>Phone number</GroupLabel>
                 <GroupInput
+                  onKeyDown={(e) =>
+                    ["e", "E", "+"].includes(e.key) && e.preventDefault()
+                  }
+                  type={"number"}
+                  value={phone}
                   onChange={(event) => setPhone(event.target.value)}
                 />
               </Group>
               <Group>
                 <GroupLabel>Identification number</GroupLabel>
                 <GroupInput
+                  value={idNum}
                   onChange={(event) => setIdNum(event.target.value)}
                 />
               </Group>
               <Group>
                 <GroupLabel>Password</GroupLabel>
                 <GroupInput
+                  value={password}
                   onChange={(event) => setPassword(event.target.value)}
                 />
               </Group>
             </EmailPhonePassword>
           </Upload>
-          <AddStudent type="submit">Add Student</AddStudent>
+          <AddStudent isValid={isValid} type="submit">
+            Edit Student
+          </AddStudent>
         </Form>
       </Modal>
     </Container>
   );
 };
 
-export default ModalArea;
+export default EditStudentModal;

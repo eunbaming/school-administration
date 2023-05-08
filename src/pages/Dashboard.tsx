@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import styled from 'styled-components';
+import styled from "styled-components";
 import { Route, Routes, useNavigate, useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -48,14 +48,14 @@ const Dashboard = () => {
 
   /*
   const onClickAddUser = (type: string) => {
-    if(type === 'Teachers') {
-        navigate('teachers');
-        setCurrentTab('teachers');
-        localStorage.setItem('currentTab', 'teachers');
-    } else if(type === 'Students') {
-        navigate('students')
-        setCurrentTab('students');
-        localStorage.setItem('currentTab', 'students');
+    if (type === "Teachers") {
+      navigate("teachers");
+      setCurrentTab("teachers");
+      localStorage.setItem("currentTab", "teachers");
+    } else if (type === "Students") {
+      navigate("students");
+      setCurrentTab("students");
+      localStorage.setItem("currentTab", "students");
     }
   }
   */
@@ -63,9 +63,7 @@ const Dashboard = () => {
   return (
     <Layout>
       <Container>
-        <TitleDiv>
-        Welcome to your dashboard, Udemy school
-        </TitleDiv>
+        <TitleDiv>Welcome to your dashboard, Udemy school</TitleDiv>
         <Body>
          <TeachersDataAnalysis
          teachers={teachers}/>

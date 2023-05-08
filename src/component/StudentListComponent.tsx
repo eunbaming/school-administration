@@ -5,6 +5,8 @@ import StudentDetail from "./StudentDetail";
 
 interface props {
   studentArr: any[];
+  curStudentIndex: number;
+  setCurStudentIndex: (index: number) => void;
 }
 
 const Container = styled.div`
@@ -56,8 +58,14 @@ const StudentList = styled.div`
   }
 `;
 
-const StudentListComponent = ({ studentArr }: props) => {
-  const [curStudentIndex, setCurStudentIndex] = useState(0);
+const StudentListComponent = ({
+  studentArr,
+  curStudentIndex,
+  setCurStudentIndex,
+}: props) => {
+  const selectStudentListItem = (index: number) => {
+    setCurStudentIndex(index);
+  };
 
   return (
     <Container>
@@ -74,10 +82,21 @@ const StudentListComponent = ({ studentArr }: props) => {
           <StudentListAndDetailDiv>
             <StudentList>
               {studentArr.map((item, index) => {
-                return <StudentListItem key={index} student={item} />;
+                return (
+                  <StudentListItem
+                    index={index}
+                    selectStudentListItem={selectStudentListItem}
+                    curStudentIndex={curStudentIndex}
+                    key={index}
+                    student={item}
+                  />
+                );
               })}
             </StudentList>
-            <StudentDetail student={studentArr[curStudentIndex]} />
+            <StudentDetail
+              index={curStudentIndex}
+              student={studentArr[curStudentIndex]}
+            />
           </StudentListAndDetailDiv>
         )}
       </StudentsDiv>
