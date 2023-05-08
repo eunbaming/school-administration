@@ -10,7 +10,6 @@ position: fixed;
 top: 0px;
 width: 83vw;
  height: 3rem;
- background-color: white;
  display: flex;
  justify-content: flex-end;
 `;

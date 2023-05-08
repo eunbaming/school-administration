@@ -8,7 +8,7 @@ interface TeacherItemProps {
 }
 
 const Container = styled.div<TeacherItemProps>`
-width: 60vw;
+width: 60.7vw;
 display: flex;
 flex: 1;    
 text-decoration: none;

@@ -8,15 +8,16 @@ import TeacherListItem from './TeacherListItem';
 const Container = styled.div`
 display: flex;
 flex-direction: column;
-padding-left: 40px;
+flex: 1;
 `;
 
 const TeachersDiv = styled.div`
 background-color: #FCFAFA;
-display: flex;
+display: flex;;
 `;
 
 const NoTeacherDiv = styled.div`
+z-index: 10;
 margin-top: 27vh;
 position: fixed;
 top: 0;
@@ -47,7 +48,7 @@ const TeacherListDiv = styled.div`
 margin-top: 27vh;
 top: 0;
 bottom: 0;
-width: 60vw;
+padding-left: 40px;
 background-color: #FCFAFA;
 overflow-y: scroll;
 position: fixed;
@@ -57,6 +58,7 @@ position: fixed;
 `;
 
 const TeacherListAndDetailDiv = styled.div`
+z-index: 10;
 display: flex;
 flex-direction: row;
 `;

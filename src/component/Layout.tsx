@@ -11,18 +11,14 @@ padding-left: 15.5rem;
 
 interface props {
     children: any;
-    currentTab: string | null;
-    changeCurrentTab: (tab: string) => void;
 }
 
 
-const Layout = ({children, currentTab, changeCurrentTab}: props) => {
+const Layout = ({children}: props) => {
     return (
         <Container>
             <TopBar/>
-            <Menu
-            currentTab={currentTab}
-            changeCurrentTab={changeCurrentTab}/>
+            <Menu/>
             {children}
         </Container>
     )

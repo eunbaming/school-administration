@@ -1,13 +1,16 @@
 import React, {useEffect, useState} from 'react';
 import styled from 'styled-components';
 import {useDispatch, useSelector} from 'react-redux';
-import { setAddModal, setEditModal, addTeachers, editTeacher } from '../redux/teachers/state';
+import { setAddModal, setEditModal, addTeachers, editTeacher, setFilteredTeachers } from '../redux/teachers/state';
 
+import Layout from "../component/Layout";
 import TeacherList from '../component/TeacherList';
 import AddTeacherModal from '../component/AddTeacherModal';
 import EditTeacherModal from '../component/EditTeacherModal';
 import TeacherDetail from '../component/TeacherDetail';
 import ListHeader from '../component/ListHeader';
+
+import { POST_addTeacher } from '../server/teacher';
 
 const FullContainer = styled.div`
 `;
@@ -38,42 +41,39 @@ width: 100vw;
 height: 100vh;
 `;
 
-interface props {
-}
-
 const Teachers = () => {
   const [curTeacherIndex, setCurTeacherIndex] = useState(0);
 
   const { teachers, isVisAddModal, isVisEditModal, filteredTeachers } = useSelector((state: any) => state.teacher);
 
+  const dispatch = useDispatch();
+
+
   useEffect(() => {
 
     console.log("isVisEditModal", isVisEditModal)
   }, [isVisEditModal])
-    
-
-    const dispatch = useDispatch();
 
     const onClickAddTeacherButton = () => {
         dispatch(setAddModal(true));
     }
 
-    const addTeacher = (name: string, teacherClass: string | undefined, gender: string | undefined, subject:string | undefined, phoneNumber: string | undefined, email: string | undefined, identificationNumber: string | undefined, password: string | undefined, about: string | undefined, profileImageUrl: string | undefined) => {
-        
-        const teacherObj = {
-            name,
-            subject,
-            class: teacherClass,
-            email,
-            gender,
-            about,
-            identificationNumber,
-            password,
-            phoneNumber,
-            profileImage: profileImageUrl
-        }
 
-        dispatch(addTeachers([teacherObj]))
+
+    const submitAddTeacher = (teacherObj: any) => {
+
+        console.log("submitAddTeacher teacherObj", teacherObj)
+        
+    
+        POST_addTeacher(teacherObj)
+        .then((response) => {
+            console.log("addTeacher_POST response", response);
+            dispatch(addTeachers([teacherObj]))
+        })
+        .catch((error) => {
+            console.log("addTeacher_POST error", error);
+        })
+
     }
 
     const submitEditTeacher = (name: string, teacherClass: string | undefined, gender: string | undefined, subject:string | undefined, phoneNumber: string | undefined, email: string | undefined, identificationNumber: string | undefined, password: string | undefined, about: string | undefined, profileImageUrl: string | undefined) => {
@@ -97,7 +97,7 @@ const Teachers = () => {
 
 
     return (
-        <FullContainer>
+        <Layout>
         {(isVisAddModal || isVisEditModal) && (
         <BlackScreen
         isVisAddTeacherModal/>
@@ -116,7 +116,7 @@ const Teachers = () => {
         {isVisAddModal && (
                 <AddTeacherModal
                 closeModal={() => dispatch(setAddModal(false))}
-                addTeacher={addTeacher}/>
+                submitAddTeacher={submitAddTeacher}/>
         )}
         {isVisEditModal && (
             <EditTeacherModal
@@ -126,9 +126,8 @@ const Teachers = () => {
             />
 
         )}
-        </FullContainer>
+        </Layout>
     )
 }
 
 export default Teachers
-

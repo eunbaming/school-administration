@@ -1,6 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import {Link} from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+
+import { setCurrentTab } from '../redux/tab/state';
 
 import SchoolLogoPNG from '../assets/logo.png';
 import DashboardIconPNG from '../assets/icons/dashboard_icon.png';
@@ -87,11 +90,15 @@ const RightArrowIcon = styled.img`
  height: 10px;   
 `;
 
-interface props {
-    currentTab: string | null;
-    changeCurrentTab: (tab: string) => void;
-}
-const Menu = ({currentTab, changeCurrentTab}: props) => {
+
+const Menu = () => {
+    const {currentTab} = useSelector((state: any) => state.tab);
+    const dispatch = useDispatch();
+
+    const changeCurrentTab = (tab: string) => {
+        dispatch(setCurrentTab(tab));
+        localStorage.setItem("currentTab", tab);
+    }
     
     return (
         <Container>
@@ -122,7 +129,7 @@ const Menu = ({currentTab, changeCurrentTab}: props) => {
                 <CategoryItem
                 onClick={() => changeCurrentTab("teachers")}
                 style={currentTab === 'teachers' ? {backgroundColor: '#509CDB'} : {backgroundColor: '#152259'}}
-                to={"teachers"}>
+                to={"/teachers"}>
                     <div>
                     <TeacherIcon
                     src={BankIconPNG}/>
@@ -138,7 +145,7 @@ const Menu = ({currentTab, changeCurrentTab}: props) => {
                 <CategoryItem
                 onClick={() => changeCurrentTab("students")}
                 style={currentTab === 'students' ? {backgroundColor: '#509CDB'} : {backgroundColor: '#152259'}}
-                to={"students"}>
+                to={"/students"}>
                     <div>
                     <StudentIcon
                     src={StudentIconPNG}/>

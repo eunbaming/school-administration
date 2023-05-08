@@ -177,12 +177,12 @@ opacity: 0.7;
 `;
 
 interface props {
-    addTeacher: (name: string, teacherClass: string | undefined, gender: string | undefined, subject:string | undefined, phoneNumber: string | undefined, email: string | undefined, identificationNumber: string | undefined, password: string | undefined, about: string | undefined, profileImageUrl: string | undefined) => void;
+    submitAddTeacher: (teacher: any) => void;
     closeModal: () => void;
 }
 
 
-const AddTeacherModal = ({addTeacher, closeModal}: props) => {
+const AddTeacherModal = ({submitAddTeacher, closeModal}: props) => {
     const [isVaild, setIsVaild] = useState(false);
     const [name, setName] = useState<string>('');
     const [phoneNumber, setPhoneNumber] = useState('');
@@ -246,7 +246,20 @@ const AddTeacherModal = ({addTeacher, closeModal}: props) => {
 
         if(isVaild) {
             dispatch(setAddModal(false));
-            addTeacher(name, teacherClass, gender, subject, phoneNumber, email, identificationNumber, password, about, profileImageSrc); 
+
+            const teacherObj = {
+                name,
+                email,
+                password,
+                grade: Number(teacherClass),
+                subject: Number(subject),
+                gender: Number(gender),
+                phone_number: phoneNumber,
+                profile_image_url: profileImageSrc,
+                user_about: about,
+            }
+
+            submitAddTeacher(teacherObj); 
         } 
     }
 
@@ -305,33 +318,30 @@ const AddTeacherModal = ({addTeacher, closeModal}: props) => {
                         <InfoSelect
                         onChange={selectClass}
                         style={{flex: 1}}
-                        defaultValue={"Class"}>
-                            <option disabled hidden>Class</option>
-                            <option key={1} value={1}>1</option>
-                            <option key={2} value={2}>2</option>
-                            <option key={3} value={3}>3</option>
-                            <option key={4} value={4}>4</option>
-                            <option key={5} value={5}>5</option>
+                        defaultValue={"담당 학년"}>
+                            <option disabled hidden>담당 학년</option>
+                            <option key={1} value={1}>1학년</option>
+                            <option key={2} value={2}>2학년</option>
+                            <option key={3} value={3}>3학년</option>
                         </InfoSelect>
                         <InfoSelect
                         onChange={selectGender}
-                        defaultValue={"Gender"}
+                        defaultValue={"성별"}
                         style={{marginLeft: "19px", flex: 1}}>
-                            <option disabled hidden>Gender</option>
-                            <option key={"Male"} value={"Male"}>Male</option>
-                            <option key={"Female"} value={"Female"}>Female</option>
+                            <option disabled hidden>성별</option>
+                            <option key={1} value={1}>남성</option>
+                            <option key={2} value={2}>여성</option>
                         </InfoSelect>
                     </span>
                     <InfoSelect
                     onChange={selectSubject}
-                    defaultValue={"Subject"}>
-                        <option disabled hidden>Subject</option>
-                        <option key={"English"} value={"English"}>English</option>
-                        <option key={"Math"} value={"Math"}>Math</option>
-                        <option key={"French"} value={"French"}>French</option>
-                        <option key={"Chemistry"} value={"Chemistry"}>Chemistry</option>
-                        <option key={"Social studies"} value={"Social studies"}>Social studies</option>
-                        <option key={"Home economics"} value={"Home economics"}>Home economics</option>
+                    defaultValue={"과목"}>
+                        <option disabled hidden>과목</option>
+                        <option key={1} value={1}>국어</option>
+                        <option key={2} value={2}>영어</option>
+                        <option key={3} value={3}>수학</option>
+                        <option key={4} value={4}>사회</option>
+                        <option key={5} value={5}>과학</option>
                     </InfoSelect>
                     <ProfileImgDiv>
                         <ProfileImg

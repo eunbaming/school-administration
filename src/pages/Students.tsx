@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 
+import Layout from "../component/Layout";
 import ModalArea from "../component/ModalArea";
 import StudentListItem from "../component/StudentListItem";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addStudents } from "../redux/students/state";
 import ListStudentHeader from "../component/ListStudentHeader";
 import StudentListComponent from "../component/StudentListComponent";
@@ -41,12 +42,12 @@ const BlackScreen = styled.div`
 `;
 
 interface props {
-  studentArr: any[];
 }
 
-const Students = ({ studentArr }: props) => {
+const Students = () => {
   const [modal, setModal] = useState(false);
   const dispatch = useDispatch();
+  const {students} = useSelector((state: any) => state.student)
 
   const onClickAddStudentButton = () => {
     setModal(true);
@@ -81,14 +82,16 @@ const Students = ({ studentArr }: props) => {
   };
 
   return (
+    <Layout>
     <Container>
       {modal && <BlackScreen />}
       {modal && <ModalArea addStudent={addStudent} setModal={setModal} />}
       <ListStudentHeader onClickAddStudentButton={onClickAddStudentButton} />
       <StudentListContainer>
-        <StudentListComponent studentArr={studentArr} />
+        <StudentListComponent studentArr={students} />
       </StudentListContainer>
     </Container>
+    </Layout>
   );
 };
 
