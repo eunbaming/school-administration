@@ -111,10 +111,14 @@ const GroupInput = styled.input`
 
 const Option = styled.option``;
 
-const AddStudent = styled.button`
+interface AddStudentButtonProps {
+  isValid: boolean;
+}
+
+const AddStudent = styled.button<AddStudentButtonProps>`
   width: 131px;
   padding: 12px 14px;
-  background: #f1f1f1;
+  background-color: ${(props) => (props.isValid ? "#509CDB" : "#E9E9E9")};
   border: none;
   border-radius: 4px;
   font-family: "KumbhSans";
@@ -232,8 +236,12 @@ const EditStudentModal = ({ student, submitEditStudent }: props) => {
           <NameArea>
             <NameLabel>Name</NameLabel>
             <NameInputs>
-              <Name onChange={(event) => setName(event.target.value)} />
+              <Name
+                value={name}
+                onChange={(event) => setName(event.target.value)}
+              />
               <Select
+                defaultValue={selectClass}
                 onChange={(event: any) => setSelectClass(event.target.value)}
               >
                 <Option disabled hidden>
@@ -255,7 +263,10 @@ const EditStudentModal = ({ student, submitEditStudent }: props) => {
                   5
                 </Option>
               </Select>
-              <Select onChange={(event: any) => setGender(event.target.value)}>
+              <Select
+                defaultValue={gender}
+                onChange={(event: any) => setGender(event.target.value)}
+              >
                 <Option disabled hidden>
                   Gender
                 </Option>
@@ -285,30 +296,40 @@ const EditStudentModal = ({ student, submitEditStudent }: props) => {
               <Group>
                 <GroupLabel>Email address</GroupLabel>
                 <GroupInput
+                  value={email}
                   onChange={(event) => setEmail(event.target.value)}
                 />
               </Group>
               <Group>
                 <GroupLabel>Phone number</GroupLabel>
                 <GroupInput
+                  onKeyDown={(e) =>
+                    ["e", "E", "+"].includes(e.key) && e.preventDefault()
+                  }
+                  type={"number"}
+                  value={phone}
                   onChange={(event) => setPhone(event.target.value)}
                 />
               </Group>
               <Group>
                 <GroupLabel>Identification number</GroupLabel>
                 <GroupInput
+                  value={idNum}
                   onChange={(event) => setIdNum(event.target.value)}
                 />
               </Group>
               <Group>
                 <GroupLabel>Password</GroupLabel>
                 <GroupInput
+                  value={password}
                   onChange={(event) => setPassword(event.target.value)}
                 />
               </Group>
             </EmailPhonePassword>
           </Upload>
-          <AddStudent type="submit">Edit Student</AddStudent>
+          <AddStudent isValid={isValid} type="submit">
+            Edit Student
+          </AddStudent>
         </Form>
       </Modal>
     </Container>

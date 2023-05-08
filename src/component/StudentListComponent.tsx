@@ -93,7 +93,10 @@ const StudentListComponent = ({
                 );
               })}
             </StudentList>
-            <StudentDetail student={studentArr[curStudentIndex]} />
+            <StudentDetail
+              index={curStudentIndex}
+              student={studentArr[curStudentIndex]}
+            />
           </StudentListAndDetailDiv>
         )}
       </StudentsDiv>

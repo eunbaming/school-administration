@@ -40,7 +40,7 @@ const Students = ({ studentArr }: props) => {
   const [curStudentIndex, setCurStudentIndex] = useState(0);
 
   const dispatch = useDispatch();
-  const { students, isVisEditModal } = useSelector(
+  const { students, isVisEditModal, filteredStudent } = useSelector(
     (state: any) => state.student
   );
 

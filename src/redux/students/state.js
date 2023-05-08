@@ -1,17 +1,23 @@
 const ADD = "students/ADD";
 const EDIT = "students/EDIT";
+const DELETE = "students/DELETE";
 
 const SET_EDIT_MODAL = "teachers/SET_EDIT_MODAL";
 
 export const addStudents = (students) => ({ type: ADD, students });
 export const editStudent = (student, index) => ({ type: EDIT, student, index });
+export const deleteStudent = (deleteIndex) => ({ type: DELETE, deleteIndex });
 
 export const setEditModal = (isVisEditModal) => ({
   type: SET_EDIT_MODAL,
   isVisEditModal,
 });
 
-const INITIAL_STATE = { students: [], isVisEditModal: false };
+const INITIAL_STATE = {
+  students: [],
+  isVisEditModal: false,
+  filteredStudent: [],
+};
 
 export const studentReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
@@ -30,6 +36,19 @@ export const studentReducer = (state = INITIAL_STATE, action) => {
             return item;
           }
         }),
+      };
+    case DELETE:
+      const deletedStudent = state.students[action.deleteIndex];
+      const deletedFilteredStudents = state.filteredStudent.filter((item) => {
+        return item !== deletedStudent;
+      });
+
+      return {
+        ...state,
+        students: state.students.filter((item, index) => {
+          return index !== action.deleteIndex;
+        }),
+        filteredStudent: deletedFilteredStudents,
       };
     case SET_EDIT_MODAL:
       return {
