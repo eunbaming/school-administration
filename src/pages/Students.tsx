@@ -32,8 +32,7 @@ const BlackScreen = styled.div`
   height: 100vh;
 `;
 
-interface props {
-}
+interface props {}
 
 const Students = () => {
   const [modal, setModal] = useState(false);
@@ -103,26 +102,28 @@ const Students = () => {
 
   return (
     <Layout>
-    <FullContainer>
-      {(modal || isVisEditModal) && <BlackScreen />}
-      {modal && <ModalArea addStudent={addStudent} setModal={setModal} />}
-      {isVisEditModal && (
-        <EditStudentModal
-          student={students[curStudentIndex]}
-          submitEditStudent={submitEditStudent}
-        />
-      )}
-      <Container>
-        <ListStudentHeader onClickAddStudentButton={onClickAddStudentButton} />
-        <StudentListContainer>
-          <StudentListComponent
-            curStudentIndex={curStudentIndex}
-            setCurStudentIndex={setCurStudentIndex}
-            studentArr={students}
+      <FullContainer>
+        {(modal || isVisEditModal) && <BlackScreen />}
+        {modal && <ModalArea addStudent={addStudent} setModal={setModal} />}
+        {isVisEditModal && (
+          <EditStudentModal
+            student={students[curStudentIndex]}
+            submitEditStudent={submitEditStudent}
           />
-        </StudentListContainer>
-      </Container>
-    </FullContainer>
+        )}
+        <Container>
+          <ListStudentHeader
+            onClickAddStudentButton={onClickAddStudentButton}
+          />
+          <StudentListContainer>
+            <StudentListComponent
+              curStudentIndex={curStudentIndex}
+              setCurStudentIndex={setCurStudentIndex}
+              studentArr={filteredStudent}
+            />
+          </StudentListContainer>
+        </Container>
+      </FullContainer>
     </Layout>
   );
 };

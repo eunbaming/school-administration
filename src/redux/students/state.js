@@ -2,7 +2,10 @@ const ADD = "students/ADD";
 const EDIT = "students/EDIT";
 const DELETE = "students/DELETE";
 
-const SET_EDIT_MODAL = "teachers/SET_EDIT_MODAL";
+const SET_FILTER = "students/SET_FILTER";
+const SET_FILTERED_STUDENTS = "students/SET_FILTERED_STUDENTS";
+
+const SET_EDIT_MODAL = "students/SET_EDIT_MODAL";
 
 export const addStudents = (students) => ({ type: ADD, students });
 export const editStudent = (student, index) => ({ type: EDIT, student, index });
@@ -13,10 +16,18 @@ export const setEditModal = (isVisEditModal) => ({
   isVisEditModal,
 });
 
+export const setFilteredSelect = (filter) => ({ type: SET_FILTER, filter });
+export const setFilteredStudents = (filteredStudents) => ({
+  type: SET_FILTERED_STUDENTS,
+  filteredStudents,
+});
+
 const INITIAL_STATE = {
   students: [],
   isVisEditModal: false,
   filteredStudent: [],
+  filter: "name",
+  searchStudents: [],
 };
 
 export const studentReducer = (state = INITIAL_STATE, action) => {
@@ -42,7 +53,6 @@ export const studentReducer = (state = INITIAL_STATE, action) => {
       const deletedFilteredStudents = state.filteredStudent.filter((item) => {
         return item !== deletedStudent;
       });
-
       return {
         ...state,
         students: state.students.filter((item, index) => {
@@ -50,6 +60,17 @@ export const studentReducer = (state = INITIAL_STATE, action) => {
         }),
         filteredStudent: deletedFilteredStudents,
       };
+    case SET_FILTER:
+      return {
+        ...state,
+        filter: action.filter,
+      };
+    case SET_FILTERED_STUDENTS:
+      return {
+        ...state,
+        filteredStudent: action.filteredStudents,
+      };
+
     case SET_EDIT_MODAL:
       return {
         ...state,

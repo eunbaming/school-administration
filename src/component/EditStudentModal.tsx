@@ -5,7 +5,7 @@ import { useMemo } from "react";
 
 import NoProfileImg from "../assets/noProfile.png";
 import { useDispatch } from "react-redux";
-import { setEditModal } from "../redux/teachers/state";
+import { setEditModal } from "../redux/students/state";
 
 const Container = styled.div``;
 
@@ -175,9 +175,26 @@ const EditStudentModal = ({ student, submitEditStudent }: props) => {
   const [selectClass, setSelectClass] = useState(student.class);
   const [gender, setGender] = useState(student.gender);
   const [email, setEmail] = useState(student.email);
-  const [phone, setPhone] = useState(student.phone);
-  const [idNum, setIdNum] = useState(student.idNum);
+  const [phone, setPhone] = useState(student.phoneNumber);
+  const [idNum, setIdNum] = useState(student.id);
   const [password, setPassword] = useState(student.password);
+
+  console.log(student);
+
+  useEffect(() => {
+    if (
+      name.length > 0 &&
+      selectClass.length > 0 &&
+      gender.length > 0 &&
+      email.length > 0 &&
+      phone.length > 0 &&
+      String(idNum).length > 0
+    ) {
+      setIsValid(true);
+    } else {
+      setIsValid(false);
+    }
+  }, [name, selectClass, gender, email, phone, idNum]);
 
   const onClickEditStudent = (event: any) => {
     event.preventDefault();
@@ -247,20 +264,14 @@ const EditStudentModal = ({ student, submitEditStudent }: props) => {
                 <Option disabled hidden>
                   Class
                 </Option>
-                <Option key={1} value={1}>
-                  1
+                <Option key={1} value={"1"}>
+                  SS 3
                 </Option>
-                <Option key={2} value={2}>
-                  2
+                <Option key={2} value={"2"}>
+                  JSS 1
                 </Option>
-                <Option key={3} value={3}>
-                  3
-                </Option>
-                <Option key={4} value={4}>
-                  4
-                </Option>
-                <Option key={5} value={5}>
-                  5
+                <Option key={3} value={"3"}>
+                  JSS 2
                 </Option>
               </Select>
               <Select
@@ -280,11 +291,11 @@ const EditStudentModal = ({ student, submitEditStudent }: props) => {
             </NameInputs>
           </NameArea>
           <Upload>
-            {/* <ImageForm /> */}
             <FileUploadContainer>
               {showImage}
               <FileUploadForm>
                 <FileInput
+                  src={imageFile?.thumbnail}
                   type="file"
                   accept="image/jpg, image/jpeg, image/png"
                   ref={fileInputRef}

@@ -253,12 +253,6 @@ const ModalArea = ({ addStudent, setModal }: props) => {
                 <Option key={3} value={3}>
                   3
                 </Option>
-                <Option key={4} value={4}>
-                  4
-                </Option>
-                <Option key={5} value={5}>
-                  5
-                </Option>
               </Select>
               <Select onChange={(event: any) => setGender(event.target.value)}>
                 <Option disabled hidden>
