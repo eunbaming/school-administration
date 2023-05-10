@@ -45,9 +45,9 @@ const Join = () => {
       console.log("signup response", response);
       if(response.data.message === "이미 사용중인 이메일입니다.") {
         alert("The ID that already exists");
-      } else if(response.data.message === '회원가입 성공') {
-        localStorage.setItem("refreshToken", response.data.data.refreshToken);
-        localStorage.setItem("accessToken", response.data.data.accessToken);
+      } else if(response.data.message === '어드민 생성 성공') {
+        //localStorage.setItem("refreshToken", response.data.data.refreshToken);
+        //localStorage.setItem("accessToken", response.data.data.accessToken);
         setCurrentStep(3);
       }
     })

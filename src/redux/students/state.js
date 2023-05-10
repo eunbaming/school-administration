@@ -2,7 +2,7 @@ const ADD = "students/ADD";
 const EDIT = "students/EDIT";
 const DELETE = "students/DELETE";
 
-const SET_EDIT_MODAL = "teachers/SET_EDIT_MODAL";
+const SET_EDIT_MODAL = "students/SET_EDIT_MODAL";
 
 export const addStudents = (students) => ({ type: ADD, students });
 export const editStudent = (student, index) => ({ type: EDIT, student, index });
@@ -51,6 +51,7 @@ export const studentReducer = (state = INITIAL_STATE, action) => {
         filteredStudent: deletedFilteredStudents,
       };
     case SET_EDIT_MODAL:
+      console.log("SET_EDIT_MODAL");
       return {
         ...state,
         isVisEditModal: action.isVisEditModal,

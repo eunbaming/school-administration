@@ -15,6 +15,7 @@ import Students from "./pages/Students";
 
 import {rootUrl} from './server';
 import { getSchools } from './server/school';
+import { GET_getTeachers } from "./server/teacher";
 
 function App() {
   const {schools} = useSelector((state: any) => state.school);
@@ -22,8 +23,17 @@ function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(addTeachers(TEACHERS_DATA));
-    dispatch(setFilteredTeachers(TEACHERS_DATA));
+
+    GET_getTeachers()
+    .then((response: any) => {
+    console.log("GET_getTeachers response", response.data._data)
+    dispatch(addTeachers(response.data._data)); 
+    dispatch(setFilteredTeachers(response.data._data));
+  })
+    .catch((error: any) => {
+      console.log("GET_getTeachers error", error);
+    })
+
     dispatch(addStudents(STUDENTS_DATA));
 
     getSchools().then((response: any) => {
@@ -400,7 +410,148 @@ const TEACHERS_DATA = [
       identificationNumber: '12345',
       password: '12345'
   
-  }
+  },
+  {
+    name: "Leslie Alexander",
+    subject: "Home economics",
+    class: "1",
+    email: "tim.jennings@example.com",
+    gender: "Female",
+    profileImage: "/profileImages/Leslie_Alexander.png",
+    about: "Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ullamco cillum dolor. Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum. Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ullamco cillum dolor. Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum. ",
+    age: 30,
+    phoneNumber: "01012345678",
+    identificationNumber: '12345',
+    password: '12345'
+
+},
+{
+  name: "Leslie Alexander",
+  subject: "Home economics",
+  class: "1",
+  email: "tim.jennings@example.com",
+  gender: "Female",
+  profileImage: "/profileImages/Leslie_Alexander.png",
+  about: "Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ullamco cillum dolor. Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum. Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ullamco cillum dolor. Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum. ",
+  age: 30,
+  phoneNumber: "01012345678",
+  identificationNumber: '12345',
+  password: '12345'
+
+},
+
+{
+  name: "Leslie Alexander",
+  subject: "Home economics",
+  class: "1",
+  email: "tim.jennings@example.com",
+  gender: "Female",
+  profileImage: "/profileImages/Leslie_Alexander.png",
+  about: "Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ullamco cillum dolor. Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum. Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ullamco cillum dolor. Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum. ",
+  age: 30,
+  phoneNumber: "01012345678",
+  identificationNumber: '12345',
+  password: '12345'
+
+},
+{
+  name: "Leslie Alexander",
+  subject: "Home economics",
+  class: "1",
+  email: "tim.jennings@example.com",
+  gender: "Female",
+  profileImage: "/profileImages/Leslie_Alexander.png",
+  about: "Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ullamco cillum dolor. Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum. Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ullamco cillum dolor. Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum. ",
+  age: 30,
+  phoneNumber: "01012345678",
+  identificationNumber: '12345',
+  password: '12345'
+
+},
+{
+  name: "Leslie Alexander",
+  subject: "Home economics",
+  class: "1",
+  email: "tim.jennings@example.com",
+  gender: "Female",
+  profileImage: "/profileImages/Leslie_Alexander.png",
+  about: "Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ullamco cillum dolor. Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum. Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ullamco cillum dolor. Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum. ",
+  age: 30,
+  phoneNumber: "01012345678",
+  identificationNumber: '12345',
+  password: '12345'
+
+},
+{
+  name: "Leslie Alexander",
+  subject: "Home economics",
+  class: "1",
+  email: "tim.jennings@example.com",
+  gender: "Female",
+  profileImage: "/profileImages/Leslie_Alexander.png",
+  about: "Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ullamco cillum dolor. Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum. Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ullamco cillum dolor. Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum. ",
+  age: 30,
+  phoneNumber: "01012345678",
+  identificationNumber: '12345',
+  password: '12345'
+
+},
+{
+  name: "Leslie Alexander",
+  subject: "Home economics",
+  class: "1",
+  email: "tim.jennings@example.com",
+  gender: "Female",
+  profileImage: "/profileImages/Leslie_Alexander.png",
+  about: "Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ullamco cillum dolor. Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum. Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ullamco cillum dolor. Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum. ",
+  age: 30,
+  phoneNumber: "01012345678",
+  identificationNumber: '12345',
+  password: '12345'
+
+},
+{
+  name: "Leslie Alexander",
+  subject: "Home economics",
+  class: "1",
+  email: "tim.jennings@example.com",
+  gender: "Female",
+  profileImage: "/profileImages/Leslie_Alexander.png",
+  about: "Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ullamco cillum dolor. Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum. Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ullamco cillum dolor. Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum. ",
+  age: 30,
+  phoneNumber: "01012345678",
+  identificationNumber: '12345',
+  password: '12345'
+
+},
+{
+  name: "Leslie Alexander",
+  subject: "Home economics",
+  class: "1",
+  email: "tim.jennings@example.com",
+  gender: "Female",
+  profileImage: "/profileImages/Leslie_Alexander.png",
+  about: "Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ullamco cillum dolor. Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum. Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ullamco cillum dolor. Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum. ",
+  age: 30,
+  phoneNumber: "01012345678",
+  identificationNumber: '12345',
+  password: '12345'
+
+},
+{
+  name: "Leslie Alexander",
+  subject: "Home economics",
+  class: "1",
+  email: "tim.jennings@example.com",
+  gender: "Female",
+  profileImage: "/profileImages/Leslie_Alexander.png",
+  about: "Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ullamco cillum dolor. Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum. Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ullamco cillum dolor. Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum. ",
+  age: 30,
+  phoneNumber: "01012345678",
+  identificationNumber: '12345',
+  password: '12345'
+
+}
 ]
 
 

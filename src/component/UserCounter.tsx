@@ -1,11 +1,12 @@
 import React, {useState, useEffect} from 'react';
 import styled from 'styled-components';
 
-import TeachersPNG from '../assets/teacher_image.png';
+import TeachersPNG from '../assets/teacher_icon.png';
+import StudentPNG from '../assets/student_icon.png';
 
 
 const Container = styled.div`
-width: 47%;
+width: 90%;
 margin-top: 30px;
 `;
 
@@ -28,9 +29,9 @@ justify-content: center;
 `;
 
 const TeacherImage = styled.img`
-opacity: 0.9;
-  width: 3.5rem;
-  height: 3.5rem;  
+opacity: 0.8;
+  width: 3.3rem;
+  height: 3.3rem;  
 `;
 
 const CountText = styled.span`
@@ -42,17 +43,18 @@ display: flex;
 `;
 
 const PeopleText = styled.span`
-padding-right: 5px;
-font-size: 14px;
-font-weight: 400;
+font-size: 16px;
+font-weight: 500;
 color: #282828;
+text-align: right;
 `;
 
 interface props {
+    type: string;
     count: number;
 }
 
-const UserCounter = ({count}: props) => {
+const UserCounter = ({type, count}: props) => {
 
     function animateValue(unitsObj: any, tensObj: any, start: any, end: any, duration: any) {
         let startTimestamp: any = null;
@@ -80,10 +82,10 @@ const UserCounter = ({count}: props) => {
         window.requestAnimationFrame(step);
     }
 
-    const unitsObj = document.getElementById("unitsValue");
-    const tensObj = document.getElementById("tensValue");
+    const unitsObj = document.getElementById(`${type}unitsValue`);
+    const tensObj = document.getElementById(`${type}tensValue`);
 
-    animateValue(unitsObj, tensObj, 0, count, 1200);
+    animateValue(unitsObj, tensObj, 0, count, count * 80);
 
     
     return (
@@ -96,16 +98,17 @@ const UserCounter = ({count}: props) => {
                 alignItems: 'center'}}>
             <ImageBackground>
             <TeacherImage
-            src={TeachersPNG}/>
+            src={type === 'student' ? StudentPNG : TeachersPNG}/>
             </ImageBackground>
-            <div>
+            <div
+            style={{textAlign: 'right', paddingRight: 10}}>
             <div
             style={{display: 'flex', flexDirection: 'row'}}>
-            <CountText id="tensValue"></CountText>
-            <CountText id="unitsValue">0</CountText>
+            <CountText id={`${type}tensValue`}></CountText>
+            <CountText id={`${type}unitsValue`}>0</CountText>
             </div>
             <PeopleText>
-                People
+                명
             </PeopleText>
             </div>
             </div>

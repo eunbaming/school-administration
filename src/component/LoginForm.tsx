@@ -6,13 +6,13 @@ import SelectArrowPNG from '../assets/icons/select_arrow.png'
 
 const Container = styled.div`
     margin-top: 60px;
-    padding-top: 35px;
     width: 512px;
     height: 350px;
     background-color: white;
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
 `
 
 const WelcomeText = styled.div`
@@ -212,6 +212,7 @@ const LoginForm = ({schools, submitLoginForm, navigateSignUp, type, selectType}:
 
     return (
         <Container>
+            {/*
             <SelectTypeDiv>
                 <SelectTypeItem onClick={() => selectType("user")}><SelectTypeButton>
                     {type === 'user' && <Selected/>
@@ -221,8 +222,8 @@ const LoginForm = ({schools, submitLoginForm, navigateSignUp, type, selectType}:
                     {type === 'admin' && <Selected/>}
                     </SelectTypeButton>Admin</SelectTypeItem>
             </SelectTypeDiv>
+            */}
             <Form onSubmit={(event) => submitLoginForm(event, id, password)}>
-            {type === 'user' && (
                 <SchoolSelectDiv>
                 <SelectArrowIcon
                 src={SelectArrowPNG}
@@ -236,8 +237,6 @@ const LoginForm = ({schools, submitLoginForm, navigateSignUp, type, selectType}:
                     ))}
                 </SchoolSelect>
                 </SchoolSelectDiv>
-
-            )}
             <Input type="text" placeholder='Enter the id' value={id} onChange={(e) => onChangeId(e)}/>
             <Input 
             type="password" placeholder='Enter Password' value={password} onChange={(e) => onChangePassword(e)}/>
@@ -246,12 +245,10 @@ const LoginForm = ({schools, submitLoginForm, navigateSignUp, type, selectType}:
             disabled={!isVaildLoginForm}
             type={"submit"}>Login</LoginButton>
             </Form>
-            {type === 'admin' && (
             <SignUpText>If you don’ t have an account? 
             <span
             onClick={() => navigateSignUp()}
             style={{color: '#2D88D4', fontWeight: 700}}> Sign up</span></SignUpText>
-            )}
         </Container>
 
     )

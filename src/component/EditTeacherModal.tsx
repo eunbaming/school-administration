@@ -127,8 +127,8 @@ const ProfileImgDiv = styled.div`
 `;
 
 const ProfileImg = styled.img`
-  width: 18vw;
-  height: 18vw;
+  width: 16vw;
+  height: 16vw;
   min-width: 13rem;
   min-height: 13rem;
   border-radius: 200px;
@@ -195,13 +195,13 @@ const EditTeacherModal = ({
 }: props) => {
   const [isVaild, setIsVaild] = useState(false);
   const [name, setName] = useState<string>(teacher.name);
-  const [phoneNumber, setPhoneNumber] = useState(teacher.phoneNumber);
-  const [email, setEmail] = useState(teacher.email);
+  const [phoneNumber, setPhoneNumber] = useState(teacher.phone_number);
+  const [email, setEmail] = useState(teacher.email_address);
   const [identificationNumber, setIdentificationNumber] = useState(
-    teacher.identificationNumber
+    teacher.email
   );
   const [password, setPassword] = useState(teacher.password);
-  const [about, setAbout] = useState(teacher.about);
+  const [about, setAbout] = useState(teacher.user_about);
 
   const [teacherClass, setTeacherClass] = useState(teacher.class);
   const [gender, setGender] = useState(teacher.gender);
@@ -342,22 +342,16 @@ const EditTeacherModal = ({
                 defaultValue={teacherClass}
               >
                 <option disabled hidden>
-                  Class
+                  담당 학년
                 </option>
                 <option key={1} value={1}>
-                  1
+                  1학년
                 </option>
                 <option key={2} value={2}>
-                  2
+                  2학년
                 </option>
                 <option key={3} value={3}>
-                  3
-                </option>
-                <option key={4} value={4}>
-                  4
-                </option>
-                <option key={5} value={5}>
-                  5
+                  3학년
                 </option>
               </InfoSelect>
               <InfoSelect
@@ -366,37 +360,34 @@ const EditTeacherModal = ({
                 style={{ marginLeft: "19px", flex: 1 }}
               >
                 <option disabled hidden>
-                  Gender
+                 성별
                 </option>
-                <option key={"Male"} value={"Male"}>
-                  Male
+                <option key={1} value={1}>
+                 남성
                 </option>
-                <option key={"Female"} value={"Female"}>
-                  Female
+                <option key={2} value={2}>
+                여성
                 </option>
               </InfoSelect>
             </span>
             <InfoSelect onChange={selectSubject} defaultValue={subject}>
               <option disabled hidden>
-                Subject
+                과목
               </option>
-              <option key={"English"} value={"English"}>
-                English
+              <option key={1} value={1}>
+                국어
               </option>
-              <option key={"Math"} value={"Math"}>
-                Math
+              <option key={2} value={2}>
+                영어
               </option>
-              <option key={"French"} value={"French"}>
-                French
+              <option key={3} value={3}>
+                수학
               </option>
-              <option key={"Chemistry"} value={"Chemistry"}>
-                Chemistry
+              <option key={4} value={4}>
+                사회
               </option>
-              <option key={"Social studies"} value={"Social studies"}>
-                Social studies
-              </option>
-              <option key={"Home economics"} value={"Home economics"}>
-                Home economics
+              <option key={5} value={5}>
+                과학
               </option>
             </InfoSelect>
             <ProfileImgDiv>
@@ -429,10 +420,12 @@ const EditTeacherModal = ({
               value={identificationNumber}
               onChange={changeIdentificationNumber}
             />
+            {/*
             <InfoLabel>Password</InfoLabel>
             <InfoInput value={password} onChange={changePassword} />
+            */}
             <InfoLabel>About</InfoLabel>
-            <AboutTextarea value={about} onChange={changeAbout} rows={6} />
+            <AboutTextarea value={about} onChange={changeAbout} rows={8} />
             <AddTeacherButtonDiv>
               <AddTeacherButton isVaild={isVaild} type={"submit"}>
                 Add Teacher

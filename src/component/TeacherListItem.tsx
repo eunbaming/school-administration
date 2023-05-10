@@ -2,6 +2,8 @@ import React from 'react'
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
+import BlankProfileImagePNG from '../assets/blank_profile.jpg';
+
 interface TeacherItemProps {
     index: number,
     curTeacherIndex: number,
@@ -82,17 +84,24 @@ const TeacherListItem = ({teacher, selectTeacherListItem, index, curTeacherIndex
         onClick={() => selectTeacherListItem(index)}>
             <NameDiv>
                 <ProfileImg
-                src={teacher.profileImage}/>
+                src={BlankProfileImagePNG}/>
                 {teacher.name}
             </NameDiv>
             <SubjectDiv>
-                {teacher.subject}
+                {teacher.subject === 1 && '국어'}
+                {teacher.subject === 2 && '영어'}
+                {teacher.subject === 3 && '수학'}
+                {teacher.subject === 4 && '사회'}
+                {teacher.subject === 5 && '과학'}
             </SubjectDiv>
             <ClassDiv>
-                {teacher.class}
+                {teacher.class === 1 && '1 학년'}
+                {teacher.class === 2 && '2 학년'}
+                {teacher.class === 3 && '3 학년'}
             </ClassDiv>
             <GenderDiv>
-                {teacher.gender}
+                {teacher.gender === 1 && '남성'}
+                {teacher.gender === 2 && '여성'}
             </GenderDiv>
             {/*
             <EmailDiv>

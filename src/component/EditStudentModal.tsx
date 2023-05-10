@@ -5,7 +5,7 @@ import { useMemo } from "react";
 
 import NoProfileImg from "../assets/noProfile.png";
 import { useDispatch } from "react-redux";
-import { setEditModal } from "../redux/teachers/state";
+import { setEditModal } from "../redux/students/state";
 
 const Container = styled.div``;
 
@@ -175,14 +175,32 @@ const EditStudentModal = ({ student, submitEditStudent }: props) => {
   const [selectClass, setSelectClass] = useState(student.class);
   const [gender, setGender] = useState(student.gender);
   const [email, setEmail] = useState(student.email);
-  const [phone, setPhone] = useState(student.phone);
-  const [idNum, setIdNum] = useState(student.idNum);
+  const [phone, setPhone] = useState(student.phoneNumber);
+  const [idNum, setIdNum] = useState(student.id);
   const [password, setPassword] = useState(student.password);
+
+  console.log(student);
+
+  useEffect(() => {
+    if (
+      name.length > 0 &&
+      selectClass.length > 0 &&
+      gender.length > 0 &&
+      email.length > 0 &&
+      phone.length > 0 &&
+      String(idNum).length > 0
+    ) {
+      setIsValid(true);
+    } else {
+      setIsValid(false);
+    }
+  }, [name, selectClass, gender, email, phone, idNum]);
 
   const onClickEditStudent = (event: any) => {
     event.preventDefault();
 
     if (isValid) {
+      console.log("onClickEditStudent")
       dispatch(setEditModal(false));
       submitEditStudent(
         name,

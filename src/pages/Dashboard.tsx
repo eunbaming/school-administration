@@ -36,12 +36,87 @@ justify-content: space-between;
 `
 
 const Dashboard = () => {
+  const [maleCount, setMaleCount] = useState(0);
+  const [femaleCount, setFemaleCount] = useState(0);
+  const [stuMaleCount, setStuMaleCount] = useState(0);
+  const [stuFemaleCount, setStuFemaleCount] = useState(0);
+
+  const [koreanNum, setKoreanNum] = useState(0);
+  const [englishNum, setEnglishNum] = useState(0);
+  const [mathNum, setMathNum] = useState(0);
+  const [societyNum, setSocietyNum] = useState(0);
+  const [scienceNum, setScienceNum] = useState(0);
 
   const { students } = useSelector((state: any) => state.student);
-  const {teachers} = useSelector((state: any) => state.teacher)
+  const {teachers} = useSelector((state: any) => state.teacher);
 
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+  useEffect(() => {
+    
+    const maleNum = teachers.reduce((acc: any, item: any) => {
+      if(item.gender === 1) {
+        return acc = acc + 1
+      } else {
+        return acc
+      }
+    }, 0)
+
+    const femaleNum = teachers.reduce((acc: any, item: any) => {
+      if(item.gender === 2) {
+        return acc = acc + 1
+      } else {
+        return acc
+      }
+    }, 0)
+
+    setMaleCount(maleNum);
+    setFemaleCount(femaleNum);
+
+    const student_maleNum = students.reduce((acc: any, item: any) => {
+      if(item.gender === 1) {
+        return acc = acc + 1
+      } else {
+        return acc
+      }
+    }, 0)
+
+    const student_femaleNum = students.reduce((acc: any, item: any) => {
+      if(item.gender === 2) {
+        return acc = acc + 1
+      } else {
+        return acc
+      }
+    }, 0)
+
+    setStuFemaleCount(student_femaleNum);
+    setStuMaleCount(student_maleNum);
+
+    setKoreanNum(teachers.reduce((acc: any, item: any) => {
+      return acc + (item.subject === 1)
+    }, 0))
+
+    setEnglishNum(teachers.reduce((acc: any, item: any) => {
+      return acc + (item.subject === 2)
+    }, 0))
+
+    setMathNum(teachers.reduce((acc: any, item: any) => {
+      return acc + (item.subject === 3)
+    }, 0));
+
+    setSocietyNum(teachers.reduce((acc: any, item: any) => {
+      return acc + (item.subject === 4)
+    }, 0));
+
+    setScienceNum(teachers.reduce((acc: any, item: any) => {
+      return acc + (item.subject === 5)
+    }, 0))
+
+
+
+  
+
+    
+  }, [teachers, students])
+
 
 
 
@@ -63,12 +138,27 @@ const Dashboard = () => {
   return (
     <Layout>
       <Container>
-        <TitleDiv>Welcome to your dashboard, Udemy school</TitleDiv>
+        <TitleDiv>XX고등학교 관리자님 환영합니다!</TitleDiv>
         <Body>
          <TeachersDataAnalysis
-         teachers={teachers}/>
-         <StudentsDataAnalysis/>
-            {/*
+         teachers={teachers}
+         femaleCount={femaleCount}
+         maleCount={maleCount}
+         subjectNum={{korean: koreanNum, english: englishNum, math: mathNum, society: societyNum, science: scienceNum}}/>
+         <StudentsDataAnalysis
+         students={students}
+         femaleCount={stuFemaleCount}
+         maleCount={stuMaleCount}/>
+        </Body>
+      </Container>
+    </Layout>
+  );
+};
+
+export default Dashboard;
+
+
+ {/*
         <AddUserButton
         onClickAddUser={onClickAddUser}
         iconPNG={BankIconPNG}
@@ -80,13 +170,6 @@ const Dashboard = () => {
         type={"Students"}
         />
         */}
-        </Body>
-      </Container>
-    </Layout>
-  );
-};
-
-export default Dashboard;
 
 
 

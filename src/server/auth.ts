@@ -3,7 +3,7 @@ import axios from 'axios';
 
 export const signup = (id: string, password: string) => {
     console.log("signup id password", id, password)
-    const promise = axios.post(`${rootUrl}/api/users`, {
+    const promise = axios.post(`${rootUrl}/api/users/private/generateAdmin`, {
         email: id,
         password: password,
       })

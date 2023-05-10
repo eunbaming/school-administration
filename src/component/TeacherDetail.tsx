@@ -1,11 +1,14 @@
+/* eslint-disable no-restricted-globals */
 import React from 'react'
 import styled from 'styled-components';
 import {useDispatch} from 'react-redux';
 
 import { setEditModal, deleteTeacher } from '../redux/teachers/state';
+import { DELETE_Teacher } from '../server/teacher';
 
 import CallIconPGN from '../assets/icons/call_icon.png';
 import SMSIconPNG from '../assets/icons/sms_icon.png'; 
+import BlankProfilePNG from '../assets/blank_profile.jpg';
 
 const Container = styled.div`
 
@@ -108,7 +111,7 @@ font-weight: 400;
 
 const Footer = styled.div`
 padding-right: 25px;
-margin-top: 100px;
+margin-top: 30px;
 padding-bottom: 30px;
 text-align: right;
 `;
@@ -141,14 +144,25 @@ const TeacherDetail = ({teacher, index}: props) => {
     }
 
     const onClickDelete = () => {
-        dispatch(deleteTeacher(index))
+        if(confirm("해당 선생님을 삭제하겠습니까?") === true) {
+            DELETE_Teacher(teacher.id)
+            .then((response) => {
+                console.log("DELETE_Teacher response", response);
+                dispatch(deleteTeacher(index))
+            })
+            .catch((error) => {
+                console.log("DELETE_Teacher error", error);
+            })
+        } else {
+
+        }
     }
 
     return (
         <Container>
             <ProfileDiv>
             <ProfileImage
-            src={teacher.profileImage}
+            src={BlankProfilePNG}
             />
             <NameDiv>
                 {teacher.name}
@@ -160,7 +174,11 @@ const TeacherDetail = ({teacher, index}: props) => {
                 Subject
             </InfoLabelText>
             <InfoValueText>
-                {teacher.subject}
+                {teacher.subject === 1 && '국어'}
+                {teacher.subject === 2 && '영어'}
+                {teacher.subject === 3 && '수학'}
+                {teacher.subject === 4 && '사회'}
+                {teacher.subject === 5 && '과학'}
             </InfoValueText>
             </InfoItemDiv>
 
@@ -170,7 +188,9 @@ const TeacherDetail = ({teacher, index}: props) => {
                 Class
             </InfoLabelText>
             <InfoValueText>
-                {teacher.class}
+                {teacher.class === 1 && '1 학년'}
+                {teacher.class === 2 && '2 학년'}
+                {teacher.class === 3 && '3 학년'}
             </InfoValueText>
             </InfoItemDiv>
 
@@ -180,11 +200,12 @@ const TeacherDetail = ({teacher, index}: props) => {
                 Gender
             </InfoLabelText>
             <InfoValueText>
-                {teacher.gender}
+                {teacher.gender === 1 && '남성'}
+                {teacher.gender === 2 && '여성'}
             </InfoValueText>
             </InfoItemDiv>
             </BasicInfoDiv>
-
+            {/*
             <BasicInfoDiv>
             <InfoItemDiv>
             <InfoLabelText>
@@ -202,19 +223,20 @@ const TeacherDetail = ({teacher, index}: props) => {
                 {teacher.password}
             </InfoValueText>
             </InfoItemDiv>
-
             </BasicInfoDiv>
+            */}
+
             <AboutDiv>
                 <InfoLabelText>About</InfoLabelText>
                 <InfoValueText
-                style={{whiteSpace: 'pre-wrap'}}>{teacher.about}</InfoValueText>
+                style={{whiteSpace: 'pre-wrap'}}>{teacher.user_about}</InfoValueText>
             </AboutDiv>
             <ConnectItemDiv
             style={{marginTop: 30}}>
                 <ConnectIcon
                 src={CallIconPGN}/>
                 <ConnectValue>
-                    {teacher.phoneNumber}
+                    {teacher.phone_number}
                 </ConnectValue>
             </ConnectItemDiv>
             <ConnectItemDiv
@@ -222,7 +244,7 @@ const TeacherDetail = ({teacher, index}: props) => {
                 <ConnectIcon
                 src={SMSIconPNG}/>
                 <ConnectValue>
-                    {teacher.email}
+                    {teacher.email_address}
                 </ConnectValue>
             </ConnectItemDiv>
             <Footer>

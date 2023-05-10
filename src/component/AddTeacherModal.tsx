@@ -7,174 +7,172 @@ import { setAddModal } from '../redux/teachers/state';
 import CloseIconPNG from '../assets/icons/close_icon.png';
 import BlankProfileImagePNG from '../assets/blank_profile.jpg';
 
+
 const Container = styled.div`
-min-width: 35rem;
-z-index: 32;
-position: absolute;
-top: 30px;
-left: 20rem;
-width: 62vw;
-background-color: white;
-    padding-top: 32px;
-    padding-left: 30px;
-    padding-right: 30px;
-    padding-bottom: 32px;
+  min-width: 35rem;
+  z-index: 32;
+  position: absolute;
+  top: 30px;
+  left: 20rem;
+  width: 62vw;
+  background-color: white;
+  padding-top: 32px;
+  padding-left: 30px;
+  padding-right: 30px;
+  padding-bottom: 32px;
 `;
 
 const TitleDiv = styled.div`
-    font-family: "KumbhSans-SemiBold";
-    font-size: 32px;
-    font-weight: 600;
-    line-height: 40px;
-    color: #4F4F4F;
-`
+  font-family: "KumbhSans-SemiBold";
+  font-size: 32px;
+  font-weight: 600;
+  line-height: 40px;
+  color: #4f4f4f;
+`;
 
 const AddTeacherForm = styled.form`
-display: flex;
-    flex-direction: column;
-
+  display: flex;
+  flex-direction: column;
 `;
 
 const LeftForm = styled.div`
-backgground-color: white;
-margin-top: 13px;
-flex: 1;
+  backgground-color: white;
+  margin-top: 13px;
+  flex: 1;
   display: flex;
-  flex-direction: column;  
+  flex-direction: column;
 `;
 
 const RightForm = styled.div`
-background-color: white;
-margin-top: 13px;
-margin-left: 60px;
-flex: 1;
-    display: flex;
-    flex-direction: column;
+  background-color: white;
+  margin-top: 13px;
+  margin-left: 60px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 `;
 
 const InfoLabel = styled.span`
-margin-top: 27px;
-    font-family: "KumbhSans-Regular";
-    font-size: 14px;
-    font-weight: 500;
-    line-height: 17px;
-    color: #8A8A8A;
+  margin-top: 27px;
+  font-family: "KumbhSans-Regular";
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 17px;
+  color: #8a8a8a;
 `;
 
 const InfoInput = styled.input`
-padding: 11px;
-margin-top: 4px;
-font-family: "KumbhSans-Regular";
-font-size: 14px;
-font-weight: 500;
-color: #4F4F4F;
-border: 0.5px solid #A7A7A7;
-border-radius: 4px;
+  padding: 11px;
+  margin-top: 4px;
+  font-family: "KumbhSans-Regular";
+  font-size: 14px;
+  font-weight: 500;
+  color: #4f4f4f;
+  border: 0.5px solid #a7a7a7;
+  border-radius: 4px;
 `;
 
-
 const NumberInput = styled.input`
-padding: 11px;
-margin-top: 4px;
-font-family: "KumbhSans-Regular";
-font-size: 14px;
-font-weight: 500;
-color: #4F4F4F;
-border: 0.5px solid #A7A7A7;
-border-radius: 4px;
-::-webkit-inner-spin-button{
-  -webkit-appearance: none; 
-  margin: 0; 
+  padding: 11px;
+  margin-top: 4px;
+  font-family: "KumbhSans-Regular";
+  font-size: 14px;
+  font-weight: 500;
+  color: #4f4f4f;
+  border: 0.5px solid #a7a7a7;
+  border-radius: 4px;
+  ::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
   }
-  ::-webkit-outer-spin-button{
-  -webkit-appearance: none; 
-  margin: 0; 
-  }  
+  ::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
 `;
 
 const AboutTextarea = styled.textarea`
-padding: 11px;
-margin-top: 4px;
-font-family: "KumbhSans-Regular";
-font-size: 14px;
-font-weight: 500;
-color: #4F4F4F;
-border: 0.5px solid #A7A7A7;
-border-radius: 4px;
-resize: none;
-
-`
-
-const InfoSelect = styled.select`
-height: 42px;
-font-family: 'KumbhSans-Regular';
-font-size: 14px;
-font-weight: 500;
-line-height: 17px;
-margin-top: 32px;
-padding: 11px;
-border: 0.5px solid #A7A7A7;
-border-radius: 4px;
-
--webkit-appearance:none; /* 크롬 화살표 없애기 */
--moz-appearance:none; /* 파이어폭스 화살표 없애기 */
-appearance:none; /* 화살표 없애기 */
+  padding: 11px;
+  margin-top: 4px;
+  font-family: "KumbhSans-Regular";
+  font-size: 14px;
+  font-weight: 500;
+  color: #4f4f4f;
+  border: 0.5px solid #a7a7a7;
+  border-radius: 4px;
+  resize: none;
 `;
 
+const InfoSelect = styled.select`
+  height: 42px;
+  font-family: "KumbhSans-Regular";
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 17px;
+  margin-top: 32px;
+  padding: 11px;
+  border: 0.5px solid #a7a7a7;
+  border-radius: 4px;
+
+  -webkit-appearance: none; /* 크롬 화살표 없애기 */
+  -moz-appearance: none; /* 파이어폭스 화살표 없애기 */
+  appearance: none; /* 화살표 없애기 */
+`;
 
 const ProfileImgDiv = styled.div`
-margin-top: 55px;  
- position: relative; 
- display: flex;
- flex-direction: column;
- align-items: center;
+  margin-top: 55px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
 const ProfileImg = styled.img`
- width: 18vw;
- height: 18vw;
- min-width: 13rem;
- min-height: 13rem;
- border-radius: 200px;
- z-index: 10;
- object-fit: cover;
+  width: 16vw;
+  height: 16vw;
+  min-width: 13rem;
+  min-height: 13rem;
+  border-radius: 200px;
+  z-index: 10;
+  object-fit: cover;
 `;
 
 const ProfileImgInput = styled.input`
-position: absolute;
- display: none;
+  position: absolute;
+  display: none;
 `;
 
 const AddTeacherButtonDiv = styled.div`
-padding-top: 30px;
-display: flex;
-justify-content: flex-end;
+  padding-top: 30px;
+  display: flex;
+  justify-content: flex-end;
 `;
 
 interface AddTeacherButtonProps {
-    isVaild: boolean
+  isVaild: boolean;
 }
 
 const AddTeacherButton = styled.button<AddTeacherButtonProps>`
-width: 131px;
-padding: 12px 23px;
-font-family: 'KumbhSans-SemiBold';
-font-size: 14px;
-font-weight: 600;
-color: white;
-background-color:${(props) => props.isVaild ? '#509CDB' : '#E9E9E9'};
-border-radius: 4px;
-border: none;
+  width: 131px;
+  padding: 12px 23px;
+  font-family: "KumbhSans-SemiBold";
+  font-size: 14px;
+  font-weight: 600;
+  color: white;
+  background-color: ${(props) => (props.isVaild ? "#509CDB" : "#E9E9E9")};
+  border-radius: 4px;
+  border: none;
 `;
 
 const CloseIcon = styled.img`
-position: absolute;
-top: 33px;
-right: 33px;
-width: 25px;
-height: 25px;
-opacity: 0.7;
+  position: absolute;
+  top: 33px;
+  right: 33px;
+  width: 25px;
+  height: 25px;
+  opacity: 0.7;
 `;
+
 
 interface props {
     submitAddTeacher: (teacher: any) => void;
@@ -190,6 +188,7 @@ const AddTeacherModal = ({submitAddTeacher, closeModal}: props) => {
     const [identificationNumber, setIdentificationNumber] = useState('');
     const [password, setPassword] = useState('');
     const [about, setAbout] = useState('');
+    const [imageFile, setImageFile] = useState<any>();
 
     const [teacherClass, setTeacherClass] = useState('');
     const [gender, setGender] = useState('');
@@ -218,16 +217,21 @@ const AddTeacherModal = ({submitAddTeacher, closeModal}: props) => {
         } 
 
         if(e.target.files[0]) {
+            console.log("e.target.files", e.target.files);
+            setImageFile(e.target.files[0]);
             const file = e.target.files[0];
             const reader = new FileReader();
             reader.readAsDataURL(file);
     
             return new Promise<void>((resolve) => {
                 reader.onload = () => {
+                    console.log("reader.result", reader.result);
                     setProfileImageSrc(reader.result || null);
                     resolve();
                 }
             })
+
+
         }
 
 
@@ -255,7 +259,7 @@ const AddTeacherModal = ({submitAddTeacher, closeModal}: props) => {
                 subject: Number(subject),
                 gender: Number(gender),
                 phone_number: phoneNumber,
-                profile_image_url: profileImageSrc,
+                profile_image_url: imageFile,
                 user_about: about,
             }
 
