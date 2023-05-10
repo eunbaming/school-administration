@@ -265,20 +265,14 @@ const EditStudentModal = ({ student, submitEditStudent }: props) => {
                 <Option disabled hidden>
                   Class
                 </Option>
-                <Option key={1} value={1}>
-                  1
+                <Option key={1} value={"1"}>
+                  SS 3
                 </Option>
-                <Option key={2} value={2}>
-                  2
+                <Option key={2} value={"2"}>
+                  JSS 1
                 </Option>
-                <Option key={3} value={3}>
-                  3
-                </Option>
-                <Option key={4} value={4}>
-                  4
-                </Option>
-                <Option key={5} value={5}>
-                  5
+                <Option key={3} value={"3"}>
+                  JSS 2
                 </Option>
               </Select>
               <Select
@@ -298,11 +292,11 @@ const EditStudentModal = ({ student, submitEditStudent }: props) => {
             </NameInputs>
           </NameArea>
           <Upload>
-            {/* <ImageForm /> */}
             <FileUploadContainer>
               {showImage}
               <FileUploadForm>
                 <FileInput
+                  src={imageFile?.thumbnail}
                   type="file"
                   accept="image/jpg, image/jpeg, image/png"
                   ref={fileInputRef}

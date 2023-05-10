@@ -184,8 +184,8 @@ const StudentDetail = ({ student, index }: props) => {
       </ConnectItemDiv>
 
       <Footer>
-        <EditText onClick={() => onClickEdit()}>Edit</EditText>
-        <RemoveText onClick={() => onClickDelete()}>Delete</RemoveText>
+        <EditText onClick={onClickEdit}>Edit</EditText>
+        <RemoveText onClick={onClickDelete}>Delete</RemoveText>
       </Footer>
     </Container>
   );

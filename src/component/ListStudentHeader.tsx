@@ -1,6 +1,11 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import SearchIconPNG from "../assets/icons/search_icon.png";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  setFilteredSelect,
+  setFilteredStudents,
+} from "../redux/students/state";
 
 const Container = styled.div`
   z-index: 10;
@@ -131,6 +136,34 @@ interface props {
 }
 
 const ListStudentHeader = ({ onClickAddStudentButton }: props) => {
+  const [keyword, setKeyword] = useState("");
+  const dispatch = useDispatch();
+
+  const { filter, students } = useSelector((state: any) => state.student);
+
+  useEffect(() => {
+    searchStudents(keyword);
+  }, [keyword]);
+
+  const selectFilter = (event: any) => {
+    dispatch(setFilteredSelect(event.target.value));
+  };
+
+  const searchStudents = (keyword: string) => {
+    const filteredStudents = students.filter((item: any) => {
+      if (filter === "class") {
+        return item[filter].includes(keyword);
+      }
+      if (filter === "phone number") {
+        return item["phoneNumber"].includes(keyword);
+      } else {
+        return item[filter].toLowerCase().includes(keyword);
+      }
+    });
+
+    dispatch(setFilteredStudents(filteredStudents));
+  };
+
   return (
     <Container>
       <StudentArea>
@@ -139,7 +172,7 @@ const ListStudentHeader = ({ onClickAddStudentButton }: props) => {
       </StudentArea>
 
       <FilterSearch>
-        <Filter>
+        <Filter onChange={selectFilter}>
           <Option key={0} value={"filter"} disabled hidden>
             Add filter
           </Option>
@@ -149,10 +182,20 @@ const ListStudentHeader = ({ onClickAddStudentButton }: props) => {
           <Option key={2} value={"class"}>
             class
           </Option>
+          <Option key={3} value={"email"}>
+            email
+          </Option>
+          <Option key={3} value={"phone number"}>
+            phone number
+          </Option>
         </Filter>
         <SearchInput>
           <SearchIcon src={SearchIconPNG} />
-          <Search placeholder="Search for a student by name or email"></Search>
+          <Search
+            value={keyword}
+            onChange={(event) => setKeyword(event.target.value)}
+            placeholder="Search for a student by name or class"
+          ></Search>
         </SearchInput>
       </FilterSearch>
 

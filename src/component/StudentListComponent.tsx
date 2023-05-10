@@ -3,12 +3,6 @@ import styled from "styled-components";
 import StudentListItem from "./StudentListItem";
 import StudentDetail from "./StudentDetail";
 
-interface props {
-  studentArr: any[];
-  curStudentIndex: number;
-  setCurStudentIndex: (index: number) => void;
-}
-
 const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -57,6 +51,12 @@ const StudentList = styled.div`
     display: none;
   }
 `;
+
+interface props {
+  studentArr: any[];
+  curStudentIndex: number;
+  setCurStudentIndex: (index: number) => void;
+}
 
 const StudentListComponent = ({
   studentArr,
