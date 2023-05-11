@@ -1,6 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 
+import BlankProfileImagePNG from "../assets/blank_profile.jpg";
+
 interface StudentItemProps {
   index: number;
   curStudentIndex: number;
@@ -84,7 +86,7 @@ const StudentListItem = ({
       onClick={() => selectStudentListItem(index)}
     >
       <NameDiv>
-        <ProfileImg src={student.profileImage} />
+        <ProfileImg src={BlankProfileImagePNG} />
         {student.name}
       </NameDiv>
       <StudentIdDiv>{student.id}</StudentIdDiv>

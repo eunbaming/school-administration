@@ -121,16 +121,7 @@ const AddStudent = styled.button`
 `;
 
 interface props {
-  addStudent: (
-    name: string,
-    studentClass: string | undefined,
-    gender: string | undefined,
-    phone: string | undefined,
-    email: string | undefined,
-    id: string | undefined,
-    password: string | undefined,
-    profileImageUrl: string | undefined
-  ) => void;
+  submitAddStudent: (student: any) => void;
   setModal: (value: boolean) => void;
 }
 
@@ -159,7 +150,7 @@ type UploadImage = {
   type: string;
 };
 
-const ModalArea = ({ addStudent, setModal }: props) => {
+const ModalArea = ({ submitAddStudent, setModal }: props) => {
   const nameInputRef = useRef<HTMLInputElement>(null);
 
   const [name, setName] = useState("");
@@ -176,17 +167,20 @@ const ModalArea = ({ addStudent, setModal }: props) => {
 
   const addStudentRender = (event: any) => {
     event.preventDefault();
-    setModal(false);
-    addStudent(
-      name,
-      selectClass,
-      gender,
-      phone,
+
+    const studentObj = {
       email,
-      idNum,
       password,
-      imageFile?.thumbnail
-    );
+      name,
+      grade: Number(selectClass),
+      gender: Number(gender),
+      phone_number: phone,
+      profile_image_url: imageFile?.thumbnail,
+    };
+
+    setModal(false);
+
+    submitAddStudent(studentObj);
   };
 
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -245,13 +239,13 @@ const ModalArea = ({ addStudent, setModal }: props) => {
                   Class
                 </Option>
                 <Option key={1} value={1}>
-                  1
+                  1학년
                 </Option>
                 <Option key={2} value={2}>
-                  2
+                  2학년
                 </Option>
                 <Option key={3} value={3}>
-                  3
+                  3학년
                 </Option>
               </Select>
               <Select onChange={(event: any) => setGender(event.target.value)}>
@@ -259,10 +253,10 @@ const ModalArea = ({ addStudent, setModal }: props) => {
                   Gender
                 </Option>
                 <Option key={"Male"} value={"Male"}>
-                  Male
+                  남성
                 </Option>
                 <Option key={"Female"} value={"Female"}>
-                  Female
+                  여성
                 </Option>
               </Select>
             </NameInputs>

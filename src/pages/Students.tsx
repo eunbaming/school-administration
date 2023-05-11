@@ -32,8 +32,6 @@ const BlackScreen = styled.div`
   height: 100vh;
 `;
 
-interface props {}
-
 const Students = () => {
   const [modal, setModal] = useState(false);
   const [curStudentIndex, setCurStudentIndex] = useState(0);
@@ -47,32 +45,11 @@ const Students = () => {
     setModal(true);
   };
 
-  const addStudent = (
-    name: string,
-    studentClass: string | undefined,
-    gender: string | undefined,
-    phone: string | undefined,
-    email: string | undefined,
-    idNum: string | undefined,
-    password: string | undefined,
-    // about: string | undefined,
-    profileImageUrl: string | undefined
-  ) => {
+  const submitAddStudent = (studentObj: any) => {
     setModal(false);
+    console.log("studentobj", studentObj);
 
-    const studentObj = {
-      name,
-      class: studentClass,
-      gender,
-      email,
-      // about,
-      id: idNum,
-      password,
-      phone,
-      profileImage: profileImageUrl,
-    };
-
-    dispatch(addStudents([studentObj]));
+    // dispatch(addStudents([studentObj]));
   };
 
   const submitEditStudent = (
@@ -102,28 +79,26 @@ const Students = () => {
 
   return (
     <Layout>
-      <FullContainer>
-        {(modal || isVisEditModal) && <BlackScreen />}
-        {modal && <ModalArea addStudent={addStudent} setModal={setModal} />}
-        {isVisEditModal && (
-          <EditStudentModal
-            student={students[curStudentIndex]}
-            submitEditStudent={submitEditStudent}
+      {(modal || isVisEditModal) && <BlackScreen />}
+      {modal && (
+        <ModalArea submitAddStudent={submitAddStudent} setModal={setModal} />
+      )}
+      {isVisEditModal && (
+        <EditStudentModal
+          student={students[curStudentIndex]}
+          submitEditStudent={submitEditStudent}
+        />
+      )}
+      <Container>
+        <ListStudentHeader onClickAddStudentButton={onClickAddStudentButton} />
+        <StudentListContainer>
+          <StudentListComponent
+            curStudentIndex={curStudentIndex}
+            setCurStudentIndex={setCurStudentIndex}
+            studentArr={filteredStudent}
           />
-        )}
-        <Container>
-          <ListStudentHeader
-            onClickAddStudentButton={onClickAddStudentButton}
-          />
-          <StudentListContainer>
-            <StudentListComponent
-              curStudentIndex={curStudentIndex}
-              setCurStudentIndex={setCurStudentIndex}
-              studentArr={filteredStudent}
-            />
-          </StudentListContainer>
-        </Container>
-      </FullContainer>
+        </StudentListContainer>
+      </Container>
     </Layout>
   );
 };
