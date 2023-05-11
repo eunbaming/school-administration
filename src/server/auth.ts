@@ -1,11 +1,12 @@
 import { rootUrl } from "./index";
 import axios from "axios";
 
-export const signup = (id: string, password: string) => {
-    console.log("signup id password", id, password)
-    const promise = axios.post(`${rootUrl}/api/users/private/generateAdmin`, {
+export const POST_signup = (id: string, password: string, school_id: number) => {
+    console.log("signup id password school_id", id, password, school_id)
+    const promise = axios.post(`${rootUrl}/api/users/private/admin`, {
         email: id,
-        password: password,
+        password,
+        school_id,
       })
 
   const response = promise.then((response) => response);

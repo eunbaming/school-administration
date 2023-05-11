@@ -3,6 +3,8 @@ import styled from 'styled-components';
 
 import blank_profile from '../assets/blank_profile.jpg';
 
+import { rootUrl } from '../server';
+
 const Container = styled.div`
 width: 100%;
 height: 3.5rem;
@@ -45,7 +47,7 @@ const SimpleProfileItem = ({teacher}: props) => {
         <Container>
             <ProfileImageDiv>
             <ProfileImage
-            src={blank_profile}/>
+            src={teacher.added ? teacher.image_url : `${rootUrl}/${teacher.profile_image_url}`}/>
             </ProfileImageDiv>
             <NameText>
                 {teacher.name}

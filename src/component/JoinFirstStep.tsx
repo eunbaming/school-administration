@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import { useSelector } from "react-redux";
 import JoinSecondStep from "./JoinSecondStep";
 import { useNavigate } from "react-router-dom";
+import { setSchools } from "../redux/school/state";
 
 const Container = styled.div`
   display: flex;
@@ -115,9 +117,18 @@ interface props {
   setCurrentStep: (value: number) => void;
   id: string;
   onChangeId: any;
+  schoolId: number
+  setSchool: (id: any) => void,
 }
 
-const JoinFirstStep = ({ setCurrentStep, id, onChangeId }: props) => {
+const JoinFirstStep = ({ setCurrentStep, id, onChangeId, setSchool, schoolId }: props) => {
+  const {schools} = useSelector((state: any) => state.school);
+
+  const selectSchool = (e: any) => {
+    const index = schools.findIndex((item: any) => Number(item.school_id) === Number(e.target.value));
+    setSchool(schools[index]);
+  }
+
   return (
     <Container>
       <Header>Welcome, create your school account</Header>
@@ -131,10 +142,14 @@ const JoinFirstStep = ({ setCurrentStep, id, onChangeId }: props) => {
             value={id}
             onChange={(e: any) => onChangeId(e)}
           ></EnterName>
-          <SelectSchool name="select">
-            <Option value="default">Select the name of school</Option>
-            <Option value="1">school 1 </Option>
-            <Option value="2">school 2</Option>
+          <SelectSchool 
+          name="select" defaultValue={schoolId} onChange={selectSchool}>
+            <option 
+            key="0" value={"default"} disabled hidden>Select the name of school
+            </option>
+            {schools.map((item: any) => (
+              <option key={item.school_id} value={item.school_id}>{item.school_name}</option>
+            ))}
           </SelectSchool>
           <Button type="submit">Next</Button>
         </Form>

@@ -36,6 +36,7 @@ justify-content: space-between;
 `
 
 const Dashboard = () => {
+  
   const [maleCount, setMaleCount] = useState(0);
   const [femaleCount, setFemaleCount] = useState(0);
   const [stuMaleCount, setStuMaleCount] = useState(0);
@@ -50,7 +51,10 @@ const Dashboard = () => {
   const { students } = useSelector((state: any) => state.student);
   const {teachers} = useSelector((state: any) => state.teacher);
 
+  console.log("Dashboard teachers", teachers);
+
   useEffect(() => {
+    console.log("localStorage.getItem(current_school)", localStorage.getItem("current_school"));
     
     const maleNum = teachers.reduce((acc: any, item: any) => {
       if(item.gender === 1) {
@@ -138,7 +142,7 @@ const Dashboard = () => {
   return (
     <Layout>
       <Container>
-        <TitleDiv>XX고등학교 관리자님 환영합니다!</TitleDiv>
+        <TitleDiv>관리자님 환영합니다!</TitleDiv>
         <Body>
          <TeachersDataAnalysis
          teachers={teachers}

@@ -7,7 +7,7 @@ import JoinSecondStep from "../component/JoinSecondStep";
 import JoinThirdStep from "../component/JoinThirdStep";
 import ProgressBar from "../component/ProgressBar";
 
-import { signup } from "../server/auth";
+import { POST_signup } from "../server/auth";
 
 
 const Body = styled.body`
@@ -26,7 +26,7 @@ const Join = () => {
   const [currentStep, setCurrentStep] = useState(1);
   const [id, setId] = useState("");
   const [password, setPassword] = useState("");
-  const [schoolCode, setSchoolCode] = useState(1);
+  const [school, setSchool] = useState<any>({school_id: 'default', school_name: ""});
 
   const onChangeId = (e: any) => {
     setId(e.target.value);
@@ -40,14 +40,15 @@ const Join = () => {
     e.preventDefault();
 
     
-    signup(id, password)
+    POST_signup(id, password, school.school_id)
     .then((response) => {
       console.log("signup response", response);
       if(response.data.message === "이미 사용중인 이메일입니다.") {
         alert("The ID that already exists");
-      } else if(response.data.message === '어드민 생성 성공') {
+      } else if(response.data.message === '어드민 회원가입 성공') {
         //localStorage.setItem("refreshToken", response.data.data.refreshToken);
         //localStorage.setItem("accessToken", response.data.data.accessToken);
+        localStorage.setItem("current_school", JSON.stringify(school));
         setCurrentStep(3);
       }
     })
@@ -61,6 +62,8 @@ const Join = () => {
       <Container>
         {currentStep === 1 && (
           <JoinFirstStep
+          schoolId={school.school_id}
+          setSchool={setSchool}
             id={id}
             onChangeId={onChangeId}
             setCurrentStep={setCurrentStep}

@@ -253,14 +253,18 @@ const AddTeacherModal = ({submitAddTeacher, closeModal}: props) => {
 
             const teacherObj = {
                 name,
-                email,
+                email: identificationNumber,
                 password,
+                email_address: email,
                 grade: Number(teacherClass),
+                class: Number(teacherClass),
                 subject: Number(subject),
                 gender: Number(gender),
                 phone_number: phoneNumber,
-                profile_image_url: imageFile,
+                image: imageFile,
                 user_about: about,
+                added: true,
+                image_url: profileImageSrc,
             }
 
             submitAddTeacher(teacherObj); 

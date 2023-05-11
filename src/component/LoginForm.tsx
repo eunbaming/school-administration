@@ -190,13 +190,6 @@ const LoginForm = ({schools, submitLoginForm, navigateSignUp, type, selectType}:
         setPassword("");
     }, [type])
 
-    const style = {
-        control: (base: any) => ({
-            ...base,
-            border: 0,
-            boxShadow: "none"
-        })}
-
 
     const onChangeId = (e: any) => {
         setId(e.target.value)
@@ -233,7 +226,7 @@ const LoginForm = ({schools, submitLoginForm, navigateSignUp, type, selectType}:
                     <option 
                     key="0" value={"default"} disabled hidden>Select the name of school</option>
                     {schools.map((item: any) => (
-                        <option key={item.school_code} value={item.school_name}>{item.school_name}</option>
+                        <option key={item.school_id} value={item.school_id}>{item.school_name}</option>
                     ))}
                 </SchoolSelect>
                 </SchoolSelectDiv>

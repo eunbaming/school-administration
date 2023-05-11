@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import styled from 'styled-components';
 import {useDispatch, useSelector} from 'react-redux';
-import { setAddModal, setEditModal, addTeachers, editTeacher, setFilteredTeachers } from '../redux/teachers/state';
+import { setAddModal, setEditModal, addTeacher, editTeacher, setFilteredTeachers } from '../redux/teachers/state';
 
 import Layout from "../component/Layout";
 import TeacherList from '../component/TeacherList';
@@ -68,7 +68,8 @@ const Teachers = () => {
         POST_addTeacher(teacherObj)
         .then((response) => {
             console.log("addTeacher_POST response", response);
-            dispatch(addTeachers([teacherObj]))
+            dispatch(addTeacher(teacherObj))
+            setCurTeacherIndex(teachers.length)
         })
         .catch((error) => {
             console.log("addTeacher_POST error", error);
@@ -76,22 +77,12 @@ const Teachers = () => {
 
     }
 
-    const submitEditTeacher = (name: string, teacherClass: string | undefined, gender: string | undefined, subject:string | undefined, phoneNumber: string | undefined, email: string | undefined, identificationNumber: string | undefined, password: string | undefined, about: string | undefined, profileImageUrl: string | undefined) => {
+    const submitEditTeacher = (teacherObj: any) => {
 
-        const teacher = {
-            name,
-            subject,
-            class: teacherClass,
-            email,
-            gender,
-            about,
-            identificationNumber,
-            password,
-            phoneNumber,
-            profileImage: profileImageUrl
-        }
+        
 
-        dispatch(editTeacher(teacher, curTeacherIndex));
+        dispatch(editTeacher(teacherObj, curTeacherIndex));
+
 
     }
 

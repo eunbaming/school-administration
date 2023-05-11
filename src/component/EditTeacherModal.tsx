@@ -171,20 +171,11 @@ const CloseIcon = styled.img`
   height: 25px;
   opacity: 0.7;
 `;
+
+
 interface props {
   teacher: any;
-  submitEditTeacher: (
-    name: string,
-    teacherClass: string | undefined,
-    gender: string | undefined,
-    subject: string | undefined,
-    phoneNumber: string | undefined,
-    email: string | undefined,
-    identificationNumber: string | undefined,
-    password: string | undefined,
-    about: string | undefined,
-    profileImageUrl: string | undefined
-  ) => void;
+  submitEditTeacher: (teacher: any) => void;
   closeModal: () => void;
 }
 
@@ -211,6 +202,7 @@ const EditTeacherModal = ({
   const [profileImageSrc, setProfileImageSrc]: any = useState(
     teacher.profileImage
   );
+  const [imageFile, setImageFile] = useState<any>();
 
   const dispatch = useDispatch();
 
@@ -246,6 +238,7 @@ const EditTeacherModal = ({
     }
 
     if (e.target.files[0]) {
+      setImageFile(e.target.files[0]);
       const file = e.target.files[0];
       const reader = new FileReader();
       reader.readAsDataURL(file);
@@ -272,18 +265,23 @@ const EditTeacherModal = ({
 
     if (isVaild) {
       dispatch(setEditModal(false));
-      submitEditTeacher(
+
+      const teacherObj = {
         name,
-        teacherClass,
-        gender,
-        subject,
-        phoneNumber,
-        email,
-        identificationNumber,
+        email: identificationNumber,
         password,
-        about,
-        profileImageSrc
-      );
+        email_address: email,
+        grade: Number(teacherClass),
+        class: Number(teacherClass),
+        subject: Number(subject),
+        gender: Number(gender),
+        phone_number: phoneNumber,
+        image: imageFile,
+        user_about: about,
+        edited: true,
+        image_url: profileImageSrc,
+      }
+      submitEditTeacher(teacherObj);
     }
   };
 
