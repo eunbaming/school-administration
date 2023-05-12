@@ -11,7 +11,7 @@ const SET_FILTERED_TEACHERS = "teachers/SET_FILTERED_TEACHERS";
 
 export const setTeachers = (teachers) => ({ type: SET, teachers });
 export const addTeacher = (teacher) => ({ type: ADD, teacher });
-export const editTeacher = (teacher, index) => ({ type: EDIT, teacher, index });
+export const editTeacher = (teacher) => ({ type: EDIT, teacher });
 export const deleteTeacher = (teacherId) => ({ type: DELETE, teacherId });
 
 export const setFilter = (filter) => ({ type: SET_FILTER, filter });
@@ -55,8 +55,15 @@ export const teacherReducer = (state = INITIAL_STATE, action) => {
     case EDIT:
       return {
         ...state,
-        teachers: state.teachers.map((item, index) => {
-          if (index === action.index) {
+        teachers: state.teachers.map((item) => {
+          if (item.id === action.teacher.id) {
+            return action.teacher;
+          } else {
+            return item;
+          }
+        }),
+        filteredTeachers: state.filteredTeachers.map((item) => {
+          if (item.id === action.teacher.id) {
             return action.teacher;
           } else {
             return item;

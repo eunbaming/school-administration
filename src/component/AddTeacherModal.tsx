@@ -24,7 +24,7 @@ const Container = styled.div`
 
 const TitleDiv = styled.div`
   font-family: "KumbhSans-SemiBold";
-  font-size: 32px;
+  font-size: 26px;
   font-weight: 600;
   line-height: 40px;
   color: #4f4f4f;
@@ -251,6 +251,8 @@ const AddTeacherModal = ({submitAddTeacher, closeModal}: props) => {
         if(isVaild) {
             dispatch(setAddModal(false));
 
+            const school = localStorage.getItem("current_school");
+
             const teacherObj = {
                 name,
                 email: identificationNumber,
@@ -265,6 +267,7 @@ const AddTeacherModal = ({submitAddTeacher, closeModal}: props) => {
                 user_about: about,
                 added: true,
                 image_url: profileImageSrc,
+                schoold_id: school !== null ? JSON.parse(school).school_id : ""
             }
 
             submitAddTeacher(teacherObj); 
@@ -311,12 +314,12 @@ const AddTeacherModal = ({submitAddTeacher, closeModal}: props) => {
         <Container> 
             <AddTeacherForm onSubmit={(e: React.FormEvent<HTMLFormElement>) => onClickAddTeacher(e)}>
             <TitleDiv>
-                Add Teacher
+                선생님 등록
             </TitleDiv>
             <div
             style={{display: 'flex', background: 'white'}}>
                 <LeftForm>
-                    <InfoLabel>Full name</InfoLabel>
+                    <InfoLabel>이름</InfoLabel>
                     <InfoInput
                     value={name}
                     onChange={changeName}
@@ -363,25 +366,25 @@ const AddTeacherModal = ({submitAddTeacher, closeModal}: props) => {
                     </ProfileImgDiv>
                 </LeftForm>
                 <RightForm>
-                    <InfoLabel>Phone number</InfoLabel>
+                    <InfoLabel>전화번호</InfoLabel>
                     <NumberInput
                     onKeyDown={(e) => ["e", "E", "+"].includes(e.key) && e.preventDefault()}
                     type={"number"}
                     value={phoneNumber}
                     onChange={changePhoneNumber}/>
-                    <InfoLabel>Email address</InfoLabel>
+                    <InfoLabel>이메일</InfoLabel>
                     <InfoInput
                     value={email}
                     onChange={changeEmail}/>
-                    <InfoLabel>Identification number</InfoLabel>
+                    <InfoLabel>교번</InfoLabel>
                     <InfoInput
                     value={identificationNumber}
                     onChange={changeIdentificationNumber}/>
-                    <InfoLabel>Password</InfoLabel>
+                    <InfoLabel>비밀번호</InfoLabel>
                     <InfoInput
                     value={password}
                     onChange={changePassword}/>
-                    <InfoLabel>About</InfoLabel>
+                    <InfoLabel>참고 사항</InfoLabel>
                     <AboutTextarea
                     value={about}
                     onChange={changeAbout}
@@ -389,7 +392,7 @@ const AddTeacherModal = ({submitAddTeacher, closeModal}: props) => {
                     <AddTeacherButtonDiv>
                     <AddTeacherButton
                     isVaild={isVaild}
-                    type={"submit"}>Add Teacher</AddTeacherButton>
+                    type={"submit"}>등록하기</AddTeacherButton>
                     </AddTeacherButtonDiv>
                 </RightForm>
             </div>

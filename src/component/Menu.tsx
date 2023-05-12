@@ -37,10 +37,9 @@ const LogoImage = styled.img`
 
 const Title = styled.div`
     margin-top: 22px;
-    font-size: 14px;
     font-family: "KumbhSans-SemiBold";
     font-weight: 600;
-    font-size: 14px;
+    font-size: 16px;
     color: white;
 `;
 
@@ -63,16 +62,19 @@ text-decoration: none;
 `;
 
 const CategoryIcon = styled.img`
+margin-bottom: -2px;
 width: 13.33px;
 height: 13.33px;
 `;
 
 const TeacherIcon = styled.img`
+margin-bottom: -2px;
 width: 15px;
 height: 15px;  
 `;
 
 const StudentIcon = styled.img`
+margin-bottom: -2px;
 width: 15px;
 height: 15px;
 `;
@@ -95,6 +97,8 @@ const Menu = () => {
     const {currentTab} = useSelector((state: any) => state.tab);
     const dispatch = useDispatch();
 
+    const school = localStorage.getItem("current_school");
+
     const changeCurrentTab = (tab: string) => {
         dispatch(setCurrentTab(tab));
         localStorage.setItem("currentTab", tab);
@@ -106,7 +110,7 @@ const Menu = () => {
                 <LogoImage
                 src={SchoolLogoPNG}/>
                 <Title>
-                Udemy Inter.school
+                {school !== null ? JSON.parse(school).school_name : ""}
                 </Title>
             </Header>
             <CategoryList>
@@ -118,7 +122,7 @@ const Menu = () => {
                     <CategoryIcon
                     src={DashboardIconPNG}/>
                     <CategoryText>
-                        Dashboard
+                        대시보드
                     </CategoryText>
                     </div>
                     {currentTab === 'dashboard' && (
@@ -134,7 +138,7 @@ const Menu = () => {
                     <TeacherIcon
                     src={BankIconPNG}/>
                     <CategoryText>
-                        Teachers
+                        선생님
                     </CategoryText>
                     </div>
                     {currentTab === 'teachers' && (
@@ -150,7 +154,7 @@ const Menu = () => {
                     <StudentIcon
                     src={StudentIconPNG}/>
                     <CategoryText>
-                        Students
+                        학생
                     </CategoryText>
                     </div>{currentTab === 'students' && (
                     <RightArrowIcon

@@ -53,8 +53,12 @@ const Dashboard = () => {
 
   console.log("Dashboard teachers", teachers);
 
+  const school = localStorage.getItem("current_school");
+
+  console.log(school !== null ? JSON.parse(school) : "")
+
   useEffect(() => {
-    console.log("localStorage.getItem(current_school)", localStorage.getItem("current_school"));
+
     
     const maleNum = teachers.reduce((acc: any, item: any) => {
       if(item.gender === 1) {
@@ -142,7 +146,9 @@ const Dashboard = () => {
   return (
     <Layout>
       <Container>
-        <TitleDiv>관리자님 환영합니다!</TitleDiv>
+        <TitleDiv>
+          {school !== null ? JSON.parse(school).school_name + " " : ""}
+           관리자님 환영합니다.</TitleDiv>
         <Body>
          <TeachersDataAnalysis
          teachers={teachers}

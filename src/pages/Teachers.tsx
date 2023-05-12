@@ -10,7 +10,7 @@ import EditTeacherModal from '../component/EditTeacherModal';
 import TeacherDetail from '../component/TeacherDetail';
 import ListHeader from '../component/ListHeader';
 
-import { POST_addTeacher } from '../server/teacher';
+import { POST_addTeacher, PUT_editTeacher } from '../server/teacher';
 
 const FullContainer = styled.div`
 `;
@@ -67,12 +67,12 @@ const Teachers = () => {
     
         POST_addTeacher(teacherObj)
         .then((response) => {
-            console.log("addTeacher_POST response", response);
+            console.log("POST_addTeacher response", response);
             dispatch(addTeacher(teacherObj))
             setCurTeacherIndex(teachers.length)
         })
         .catch((error) => {
-            console.log("addTeacher_POST error", error);
+            console.log("POST_addTeacher error", error);
         })
 
     }
@@ -81,7 +81,16 @@ const Teachers = () => {
 
         
 
-        dispatch(editTeacher(teacherObj, curTeacherIndex));
+        PUT_editTeacher(teacherObj)
+        .then((response) => {
+            console.log("PUT_editTeacher response", response);
+
+            dispatch(editTeacher(teacherObj));
+
+        })
+        .catch((error) => {
+            console.log("PUT_editTeacher error", error);
+        })
 
 
     }

@@ -25,15 +25,9 @@ export const POST_addTeacher = (teacherObj) => {
     formData.append(key, teacherObj[key]);
   }
 
-  formData.append("school_id", "1");
-
-  for (let key of formData.keys()) {
-    console.log(key);
-  }
-
   /* value 확인하기 */
-  for (let value of formData.values()) {
-    console.log(value);
+  for (let key of formData.keys()) {
+    console.log(key, ":", formData.get(key));
   }
 
   const promise = axios.post(`${rootUrl}/api/users/teacher`, formData, {
@@ -56,9 +50,16 @@ export const PUT_editTeacher = (teacherObj) => {
     formData.append(key, teacherObj[key]);
   }
 
+  /* value 확인하기 */
+  for (let key of formData.keys()) {
+    console.log(key, ":", formData.get(key));
+  }
+
   const promise = axios.put(`${rootUrl}/api/users/teacher`, formData, {
     headers: {
       "Content-Type": "multipart/form-data",
+      access: localStorage.getItem("accessToken"),
+      refresh: localStorage.getItem("refreshToken"),
     },
   });
 

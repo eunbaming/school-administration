@@ -35,9 +35,13 @@ const DataAnalysisDiv = styled.div`
 
 const ProfileListDiv = styled.div`
 flex: 1;
-overflow: scroll;
+overflow-y: auto;
+overflow-x: hidden;
 padding-left: 2rem;
 padding-right: 0rem;
+::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera*/
+}
 `;
 
 interface props {

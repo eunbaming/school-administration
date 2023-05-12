@@ -3,6 +3,8 @@ import { useDispatch } from "react-redux";
 import { editTeacher, setEditModal } from "../redux/teachers/state";
 import styled from "styled-components";
 
+import { rootUrl } from "../server";
+
 import NoProfileImagePNG from "../assets/noProfile.png";
 import CloseIconPNG from "../assets/icons/close_icon.png";
 import BlankProfileImagePNG from "../assets/blank_profile.jpg";
@@ -23,7 +25,7 @@ const Container = styled.div`
 
 const TitleDiv = styled.div`
   font-family: "KumbhSans-SemiBold";
-  font-size: 32px;
+  font-size: 26px;
   font-weight: 600;
   line-height: 40px;
   color: #4f4f4f;
@@ -184,6 +186,7 @@ const EditTeacherModal = ({
   submitEditTeacher,
   closeModal,
 }: props) => {
+  console.log("EditTeacherModal teacher", teacher);
   const [isVaild, setIsVaild] = useState(false);
   const [name, setName] = useState<string>(teacher.name);
   const [phoneNumber, setPhoneNumber] = useState(teacher.phone_number);
@@ -199,23 +202,21 @@ const EditTeacherModal = ({
   const [subject, setSubject] = useState(teacher.subject);
 
   const imgInputRef = useRef<HTMLInputElement | null>(null);
-  const [profileImageSrc, setProfileImageSrc]: any = useState(
-    teacher.profileImage
-  );
+  const [profileImageSrc, setProfileImageSrc]: any = useState(`${rootUrl}/${teacher.profile_image_url}`);
   const [imageFile, setImageFile] = useState<any>();
 
   const dispatch = useDispatch();
 
+  
   useEffect(() => {
     if (
       name.length > 0 &&
       phoneNumber.length > 0 &&
       email.length > 0 &&
       identificationNumber.length > 0 &&
-      password.length > 0 &&
-      teacherClass.length > 0 &&
-      gender.length > 0 &&
-      subject.length > 0
+      teacherClass.toString().length > 0 &&
+      gender.toString().length > 0 &&
+      subject.toString().length > 0
     ) {
       setIsVaild(true);
     } else {
@@ -226,11 +227,11 @@ const EditTeacherModal = ({
     phoneNumber,
     email,
     identificationNumber,
-    password,
     gender,
     subject,
     teacherClass,
   ]);
+  
 
   const onUploadProfileImage = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files) {
@@ -266,7 +267,10 @@ const EditTeacherModal = ({
     if (isVaild) {
       dispatch(setEditModal(false));
 
+      const school = localStorage.getItem("current_school");
+
       const teacherObj = {
+        id: teacher.id,
         name,
         email: identificationNumber,
         password,
@@ -280,6 +284,7 @@ const EditTeacherModal = ({
         user_about: about,
         edited: true,
         image_url: profileImageSrc,
+        schoold_id: school !== null ? JSON.parse(school).school_id : ""
       }
       submitEditTeacher(teacherObj);
     }
@@ -328,10 +333,10 @@ const EditTeacherModal = ({
           onClickEditTeacher(e)
         }
       >
-        <TitleDiv>Edit Teacher</TitleDiv>
+        <TitleDiv>선생님 수정</TitleDiv>
         <div style={{ display: "flex", background: "white" }}>
           <LeftForm>
-            <InfoLabel>Full name</InfoLabel>
+            <InfoLabel>이름</InfoLabel>
             <InfoInput value={name} onChange={changeName} />
             <span style={{ display: "flex", justifyContent: "space-between" }}>
               <InfoSelect
@@ -402,7 +407,7 @@ const EditTeacherModal = ({
             </ProfileImgDiv>
           </LeftForm>
           <RightForm>
-            <InfoLabel>Phone number</InfoLabel>
+            <InfoLabel>전화번호</InfoLabel>
             <NumberInput
               onKeyDown={(e) =>
                 ["e", "E", "+"].includes(e.key) && e.preventDefault()
@@ -411,9 +416,9 @@ const EditTeacherModal = ({
               value={phoneNumber}
               onChange={changePhoneNumber}
             />
-            <InfoLabel>Email address</InfoLabel>
+            <InfoLabel>이메일</InfoLabel>
             <InfoInput value={email} onChange={changeEmail} />
-            <InfoLabel>Identification number</InfoLabel>
+            <InfoLabel>교번</InfoLabel>
             <InfoInput
               value={identificationNumber}
               onChange={changeIdentificationNumber}
@@ -422,11 +427,11 @@ const EditTeacherModal = ({
             <InfoLabel>Password</InfoLabel>
             <InfoInput value={password} onChange={changePassword} />
             */}
-            <InfoLabel>About</InfoLabel>
+            <InfoLabel>참고 사항</InfoLabel>
             <AboutTextarea value={about} onChange={changeAbout} rows={8} />
             <AddTeacherButtonDiv>
               <AddTeacherButton isVaild={isVaild} type={"submit"}>
-                Add Teacher
+                Edit Teacher
               </AddTeacherButton>
             </AddTeacherButtonDiv>
           </RightForm>

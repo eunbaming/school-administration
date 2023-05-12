@@ -119,7 +119,8 @@ text-align: right;
 
 const EditText = styled.span`
 font-family: 'KumbhSans-Regular';
-font-size: 17px;
+font-size: 16px;
+font-weight: 600;
 color: #A7A7A7;
 margin-right: 15px;
 cursor: pointer;
@@ -127,8 +128,9 @@ cursor: pointer;
 
 const RemoveText = styled.span`
 font-family: 'KumbhSans-Regular';
-font-size: 17px;
+font-size: 16px;
 color: #FF4D4D;
+font-weight: 600;
 cursor: pointer;
 `;
 
@@ -163,7 +165,7 @@ const TeacherDetail = ({teacher, index}: props) => {
         <Container>
             <ProfileDiv>
             <ProfileImage
-            src={teacher.added ? teacher.image_url : `${rootUrl}/${teacher.profile_image_url}`}
+            src={(teacher.added !== undefined ? (teacher.added ? teacher.image_url : `${rootUrl}/${teacher.profile_image_url}`) : `${rootUrl}/${teacher.profile_image_url}`)}
             />
             <NameDiv>
                 {teacher.name}
@@ -172,7 +174,7 @@ const TeacherDetail = ({teacher, index}: props) => {
             <BasicInfoDiv>
             <InfoItemDiv>
             <InfoLabelText>
-                Subject
+                과목
             </InfoLabelText>
             <InfoValueText>
                 {teacher.subject === 1 && '국어'}
@@ -184,9 +186,9 @@ const TeacherDetail = ({teacher, index}: props) => {
             </InfoItemDiv>
 
             <InfoItemDiv
-            style={{marginLeft: 40}}>
+            style={{marginLeft: 10}}>
             <InfoLabelText>
-                Class
+                담당 학년
             </InfoLabelText>
             <InfoValueText>
                 {teacher.class === 1 && '1 학년'}
@@ -198,7 +200,7 @@ const TeacherDetail = ({teacher, index}: props) => {
             <InfoItemDiv
             style={{marginLeft: 25}}>
             <InfoLabelText>
-                Gender
+                성별
             </InfoLabelText>
             <InfoValueText>
                 {teacher.gender === 1 && '남성'}
@@ -228,7 +230,7 @@ const TeacherDetail = ({teacher, index}: props) => {
             */}
 
             <AboutDiv>
-                <InfoLabelText>About</InfoLabelText>
+                <InfoLabelText>참고 사항</InfoLabelText>
                 <InfoValueText
                 style={{whiteSpace: 'pre-wrap'}}>{teacher.user_about}</InfoValueText>
             </AboutDiv>
@@ -249,8 +251,8 @@ const TeacherDetail = ({teacher, index}: props) => {
                 </ConnectValue>
             </ConnectItemDiv>
             <Footer>
-                <EditText onClick={() => onClickEdit()}>Edit</EditText>
-                <RemoveText onClick={() => onClickDelete()}>Delete</RemoveText>
+                <EditText onClick={() => onClickEdit()}>수정</EditText>
+                <RemoveText onClick={() => onClickDelete()}>삭제</RemoveText>
             </Footer>
         </Container>
     )
