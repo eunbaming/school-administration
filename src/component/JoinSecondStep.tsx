@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -6,38 +6,37 @@ const Container = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100vh;
 `;
 
-const Header = styled.h1`
-  color: #4f4f4f;
+const Header = styled.div`
+display: flex;
+justify-content: center;
+align-items: center;
+height: 100px;
+text-align: center;
   font-weight: 600;
   font-size: 36px;
   font-family: "KumbhSans-SemiBold";
 `;
 
 const Main = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background-color: #fff;
-  width: 512px;
-  height: 354px;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+background-color: #fff;
   margin-top: 30px;
-  position: relative;
+  width: 31rem;
+  height: 23rem;
+position: relative;
 `;
 
 const Form = styled.form`
   display: flex;
   flex-direction: column;
-  align-items: center;
-  margin-top: 70px;
 `;
 
 const ChoosePasswordInput = styled.input`
-  position: absolute;
-  top: 73px;
-  left: 134px;
   width: 248px;
   height: 42px;
   padding: 10px;
@@ -47,9 +46,7 @@ const ChoosePasswordInput = styled.input`
 `;
 
 const ConfirmPasswordInput = styled.input`
-  position: absolute;
-  top: 159px;
-  left: 134px;
+margin-top: 14px;
   width: 248px;
   height: 42px;
   padding: 10px;
@@ -82,21 +79,45 @@ const Message = styled.p`
   color: #667085;
 `;
 
-const Button = styled.button`
-  position: absolute;
-  top: 252px;
-  left: 134px;
+interface ButtonProps {
+  isVaild: boolean;
+}
+
+const Button = styled.button<ButtonProps>`
+margin-top: 20px;
   width: 248px;
   height: 42px;
   padding: 10px;
   box-sizing: border-box;
-  border: none;
-  background-color: #2d88d4;
+  border: none; 
+  background-color: ${(props: any) => props.isVaild ? '#2D88D4' : '#BCBCBC'};
   color: #fff;
   font-weight: bold;
   border-radius: 4px;
   cursor: pointer;
 `;
+
+const Login = styled.div`
+margin-top: 14px;
+  width: 253px;
+  text-align: center;
+`;
+
+const Span = styled.span`
+  color: #6c6c6c;
+  font-size: 13px;
+`;
+
+
+const LoginButton = styled.button`
+  border: none;
+  background: none;
+  color: #2d88d4;
+  padding: 5px;
+  font-weight: bold;
+  cursor: pointer;
+`;
+
 
 interface props {
   setCurrentStep: (value: number) => void;
@@ -114,6 +135,17 @@ const JoinSecondStep = ({
   submitSignup,
 }: props) => {
   const [warning, setWarning] = useState(false);
+  const [isVaild, setIsVaild] = useState(false);
+  const [confirmPassword, setConfirmPassword] = useState('');
+
+  useEffect(() => {
+    if(password.length > 0 && confirmPassword.length > 0 && password === confirmPassword) {
+      setIsVaild(true)
+    } else {
+      setIsVaild(false);
+    }
+
+  }, [password, confirmPassword])
 
   const handlePasswordChange = (
     event: React.ChangeEvent<HTMLInputElement>
@@ -123,26 +155,35 @@ const JoinSecondStep = ({
 
   return (
     <Container>
-      <Header>Udemy school, Choose your password</Header>
+      <Header>학교 관리자 계정을 생성하세요.</Header>
       <Main>
         <Form onSubmit={(e: any) => submitSignup(e, id, password)}>
-          <ChoosePasswordLabel htmlFor="choose">
-            Choose a password
-          </ChoosePasswordLabel>
           <ChoosePasswordInput
             type="password"
             id="choose"
+            placeholder="비밀번호를 입력하세요."
             value={password}
             onChange={(event) => onChangePassword(event)}
           />
-          <ConfirmPasswordLabel htmlFor="confirm">
-            Confirm password
-          </ConfirmPasswordLabel>
-          <ConfirmPasswordInput type="password" id="confirm" />
+          <ConfirmPasswordInput 
+          value={confirmPassword}
+          onChange={(e) => setConfirmPassword(e.target.value)}
+          type="password" 
+          id="confirm" 
+          placeholder="비밀번호 확인"
+          />
 
           {warning && <Message>Must be at least 8 characters.</Message>}
-          <Button type={"submit"}>Sign up</Button>
+          <Button
+          isVaild={isVaild}
+          disabled={!isVaild}
+          type={"submit"}>회원 가입</Button>
         </Form>
+        <Login>
+          <Span>{" "}</Span>
+          <LoginButton
+          >{" "}</LoginButton>
+        </Login>
       </Main>
     </Container>
   );

@@ -5,9 +5,9 @@ import styled from 'styled-components';
 import SelectArrowPNG from '../assets/icons/select_arrow.png'
 
 const Container = styled.div`
-    margin-top: 60px;
-    width: 512px;
-    height: 350px;
+    margin-top: 30px;
+    width: 31rem;
+    height: 23rem;
     background-color: white;
     display: flex;
     flex-direction: column;
@@ -224,24 +224,24 @@ const LoginForm = ({schools, submitLoginForm, navigateSignUp, type, selectType}:
                 <SchoolSelect
                 defaultValue={school} onChange={selectScool}>
                     <option 
-                    key="0" value={"default"} disabled hidden>Select the name of school</option>
+                    key="0" value={"default"} disabled hidden>학교를 선택하세요.</option>
                     {schools.map((item: any) => (
                         <option key={item.school_id} value={item.school_id}>{item.school_name}</option>
                     ))}
                 </SchoolSelect>
                 </SchoolSelectDiv>
-            <Input type="text" placeholder='Enter the id' value={id} onChange={(e) => onChangeId(e)}/>
+            <Input type="text" placeholder='아이디' value={id} onChange={(e) => onChangeId(e)}/>
             <Input 
-            type="password" placeholder='Enter Password' value={password} onChange={(e) => onChangePassword(e)}/>
+            type="password" placeholder='비밀번호' value={password} onChange={(e) => onChangePassword(e)}/>
             <LoginButton 
             isVaildLoginForm={isVaildLoginForm}
             disabled={!isVaildLoginForm}
-            type={"submit"}>Login</LoginButton>
+            type={"submit"}>로그인</LoginButton>
             </Form>
-            <SignUpText>If you don’ t have an account? 
+            <SignUpText>등록된 계정이 없으신가요?
             <span
             onClick={() => navigateSignUp()}
-            style={{color: '#2D88D4', fontWeight: 700}}> Sign up</span></SignUpText>
+            style={{color: '#2D88D4', fontWeight: 700}}> 회원가입</span></SignUpText>
         </Container>
 
     )

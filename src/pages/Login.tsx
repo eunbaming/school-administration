@@ -9,15 +9,16 @@ import { login } from "../server/auth";
 
 const Container = styled.div`
   width: 100vw;
-  height: 100vh;
   display: flex;
+  padding-top: 16vh;
   align-items: center;
-  justify-content: center;
   background-color: #fcfafa;
   flex-direction: column;
 `;
 
 const Title = styled.div`
+text-align: center;
+height: 100px;
   font-size: 36px;
   font-weight: 600;
   font-family: "KumbhSans-SemiBold";
@@ -42,10 +43,9 @@ const Login = () => {
 
     const submitLoginForm = (event: any, id: string, password: string, school?: string) => {
         
-        event.preventDefault()
-        if(type === 'user' && id.length > 0 && password.length > 0 && school !== 'default') {
-            navigate('dashboard');
-        } else if(type === 'admin' && id.length > 0 && password.length > 0) {
+        event.preventDefault();
+
+        if(id.length > 0 && password.length > 0) {
 
             console.log("submitLoginForm type admin");
 
@@ -54,7 +54,9 @@ const Login = () => {
 
             console.log("login response", response)
             if(response.data.message === '존재하지 않는 유저입니다.') {
-                alert('ID or Password do not match')
+                alert('존재하지 않는 계정입니다.')
+            } else if(response.data.message === '비밀번호가 일치하지 않습니다.') {
+              alert('비밀번호가 일치하지 않습니다.')
             } else if(response.data.refreshToken && response.data.accessToken){
                 
                 localStorage.setItem('refreshToken', response.data.refreshToken)
@@ -75,7 +77,7 @@ const Login = () => {
 
   return (
     <Container>
-      <Title>Welcome, Log into you account</Title>
+      <Title>환영합니다!<br/> 학교 관리 프로그램 입니다.</Title>
       <LoginForm
         schools={schools}
         type={type}

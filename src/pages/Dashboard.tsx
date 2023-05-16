@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useLayoutEffect } from "react";
 import styled from "styled-components";
 import { Route, Routes, useNavigate, useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
@@ -57,7 +57,9 @@ const Dashboard = () => {
 
   console.log(school !== null ? JSON.parse(school) : "")
 
-  useEffect(() => {
+  useLayoutEffect(() => {
+
+    console.log("Dashboard useLayoutEffect")
 
     
     const maleNum = teachers.reduce((acc: any, item: any) => {

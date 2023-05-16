@@ -265,7 +265,6 @@ const EditTeacherModal = ({
     e.preventDefault();
 
     if (isVaild) {
-      dispatch(setEditModal(false));
 
       const school = localStorage.getItem("current_school");
 

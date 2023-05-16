@@ -79,7 +79,7 @@ interface props {
     entire: number,
 }
 
-const SubjectRatioCircleGraph = ({korean, english, math, society, science, entire}: props) => {
+const SubjectRatioCircleGraph = ({korean = 0, english = 0, math = 0, society = 0, science = 0, entire}: props) => {
 
     const data = {
         labels: [],

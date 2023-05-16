@@ -167,8 +167,8 @@ const ListStudentHeader = ({ onClickAddStudentButton }: props) => {
   return (
     <Container>
       <StudentArea>
-        <Student>Students</Student>
-        <Add onClick={onClickAddStudentButton}>Add Student</Add>
+        <Student>학생 목록</Student>
+        <Add onClick={onClickAddStudentButton}>학생 등록</Add>
       </StudentArea>
 
       <FilterSearch>
@@ -177,16 +177,16 @@ const ListStudentHeader = ({ onClickAddStudentButton }: props) => {
             Add filter
           </Option>
           <Option key={1} value={"name"}>
-            name
+            이름
           </Option>
           <Option key={2} value={"class"}>
-            class
+            학년
           </Option>
           <Option key={3} value={"email"}>
-            email
+            이메일
           </Option>
           <Option key={3} value={"phone number"}>
-            phone number
+            전화번호
           </Option>
         </Filter>
         <SearchInput>
@@ -194,7 +194,7 @@ const ListStudentHeader = ({ onClickAddStudentButton }: props) => {
           <Search
             value={keyword}
             onChange={(event) => setKeyword(event.target.value)}
-            placeholder="Search for a student by name or class"
+            placeholder="학생을 검색하세요."
           ></Search>
         </SearchInput>
       </FilterSearch>

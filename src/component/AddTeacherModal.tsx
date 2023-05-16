@@ -249,10 +249,7 @@ const AddTeacherModal = ({submitAddTeacher, closeModal}: props) => {
         e.preventDefault();
 
         if(isVaild) {
-            dispatch(setAddModal(false));
-
             const school = localStorage.getItem("current_school");
-
             const teacherObj = {
                 name,
                 email: identificationNumber,
@@ -267,7 +264,7 @@ const AddTeacherModal = ({submitAddTeacher, closeModal}: props) => {
                 user_about: about,
                 added: true,
                 image_url: profileImageSrc,
-                schoold_id: school !== null ? JSON.parse(school).school_id : ""
+                school_id: school !== null ? JSON.parse(school).school_id : ""
             }
 
             submitAddTeacher(teacherObj); 

@@ -9,6 +9,9 @@ const SET_EDIT_MODAL = "teachers/SET_EDIT_MODAL";
 const SET_FILTER = "teachers/SET_FILTER";
 const SET_FILTERED_TEACHERS = "teachers/SET_FILTERED_TEACHERS";
 
+const SET_GENDER_RATIO = "teachers/SET_GENDER_RATIO";
+const SET_SUBJECT_RATIO = "teachers/SET_SUBJECT_RATIO";
+
 export const setTeachers = (teachers) => ({ type: SET, teachers });
 export const addTeacher = (teacher) => ({ type: ADD, teacher });
 export const editTeacher = (teacher) => ({ type: EDIT, teacher });
@@ -31,12 +34,40 @@ export const setEditModal = (isVisEditModal) => ({
   isVisEditModal,
 });
 
+export const setGenderRatio = (maleNum, femaleNum) => ({
+  type: SET_GENDER_RATIO,
+  maleNum,
+  femaleNum,
+});
+
+export const setSubjectRatio = (
+  koreanNum,
+  englishNum,
+  mathNum,
+  societyNum,
+  scienceNum
+) => ({
+  type: SET_SUBJECT_RATIO,
+  koreanNum,
+  englishNum,
+  mathNum,
+  societyNum,
+  scienceNum,
+});
+
 const INITIAL_STATE = {
   teachers: [],
   isVisAddModal: false,
   isVisEditModal: false,
   filter: "name",
   filteredTeachers: [],
+  maleNum: 0,
+  femaleNum: 0,
+  koreanNum: 0,
+  englishNum: 0,
+  mathNum: 0,
+  societyNum: 0,
+  scienceNum: 0,
 };
 
 export const teacherReducer = (state = INITIAL_STATE, action) => {

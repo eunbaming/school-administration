@@ -70,9 +70,12 @@ const Teachers = () => {
             console.log("POST_addTeacher response", response);
             dispatch(addTeacher(teacherObj))
             setCurTeacherIndex(teachers.length)
+            dispatch(setAddModal(false));
         })
         .catch((error) => {
             console.log("POST_addTeacher error", error);
+            alert("선생님 등록 실패하였습니다.")
+
         })
 
     }
@@ -85,11 +88,14 @@ const Teachers = () => {
         .then((response) => {
             console.log("PUT_editTeacher response", response);
 
+            dispatch(setAddModal(false));
             dispatch(editTeacher(teacherObj));
 
         })
         .catch((error) => {
             console.log("PUT_editTeacher error", error);
+            alert("선생님 수정 실패하였습니다.")
+
         })
 
 

@@ -12,14 +12,18 @@ import { POST_signup } from "../server/auth";
 
 const Body = styled.body`
   background: #fcfafa;
-  height: 100vh;
+  width: 100vw;
+  padding-top: 16vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 // const Container = styled.div``;
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  align-items: center;
 `;
 
 const Join = () => {
