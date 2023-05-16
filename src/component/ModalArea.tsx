@@ -1,4 +1,4 @@
-import React, { useRef, useState, useMemo } from "react";
+import React, { useRef, useState, useMemo, useEffect } from "react";
 import styled from "styled-components";
 import ImageForm from "./ImageForm";
 import NoProfileImg from "../assets/noProfile.png";
@@ -121,16 +121,7 @@ const AddStudent = styled.button`
 `;
 
 interface props {
-  addStudent: (
-    name: string,
-    studentClass: string | undefined,
-    gender: string | undefined,
-    phone: string | undefined,
-    email: string | undefined,
-    id: string | undefined,
-    password: string | undefined,
-    profileImageUrl: string | undefined
-  ) => void;
+  submitAddStudent: (student: any) => void;
   setModal: (value: boolean) => void;
 }
 
@@ -159,16 +150,33 @@ type UploadImage = {
   type: string;
 };
 
-const ModalArea = ({ addStudent, setModal }: props) => {
+const ModalArea = ({ submitAddStudent, setModal }: props) => {
   const nameInputRef = useRef<HTMLInputElement>(null);
+  const [isVaild, setIsVaild] = useState(false);
 
   const [name, setName] = useState("");
-  const [selectClass, setSelectClass] = useState();
-  const [gender, setGender] = useState();
+  const [selectClass, setSelectClass] = useState("");
+  const [gender, setGender] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [idNum, setIdNum] = useState("");
   const [password, setPassword] = useState("");
+
+  useEffect(() => {
+    if (
+      name.length > 0 &&
+      phone.length > 0 &&
+      email.length > 0 &&
+      idNum.length > 0 &&
+      password.length > 0 &&
+      selectClass.length > 0 &&
+      gender.length > 0
+    ) {
+      setIsVaild(true);
+    } else {
+      setIsVaild(false);
+    }
+  }, [name, phone, email, idNum, password, gender, selectClass]);
 
   const handleFocusName = () => {
     nameInputRef.current?.focus();
@@ -176,17 +184,27 @@ const ModalArea = ({ addStudent, setModal }: props) => {
 
   const addStudentRender = (event: any) => {
     event.preventDefault();
-    setModal(false);
-    addStudent(
-      name,
-      selectClass,
-      gender,
-      phone,
-      email,
-      idNum,
-      password,
-      imageFile?.thumbnail
-    );
+
+    if (isVaild) {
+      setModal(false);
+
+      const school = localStorage.getItem("current_shool");
+
+      const studentObj = {
+        email,
+        password,
+        name,
+        grade: Number(selectClass),
+        gender: Number(gender),
+        phone_number: phone,
+        image: imageFile,
+        image_url: imageFile?.thumbnail,
+        added: true,
+        school_id: school !== null ? JSON.parse(school).school_id : "",
+      };
+
+      submitAddStudent(studentObj);
+    }
   };
 
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -245,24 +263,24 @@ const ModalArea = ({ addStudent, setModal }: props) => {
                   Class
                 </Option>
                 <Option key={1} value={1}>
-                  1
+                  1학년
                 </Option>
                 <Option key={2} value={2}>
-                  2
+                  2학년
                 </Option>
                 <Option key={3} value={3}>
-                  3
+                  3학년
                 </Option>
               </Select>
               <Select onChange={(event: any) => setGender(event.target.value)}>
                 <Option disabled hidden>
                   Gender
                 </Option>
-                <Option key={"Male"} value={"Male"}>
-                  Male
+                <Option key={1} value={1}>
+                  남성
                 </Option>
-                <Option key={"Female"} value={"Female"}>
-                  Female
+                <Option key={2} value={2}>
+                  여성
                 </Option>
               </Select>
             </NameInputs>

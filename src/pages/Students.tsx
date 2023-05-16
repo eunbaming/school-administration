@@ -8,6 +8,7 @@ import { addStudents, editStudent } from "../redux/students/state";
 import ListStudentHeader from "../component/ListStudentHeader";
 import StudentListComponent from "../component/StudentListComponent";
 import EditStudentModal from "../component/EditStudentModal";
+import { POST_addStudent } from "../server/student";
 
 const FullContainer = styled.div``;
 
@@ -32,8 +33,6 @@ const BlackScreen = styled.div`
   height: 100vh;
 `;
 
-interface props {}
-
 const Students = () => {
   const [modal, setModal] = useState(false);
   const [curStudentIndex, setCurStudentIndex] = useState(0);
@@ -47,32 +46,18 @@ const Students = () => {
     setModal(true);
   };
 
-  const addStudent = (
-    name: string,
-    studentClass: string | undefined,
-    gender: string | undefined,
-    phone: string | undefined,
-    email: string | undefined,
-    idNum: string | undefined,
-    password: string | undefined,
-    // about: string | undefined,
-    profileImageUrl: string | undefined
-  ) => {
-    setModal(false);
+  const submitAddStudent = (studentObj: any) => {
+    console.log("studentobj", studentObj);
 
-    const studentObj = {
-      name,
-      class: studentClass,
-      gender,
-      email,
-      // about,
-      id: idNum,
-      password,
-      phone,
-      profileImage: profileImageUrl,
-    };
-
-    dispatch(addStudents([studentObj]));
+    POST_addStudent(studentObj)
+      .then((response) => {
+        console.log("POST_addStudent response", response);
+        dispatch(addStudents(studentObj));
+        setCurStudentIndex(students.length);
+      })
+      .catch((error) => {
+        console.log("POST_addStudent error", error);
+      });
   };
 
   const submitEditStudent = (
@@ -102,28 +87,26 @@ const Students = () => {
 
   return (
     <Layout>
-      <FullContainer>
-        {(modal || isVisEditModal) && <BlackScreen />}
-        {modal && <ModalArea addStudent={addStudent} setModal={setModal} />}
-        {isVisEditModal && (
-          <EditStudentModal
-            student={students[curStudentIndex]}
-            submitEditStudent={submitEditStudent}
+      {(modal || isVisEditModal) && <BlackScreen />}
+      {modal && (
+        <ModalArea submitAddStudent={submitAddStudent} setModal={setModal} />
+      )}
+      {isVisEditModal && (
+        <EditStudentModal
+          student={students[curStudentIndex]}
+          submitEditStudent={submitEditStudent}
+        />
+      )}
+      <Container>
+        <ListStudentHeader onClickAddStudentButton={onClickAddStudentButton} />
+        <StudentListContainer>
+          <StudentListComponent
+            curStudentIndex={curStudentIndex}
+            setCurStudentIndex={setCurStudentIndex}
+            studentArr={filteredStudent}
           />
-        )}
-        <Container>
-          <ListStudentHeader
-            onClickAddStudentButton={onClickAddStudentButton}
-          />
-          <StudentListContainer>
-            <StudentListComponent
-              curStudentIndex={curStudentIndex}
-              setCurStudentIndex={setCurStudentIndex}
-              studentArr={filteredStudent}
-            />
-          </StudentListContainer>
-        </Container>
-      </FullContainer>
+        </StudentListContainer>
+      </Container>
     </Layout>
   );
 };

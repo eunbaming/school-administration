@@ -170,19 +170,6 @@ const Dashboard = () => {
 export default Dashboard;
 
 
- {/*
-        <AddUserButton
-        onClickAddUser={onClickAddUser}
-        iconPNG={BankIconPNG}
-        type={"Teachers"}
-        />
-        <AddUserButton
-        onClickAddUser={onClickAddUser}
-        iconPNG={StudentIconPNG}
-        type={"Students"}
-        />
-        */}
-
 
 
 

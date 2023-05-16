@@ -266,6 +266,7 @@ const EditTeacherModal = ({
 
     if (isVaild) {
 
+
       const school = localStorage.getItem("current_school");
 
       const teacherObj = {

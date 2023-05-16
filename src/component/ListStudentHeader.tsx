@@ -150,18 +150,22 @@ const ListStudentHeader = ({ onClickAddStudentButton }: props) => {
   };
 
   const searchStudents = (keyword: string) => {
-    const filteredStudents = students.filter((item: any) => {
-      if (filter === "class") {
-        return item[filter].includes(keyword);
-      }
-      if (filter === "phone number") {
-        return item["phoneNumber"].includes(keyword);
-      } else {
-        return item[filter].toLowerCase().includes(keyword);
-      }
-    });
-
-    dispatch(setFilteredStudents(filteredStudents));
+    if (keyword === "") {
+      dispatch(setFilteredStudents(students));
+    } else {
+      const filteredStudents = students.filter((item: any) => {
+        if (filter === "name") {
+          return item["name"].toLowerCase().includes(keyword.toLowerCase());
+        } else if (filter === "class") {
+          return item[filter].toString().includes(keyword);
+        } else if (filter === "email") {
+          return item["email"].includes(keyword);
+        } else if (filter === "phone number") {
+          return item["phone_number"].includes(keyword);
+        }
+      });
+      dispatch(setFilteredStudents(filteredStudents));
+    }
   };
 
   return (
@@ -200,11 +204,11 @@ const ListStudentHeader = ({ onClickAddStudentButton }: props) => {
       </FilterSearch>
 
       <Category>
-        <Item style={{ flex: 1.5 }}>Name</Item>
+        <Item style={{ flex: 1 }}>Name</Item>
         <Item style={{ flex: 1 }}>Student ID</Item>
-        <Item style={{ flex: 1.5 }}>Email address</Item>
         <Item style={{ flex: 1 }}>Class</Item>
         <Item style={{ flex: 1 }}>Gender</Item>
+        <Item style={{ flex: 1.5 }}>Email address</Item>
       </Category>
     </Container>
   );

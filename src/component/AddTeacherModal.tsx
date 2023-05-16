@@ -1,12 +1,11 @@
-import React, {useRef, useState, useEffect} from 'react';
-import styled from 'styled-components';
+import React, { useRef, useState, useEffect } from "react";
+import styled from "styled-components";
 
-import { useDispatch } from 'react-redux';
-import { setAddModal } from '../redux/teachers/state';
+import { useDispatch } from "react-redux";
+import { setAddModal } from "../redux/teachers/state";
 
-import CloseIconPNG from '../assets/icons/close_icon.png';
-import BlankProfileImagePNG from '../assets/blank_profile.jpg';
-
+import CloseIconPNG from "../assets/icons/close_icon.png";
+import BlankProfileImagePNG from "../assets/blank_profile.jpg";
 
 const Container = styled.div`
   min-width: 35rem;
@@ -173,139 +172,149 @@ const CloseIcon = styled.img`
   opacity: 0.7;
 `;
 
-
 interface props {
-    submitAddTeacher: (teacher: any) => void;
-    closeModal: () => void;
+  submitAddTeacher: (teacher: any) => void;
+  closeModal: () => void;
 }
 
+const AddTeacherModal = ({ submitAddTeacher, closeModal }: props) => {
+  const [isVaild, setIsVaild] = useState(false);
+  const [name, setName] = useState<string>("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [email, setEmail] = useState("");
+  const [identificationNumber, setIdentificationNumber] = useState("");
+  const [password, setPassword] = useState("");
+  const [about, setAbout] = useState("");
+  const [imageFile, setImageFile] = useState<any>();
 
-const AddTeacherModal = ({submitAddTeacher, closeModal}: props) => {
-    const [isVaild, setIsVaild] = useState(false);
-    const [name, setName] = useState<string>('');
-    const [phoneNumber, setPhoneNumber] = useState('');
-    const [email, setEmail] = useState('');
-    const [identificationNumber, setIdentificationNumber] = useState('');
-    const [password, setPassword] = useState('');
-    const [about, setAbout] = useState('');
-    const [imageFile, setImageFile] = useState<any>();
+  const [teacherClass, setTeacherClass] = useState("");
+  const [gender, setGender] = useState("");
+  const [subject, setSubject] = useState("");
 
-    const [teacherClass, setTeacherClass] = useState('');
-    const [gender, setGender] = useState('');
-    const [subject, setSubject] = useState('');
+  const dispatch = useDispatch();
 
-    const dispatch = useDispatch(); 
-    
+  const imgInputRef = useRef<HTMLInputElement | null>(null);
+  const [profileImageSrc, setProfileImageSrc]: any =
+    useState(BlankProfileImagePNG);
 
-    const imgInputRef = useRef<HTMLInputElement | null>(null);
-    const [profileImageSrc, setProfileImageSrc]: any = useState(BlankProfileImagePNG);
+  useEffect(() => {
+    if (
+      name.length > 0 &&
+      phoneNumber.length > 0 &&
+      email.length > 0 &&
+      identificationNumber.length > 0 &&
+      password.length > 0 &&
+      teacherClass.length > 0 &&
+      gender.length > 0 &&
+      subject.length > 0
+    ) {
+      setIsVaild(true);
+    } else {
+      setIsVaild(false);
+    }
+  }, [
+    name,
+    phoneNumber,
+    email,
+    identificationNumber,
+    password,
+    gender,
+    subject,
+    teacherClass,
+  ]);
 
-    useEffect(() => {
-        if(name.length > 0 && phoneNumber.length > 0 && email.length > 0 && identificationNumber.length > 0 && password.length > 0 &&teacherClass.length > 0 && gender.length > 0 && subject.length > 0) {
-            setIsVaild(true);
-        } else {
-            setIsVaild(false);
-        }
-
-    }, [name, phoneNumber, email, identificationNumber, password, gender, subject, teacherClass])
-
-    
-
-    const onUploadProfileImage = (e: React.ChangeEvent<HTMLInputElement>) => {
-        if(!e.target.files) {
-            return
-        } 
-
-        if(e.target.files[0]) {
-            console.log("e.target.files", e.target.files);
-            setImageFile(e.target.files[0]);
-            const file = e.target.files[0];
-            const reader = new FileReader();
-            reader.readAsDataURL(file);
-    
-            return new Promise<void>((resolve) => {
-                reader.onload = () => {
-                    console.log("reader.result", reader.result);
-                    setProfileImageSrc(reader.result || null);
-                    resolve();
-                }
-            })
-
-
-        }
-
-
+  const onUploadProfileImage = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!e.target.files) {
+      return;
     }
 
-    const onClickProfileImg = () => {
-        if(!imgInputRef.current) {
-            return
-        }
+    if (e.target.files[0]) {
+      console.log("e.target.files", e.target.files);
+      setImageFile(e.target.files[0]);
+      const file = e.target.files[0];
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
 
-        imgInputRef.current.click();
+      return new Promise<void>((resolve) => {
+        reader.onload = () => {
+          console.log("reader.result", reader.result);
+          setProfileImageSrc(reader.result || null);
+          resolve();
+        };
+      });
+    }
+  };
+
+  const onClickProfileImg = () => {
+    if (!imgInputRef.current) {
+      return;
     }
 
-    const onClickAddTeacher = (e: any) => {
-        e.preventDefault();
+    imgInputRef.current.click();
+  };
 
-        if(isVaild) {
-            const school = localStorage.getItem("current_school");
-            const teacherObj = {
-                name,
-                email: identificationNumber,
-                password,
-                email_address: email,
-                grade: Number(teacherClass),
-                class: Number(teacherClass),
-                subject: Number(subject),
-                gender: Number(gender),
-                phone_number: phoneNumber,
-                image: imageFile,
-                user_about: about,
-                added: true,
-                image_url: profileImageSrc,
-                school_id: school !== null ? JSON.parse(school).school_id : ""
-            }
+  const onClickAddTeacher = (e: any) => {
+    e.preventDefault();
 
-            submitAddTeacher(teacherObj); 
-        } 
+    if (isVaild) {
+      const school = localStorage.getItem("current_school");
+
+      const teacherObj = {
+        name,
+        email: identificationNumber,
+        password,
+        email_address: email,
+        grade: Number(teacherClass),
+        class: Number(teacherClass),
+        subject: Number(subject),
+        gender: Number(gender),
+        phone_number: phoneNumber,
+        image: imageFile,
+        user_about: about,
+        added: true,
+        image_url: profileImageSrc,
+        school_id: school !== null ? JSON.parse(school).school_id : "",
+      };
+
+      submitAddTeacher(teacherObj);
     }
+  };
 
-    const selectClass = (e: any) => {
-        setTeacherClass(e.target.value);
-    }
+  const selectClass = (e: any) => {
+    setTeacherClass(e.target.value);
+  };
 
-    const selectGender = (e: any) => {
-        setGender(e.target.value);
-    }
+  const selectGender = (e: any) => {
+    setGender(e.target.value);
+  };
 
-    const selectSubject = (e: any) => {
-        setSubject(e.target.value)
-    }
+  const selectSubject = (e: any) => {
+    setSubject(e.target.value);
+  };
 
-    const changeName = (e: any) => {
-        setName(e.target.value)
-    }
+  const changeName = (e: any) => {
+    setName(e.target.value);
+  };
 
-    const changePhoneNumber = (e: any) => {
-        setPhoneNumber(e.target.value);
-    }
+  const changePhoneNumber = (e: any) => {
+    setPhoneNumber(e.target.value);
+  };
 
-    const changeEmail = (e: any) => {
-        setEmail(e.target.value);
-    }
+  const changeEmail = (e: any) => {
+    setEmail(e.target.value);
+  };
 
-    const changeIdentificationNumber = (e: any) => {
-        setIdentificationNumber(e.target.value);
-    }
+  const changeIdentificationNumber = (e: any) => {
+    setIdentificationNumber(e.target.value);
+  };
 
-    const changePassword = (e: any) => {
-        setPassword(e.target.value);
-    }
+  const changePassword = (e: any) => {
+    setPassword(e.target.value);
+  };
 
-    const changeAbout = (e: any) => {
-        setAbout(e.target.value);
-    }
+  const changeAbout = (e: any) => {
+    setAbout(e.target.value);
+  };
 
     return (
         <Container> 
@@ -401,4 +410,4 @@ const AddTeacherModal = ({submitAddTeacher, closeModal}: props) => {
     )
 }
 
-export default AddTeacherModal
+export default AddTeacherModal;

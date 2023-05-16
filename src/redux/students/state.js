@@ -36,6 +36,7 @@ export const studentReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         students: [...state.students, ...action.students],
+        filteredStudent: [...state.filteredStudent, ...action.students],
       };
     case EDIT:
       return {

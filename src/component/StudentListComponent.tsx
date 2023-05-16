@@ -6,7 +6,7 @@ import StudentDetail from "./StudentDetail";
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  padding-left: 40px;
+  flex: 1;
 `;
 
 const StudentsDiv = styled.div`
@@ -15,9 +15,14 @@ const StudentsDiv = styled.div`
 `;
 
 const NoStudent = styled.h1`
-  flex: 1;
-  min-height: 60vh;
+  z-index: 10;
+  margin-top: 27vh;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  width: 60vw;
   display: flex;
+  background-color: #fcfafa;
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -36,6 +41,7 @@ const Explanation = styled.div`
 `;
 
 const StudentListAndDetailDiv = styled.div`
+  z-index: 10;
   display: flex;
   flex-direction: row;
 `;
@@ -44,7 +50,8 @@ const StudentList = styled.div`
   margin-top: 27vh;
   top: 0;
   bottom: 0;
-  width: 59.5vw;
+  padding-left: 40px;
+  background-color: #fcfafa;
   overflow-y: scroll;
   position: fixed;
   ::-webkit-scrollbar {
