@@ -2,6 +2,7 @@
 import React from 'react'
 import styled from 'styled-components';
 import {useDispatch} from 'react-redux';
+import { rootUrl } from '../server';
 
 import { setEditModal, deleteTeacher } from '../redux/teachers/state';
 import { DELETE_Teacher } from '../server/teacher';
@@ -148,7 +149,7 @@ const TeacherDetail = ({teacher, index}: props) => {
             DELETE_Teacher(teacher.id)
             .then((response) => {
                 console.log("DELETE_Teacher response", response);
-                dispatch(deleteTeacher(index))
+                dispatch(deleteTeacher(teacher.id))
             })
             .catch((error) => {
                 console.log("DELETE_Teacher error", error);
@@ -162,7 +163,7 @@ const TeacherDetail = ({teacher, index}: props) => {
         <Container>
             <ProfileDiv>
             <ProfileImage
-            src={BlankProfilePNG}
+            src={teacher.added ? teacher.image_url : `${rootUrl}/${teacher.profile_image_url}`}
             />
             <NameDiv>
                 {teacher.name}

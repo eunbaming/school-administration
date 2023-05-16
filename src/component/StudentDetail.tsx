@@ -5,6 +5,7 @@ import CallIconPGN from "../assets/icons/call_icon.png";
 import SMSIconPNG from "../assets/icons/sms_icon.png";
 import { useDispatch } from "react-redux";
 import { deleteStudent, setEditModal } from "../redux/students/state";
+import { rootUrl } from "../server";
 
 interface props {
   student: any;
@@ -142,7 +143,13 @@ const StudentDetail = ({ student, index }: props) => {
   return (
     <Container>
       <ProfileDiv>
-        <ProfileImage src={student.profileImage} />
+        <ProfileImage
+          src={
+            student.added
+              ? student.image_url
+              : `${rootUrl}/${student.profile_image_url}`
+          }
+        />
         <NameDiv>{student.name}</NameDiv>
       </ProfileDiv>
       <BasicInfoDiv>
@@ -155,7 +162,7 @@ const StudentDetail = ({ student, index }: props) => {
           <InfoValueText>{student.gender}</InfoValueText>
         </InfoItemDiv>
       </BasicInfoDiv>
-
+      {/* 
       <BasicInfoDiv>
         <InfoItemDiv>
           <InfoLabelText>Identification Number</InfoLabelText>
@@ -165,7 +172,7 @@ const StudentDetail = ({ student, index }: props) => {
           <InfoLabelText>Password</InfoLabelText>
           <InfoValueText>{1111}</InfoValueText>
         </InfoItemDiv>
-      </BasicInfoDiv>
+      </BasicInfoDiv> */}
 
       <AboutDiv>
         <InfoLabelText>About</InfoLabelText>

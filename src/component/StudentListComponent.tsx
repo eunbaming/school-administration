@@ -41,6 +41,7 @@ const Explanation = styled.div`
 `;
 
 const StudentListAndDetailDiv = styled.div`
+  z-index: 10;
   display: flex;
   flex-direction: row;
 `;
@@ -49,7 +50,8 @@ const StudentList = styled.div`
   margin-top: 27vh;
   top: 0;
   bottom: 0;
-  width: 59.5vw;
+  padding-left: 40px;
+  background-color: #fcfafa;
   overflow-y: scroll;
   position: fixed;
   ::-webkit-scrollbar {

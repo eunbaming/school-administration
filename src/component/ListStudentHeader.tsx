@@ -200,11 +200,11 @@ const ListStudentHeader = ({ onClickAddStudentButton }: props) => {
       </FilterSearch>
 
       <Category>
-        <Item style={{ flex: 1.5 }}>Name</Item>
+        <Item style={{ flex: 1 }}>Name</Item>
         <Item style={{ flex: 1 }}>Student ID</Item>
-        <Item style={{ flex: 1.5 }}>Email address</Item>
         <Item style={{ flex: 1 }}>Class</Item>
         <Item style={{ flex: 1 }}>Gender</Item>
+        <Item style={{ flex: 1.5 }}>Email address</Item>
       </Category>
     </Container>
   );

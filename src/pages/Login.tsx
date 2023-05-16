@@ -56,6 +56,7 @@ const Login = () => {
             if(response.data.message === '존재하지 않는 유저입니다.') {
                 alert('ID or Password do not match')
             } else if(response.data.refreshToken && response.data.accessToken){
+                
                 localStorage.setItem('refreshToken', response.data.refreshToken)
                 localStorage.setItem('accessToken', response.data.accessToken)
                 navigate('dashboard');

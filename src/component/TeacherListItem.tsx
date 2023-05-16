@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
+import { rootUrl } from '../server';
 import BlankProfileImagePNG from '../assets/blank_profile.jpg';
 
 interface TeacherItemProps {
@@ -84,7 +85,7 @@ const TeacherListItem = ({teacher, selectTeacherListItem, index, curTeacherIndex
         onClick={() => selectTeacherListItem(index)}>
             <NameDiv>
                 <ProfileImg
-                src={BlankProfileImagePNG}/>
+                src={teacher.added ? teacher.image_url : `${rootUrl}/${teacher.profile_image_url}`}/>
                 {teacher.name}
             </NameDiv>
             <SubjectDiv>

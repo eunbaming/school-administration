@@ -8,6 +8,7 @@ import { addStudents, editStudent } from "../redux/students/state";
 import ListStudentHeader from "../component/ListStudentHeader";
 import StudentListComponent from "../component/StudentListComponent";
 import EditStudentModal from "../component/EditStudentModal";
+import { POST_addStudent } from "../server/student";
 
 const FullContainer = styled.div``;
 
@@ -46,10 +47,17 @@ const Students = () => {
   };
 
   const submitAddStudent = (studentObj: any) => {
-    setModal(false);
     console.log("studentobj", studentObj);
 
-    // dispatch(addStudents([studentObj]));
+    POST_addStudent(studentObj)
+      .then((response) => {
+        console.log("POST_addStudent response", response);
+        dispatch(addStudents(studentObj));
+        setCurStudentIndex(students.length);
+      })
+      .catch((error) => {
+        console.log("POST_addStudent error", error);
+      });
   };
 
   const submitEditStudent = (

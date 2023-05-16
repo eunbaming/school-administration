@@ -29,7 +29,6 @@ justify-content: center;
 `;
 
 const TeacherImage = styled.img`
-opacity: 0.8;
   width: 3.3rem;
   height: 3.3rem;  
 `;

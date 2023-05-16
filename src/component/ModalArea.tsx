@@ -1,4 +1,4 @@
-import React, { useRef, useState, useMemo } from "react";
+import React, { useRef, useState, useMemo, useEffect } from "react";
 import styled from "styled-components";
 import ImageForm from "./ImageForm";
 import NoProfileImg from "../assets/noProfile.png";
@@ -152,14 +152,31 @@ type UploadImage = {
 
 const ModalArea = ({ submitAddStudent, setModal }: props) => {
   const nameInputRef = useRef<HTMLInputElement>(null);
+  const [isVaild, setIsVaild] = useState(false);
 
   const [name, setName] = useState("");
-  const [selectClass, setSelectClass] = useState();
-  const [gender, setGender] = useState();
+  const [selectClass, setSelectClass] = useState("");
+  const [gender, setGender] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [idNum, setIdNum] = useState("");
   const [password, setPassword] = useState("");
+
+  useEffect(() => {
+    if (
+      name.length > 0 &&
+      phone.length > 0 &&
+      email.length > 0 &&
+      idNum.length > 0 &&
+      password.length > 0 &&
+      selectClass.length > 0 &&
+      gender.length > 0
+    ) {
+      setIsVaild(true);
+    } else {
+      setIsVaild(false);
+    }
+  }, [name, phone, email, idNum, password, gender, selectClass]);
 
   const handleFocusName = () => {
     nameInputRef.current?.focus();
@@ -168,19 +185,23 @@ const ModalArea = ({ submitAddStudent, setModal }: props) => {
   const addStudentRender = (event: any) => {
     event.preventDefault();
 
-    const studentObj = {
-      email,
-      password,
-      name,
-      grade: Number(selectClass),
-      gender: Number(gender),
-      phone_number: phone,
-      profile_image_url: imageFile?.thumbnail,
-    };
+    if (isVaild) {
+      setModal(false);
 
-    setModal(false);
+      const studentObj = {
+        email,
+        password,
+        name,
+        grade: Number(selectClass),
+        gender: Number(gender),
+        phone_number: phone,
+        image: imageFile,
+        // image_url: imageFile?.thumbnail,
+        added: true,
+      };
 
-    submitAddStudent(studentObj);
+      submitAddStudent(studentObj);
+    }
   };
 
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -252,10 +273,10 @@ const ModalArea = ({ submitAddStudent, setModal }: props) => {
                 <Option disabled hidden>
                   Gender
                 </Option>
-                <Option key={"Male"} value={"Male"}>
+                <Option key={1} value={1}>
                   남성
                 </Option>
-                <Option key={"Female"} value={"Female"}>
+                <Option key={2} value={2}>
                   여성
                 </Option>
               </Select>
