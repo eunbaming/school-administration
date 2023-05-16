@@ -32,7 +32,7 @@ padding-right: 30px;
 const TeachersTitle = styled.span`
 font-family: 'KumbhSans-SemiBold';
 font-size: 16px;
-font-weight: 500;
+font-weight: 700;
 line-height: 20px;
 color: #4F4F4F;
 `;
@@ -128,23 +128,37 @@ const ListHeader = ({onClickAddTeacherButton}: props) => {
         searchTeachers(keyword);
     }, [keyword])
 
-    useEffect(() => {
-        console.log("filter", filter);
-    }, [filter])
 
     const searchTeachers = (keywordValue: string) => {
-        const filteredTeachers = teachers.filter((item: any) => {
-            if(filter === 'phone number') {
-                return item['phoneNumber'].includes(keywordValue)
-            }
-            if(filter === 'class') {
-                return item[filter].includes(keywordValue)
-            } else {
-                return item[filter].toLowerCase().includes(keywordValue.toLowerCase())
-            }
-        })
-
+        if(keywordValue === '') {
+            dispatch(setFilteredTeachers(teachers))
+        } else {
+            const filteredTeachers = teachers.filter((item: any) => {
+                if(filter === 'phone number') {
+                    return item['phone_number'].includes(keywordValue)
+                } else if(filter === 'class') {
+                    return (item[filter]).toString().includes(keywordValue)
+                } else if(filter === 'email') {
+                    return item['email_address'].includes(keywordValue)
+                } else if(filter === 'gender') {
+                    if(keyword === '남성' || '남' || '남자') {
+                        return item['gender'] == 1
+                    } else if(keyword === '여성' || '여' || '여자') {
+                        return item['gender'] == 2
+                    }
+                } else if(filter === 'name') {    
+                        return item[filter].toLowerCase().includes(keywordValue.toLowerCase())
+                } else if(filter === 'subject') {
+                    if(keyword.includes('국')) return item[filter] === 1
+                    if(keyword.includes('영')) return item[filter] === 2
+                    if(keyword.includes('수')) return item[filter] === 3
+                    if(keyword.includes('사')) return item[filter] === 4
+                    if(keyword.includes('과')) return item[filter] === 5
+                }  
+            })
         dispatch(setFilteredTeachers(filteredTeachers))
+        }
+
 
     }
 
@@ -155,20 +169,20 @@ const ListHeader = ({onClickAddTeacherButton}: props) => {
     return (
         <Container>
             <TitleDiv>
-            <TeachersTitle>Teachers</TeachersTitle>
+            <TeachersTitle>선생님 목록</TeachersTitle>
             <AddTeacherBtn
-            onClick={() => onClickAddTeacherButton()}>Add Teacher</AddTeacherBtn>
+            onClick={() => onClickAddTeacherButton()}>선생님 등록</AddTeacherBtn>
             </TitleDiv>
 
             <SearchBar>
                 <SearchFilterSelect onChange={selectFilter}
                 defaultValue={"name"}>
-                    <option key={"name"} value={"name"}>name</option>
-                    <option key={"subject"} value={"subject"}>subject</option>
-                    <option key={"class"} value={"class"}>class</option>
-                    <option key={"gender"} value={"gender"}>gender</option>
-                    <option key={"email"} value={"email"}>email</option>
-                    <option key={"phoneNumber"} value={"phone number"}>phone number</option>
+                    <option key={"name"} value={"name"}>이름</option>
+                    <option key={"subject"} value={"subject"}>과목</option>
+                    <option key={"class"} value={"class"}>담당 학년</option>
+                    <option key={"gender"} value={"gender"}>성별</option>
+                    <option key={"email"} value={"email"}>이메일</option>
+                    <option key={"phoneNumber"} value={"phone number"}>전화번호</option>
                 </SearchFilterSelect>
                 <SearchInputDiv>
                     <SearchIcon
@@ -177,27 +191,27 @@ const ListHeader = ({onClickAddTeacherButton}: props) => {
                     <SearchInput
                     value={keyword}
                     onChange={(e) => setKeyword(e.target.value)}
-                    placeholder={`Search for a Teacher by ${filter}`}
+                    placeholder={`선생님을 검색하세요.`}
                     />
                 </SearchInputDiv>
             </SearchBar>
             <CategoryDiv>
                         <CategoryItem
                         style={{flex: 1}}>
-                            Name
+                            이름
                         </CategoryItem>
                         <CategoryItem
                         style={{flex: 1}}>
-                            Subject
+                            과목
                         </CategoryItem>
                         <CategoryItem
                         style={{flex: 1}}>
-                            Class
+                            담당 학년
                         </CategoryItem>
 
                         <CategoryItem
                         style={{flex: 1}}>
-                            Gender
+                            성별
                         </CategoryItem>
                         {/*
                         <CategoryItem

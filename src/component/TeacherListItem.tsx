@@ -96,9 +96,9 @@ const TeacherListItem = ({teacher, selectTeacherListItem, index, curTeacherIndex
                 {teacher.subject === 5 && '과학'}
             </SubjectDiv>
             <ClassDiv>
-                {teacher.class === 1 && '1 학년'}
-                {teacher.class === 2 && '2 학년'}
-                {teacher.class === 3 && '3 학년'}
+                {teacher.class === 1 && '1학년'}
+                {teacher.class === 2 && '2학년'}
+                {teacher.class === 3 && '3학년'}
             </ClassDiv>
             <GenderDiv>
                 {teacher.gender === 1 && '남성'}

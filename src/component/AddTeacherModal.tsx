@@ -1,12 +1,11 @@
-import React, {useRef, useState, useEffect} from 'react';
-import styled from 'styled-components';
+import React, { useRef, useState, useEffect } from "react";
+import styled from "styled-components";
 
-import { useDispatch } from 'react-redux';
-import { setAddModal } from '../redux/teachers/state';
+import { useDispatch } from "react-redux";
+import { setAddModal } from "../redux/teachers/state";
 
-import CloseIconPNG from '../assets/icons/close_icon.png';
-import BlankProfileImagePNG from '../assets/blank_profile.jpg';
-
+import CloseIconPNG from "../assets/icons/close_icon.png";
+import BlankProfileImagePNG from "../assets/blank_profile.jpg";
 
 const Container = styled.div`
   min-width: 35rem;
@@ -24,7 +23,7 @@ const Container = styled.div`
 
 const TitleDiv = styled.div`
   font-family: "KumbhSans-SemiBold";
-  font-size: 32px;
+  font-size: 26px;
   font-weight: 600;
   line-height: 40px;
   color: #4f4f4f;
@@ -173,232 +172,262 @@ const CloseIcon = styled.img`
   opacity: 0.7;
 `;
 
-
 interface props {
-    submitAddTeacher: (teacher: any) => void;
-    closeModal: () => void;
+  submitAddTeacher: (teacher: any) => void;
+  closeModal: () => void;
 }
 
+const AddTeacherModal = ({ submitAddTeacher, closeModal }: props) => {
+  const [isVaild, setIsVaild] = useState(false);
+  const [name, setName] = useState<string>("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [email, setEmail] = useState("");
+  const [identificationNumber, setIdentificationNumber] = useState("");
+  const [password, setPassword] = useState("");
+  const [about, setAbout] = useState("");
+  const [imageFile, setImageFile] = useState<any>();
 
-const AddTeacherModal = ({submitAddTeacher, closeModal}: props) => {
-    const [isVaild, setIsVaild] = useState(false);
-    const [name, setName] = useState<string>('');
-    const [phoneNumber, setPhoneNumber] = useState('');
-    const [email, setEmail] = useState('');
-    const [identificationNumber, setIdentificationNumber] = useState('');
-    const [password, setPassword] = useState('');
-    const [about, setAbout] = useState('');
-    const [imageFile, setImageFile] = useState<any>();
+  const [teacherClass, setTeacherClass] = useState("");
+  const [gender, setGender] = useState("");
+  const [subject, setSubject] = useState("");
 
-    const [teacherClass, setTeacherClass] = useState('');
-    const [gender, setGender] = useState('');
-    const [subject, setSubject] = useState('');
+  const dispatch = useDispatch();
 
-    const dispatch = useDispatch(); 
-    
+  const imgInputRef = useRef<HTMLInputElement | null>(null);
+  const [profileImageSrc, setProfileImageSrc]: any =
+    useState(BlankProfileImagePNG);
 
-    const imgInputRef = useRef<HTMLInputElement | null>(null);
-    const [profileImageSrc, setProfileImageSrc]: any = useState(BlankProfileImagePNG);
+  useEffect(() => {
+    if (
+      name.length > 0 &&
+      phoneNumber.length > 0 &&
+      email.length > 0 &&
+      identificationNumber.length > 0 &&
+      password.length > 0 &&
+      teacherClass.length > 0 &&
+      gender.length > 0 &&
+      subject.length > 0
+    ) {
+      setIsVaild(true);
+    } else {
+      setIsVaild(false);
+    }
+  }, [
+    name,
+    phoneNumber,
+    email,
+    identificationNumber,
+    password,
+    gender,
+    subject,
+    teacherClass,
+  ]);
 
-    useEffect(() => {
-        if(name.length > 0 && phoneNumber.length > 0 && email.length > 0 && identificationNumber.length > 0 && password.length > 0 &&teacherClass.length > 0 && gender.length > 0 && subject.length > 0) {
-            setIsVaild(true);
-        } else {
-            setIsVaild(false);
-        }
-
-    }, [name, phoneNumber, email, identificationNumber, password, gender, subject, teacherClass])
-
-    
-
-    const onUploadProfileImage = (e: React.ChangeEvent<HTMLInputElement>) => {
-        if(!e.target.files) {
-            return
-        } 
-
-        if(e.target.files[0]) {
-            console.log("e.target.files", e.target.files);
-            setImageFile(e.target.files[0]);
-            const file = e.target.files[0];
-            const reader = new FileReader();
-            reader.readAsDataURL(file);
-    
-            return new Promise<void>((resolve) => {
-                reader.onload = () => {
-                    console.log("reader.result", reader.result);
-                    setProfileImageSrc(reader.result || null);
-                    resolve();
-                }
-            })
-
-
-        }
-
-
+  const onUploadProfileImage = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!e.target.files) {
+      return;
     }
 
-    const onClickProfileImg = () => {
-        if(!imgInputRef.current) {
-            return
-        }
+    if (e.target.files[0]) {
+      console.log("e.target.files", e.target.files);
+      setImageFile(e.target.files[0]);
+      const file = e.target.files[0];
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
 
-        imgInputRef.current.click();
+      return new Promise<void>((resolve) => {
+        reader.onload = () => {
+          console.log("reader.result", reader.result);
+          setProfileImageSrc(reader.result || null);
+          resolve();
+        };
+      });
+    }
+  };
+
+  const onClickProfileImg = () => {
+    if (!imgInputRef.current) {
+      return;
     }
 
-    const onClickAddTeacher = (e: any) => {
-        e.preventDefault();
+    imgInputRef.current.click();
+  };
 
-        if(isVaild) {
-            dispatch(setAddModal(false));
+  const onClickAddTeacher = (e: any) => {
+    e.preventDefault();
 
-            const teacherObj = {
-                name,
-                email: identificationNumber,
-                password,
-                email_address: email,
-                grade: Number(teacherClass),
-                class: Number(teacherClass),
-                subject: Number(subject),
-                gender: Number(gender),
-                phone_number: phoneNumber,
-                image: imageFile,
-                user_about: about,
-                added: true,
-                image_url: profileImageSrc,
-            }
+    if (isVaild) {
+      dispatch(setAddModal(false));
 
-            submitAddTeacher(teacherObj); 
-        } 
+      const school = localStorage.getItem("current_school");
+
+      const teacherObj = {
+        name,
+        email: identificationNumber,
+        password,
+        email_address: email,
+        grade: Number(teacherClass),
+        class: Number(teacherClass),
+        subject: Number(subject),
+        gender: Number(gender),
+        phone_number: phoneNumber,
+        image: imageFile,
+        user_about: about,
+        added: true,
+        image_url: profileImageSrc,
+        school_id: school !== null ? JSON.parse(school).school_id : "",
+      };
+
+      submitAddTeacher(teacherObj);
     }
+  };
 
-    const selectClass = (e: any) => {
-        setTeacherClass(e.target.value);
-    }
+  const selectClass = (e: any) => {
+    setTeacherClass(e.target.value);
+  };
 
-    const selectGender = (e: any) => {
-        setGender(e.target.value);
-    }
+  const selectGender = (e: any) => {
+    setGender(e.target.value);
+  };
 
-    const selectSubject = (e: any) => {
-        setSubject(e.target.value)
-    }
+  const selectSubject = (e: any) => {
+    setSubject(e.target.value);
+  };
 
-    const changeName = (e: any) => {
-        setName(e.target.value)
-    }
+  const changeName = (e: any) => {
+    setName(e.target.value);
+  };
 
-    const changePhoneNumber = (e: any) => {
-        setPhoneNumber(e.target.value);
-    }
+  const changePhoneNumber = (e: any) => {
+    setPhoneNumber(e.target.value);
+  };
 
-    const changeEmail = (e: any) => {
-        setEmail(e.target.value);
-    }
+  const changeEmail = (e: any) => {
+    setEmail(e.target.value);
+  };
 
-    const changeIdentificationNumber = (e: any) => {
-        setIdentificationNumber(e.target.value);
-    }
+  const changeIdentificationNumber = (e: any) => {
+    setIdentificationNumber(e.target.value);
+  };
 
-    const changePassword = (e: any) => {
-        setPassword(e.target.value);
-    }
+  const changePassword = (e: any) => {
+    setPassword(e.target.value);
+  };
 
-    const changeAbout = (e: any) => {
-        setAbout(e.target.value);
-    }
+  const changeAbout = (e: any) => {
+    setAbout(e.target.value);
+  };
 
-    return (
-        <Container> 
-            <AddTeacherForm onSubmit={(e: React.FormEvent<HTMLFormElement>) => onClickAddTeacher(e)}>
-            <TitleDiv>
-                Add Teacher
-            </TitleDiv>
-            <div
-            style={{display: 'flex', background: 'white'}}>
-                <LeftForm>
-                    <InfoLabel>Full name</InfoLabel>
-                    <InfoInput
-                    value={name}
-                    onChange={changeName}
-                    />
-                    <span
-                    style={{ display: 'flex', justifyContent: 'space-between'}}>
-                        <InfoSelect
-                        onChange={selectClass}
-                        style={{flex: 1}}
-                        defaultValue={"담당 학년"}>
-                            <option disabled hidden>담당 학년</option>
-                            <option key={1} value={1}>1학년</option>
-                            <option key={2} value={2}>2학년</option>
-                            <option key={3} value={3}>3학년</option>
-                        </InfoSelect>
-                        <InfoSelect
-                        onChange={selectGender}
-                        defaultValue={"성별"}
-                        style={{marginLeft: "19px", flex: 1}}>
-                            <option disabled hidden>성별</option>
-                            <option key={1} value={1}>남성</option>
-                            <option key={2} value={2}>여성</option>
-                        </InfoSelect>
-                    </span>
-                    <InfoSelect
-                    onChange={selectSubject}
-                    defaultValue={"과목"}>
-                        <option disabled hidden>과목</option>
-                        <option key={1} value={1}>국어</option>
-                        <option key={2} value={2}>영어</option>
-                        <option key={3} value={3}>수학</option>
-                        <option key={4} value={4}>사회</option>
-                        <option key={5} value={5}>과학</option>
-                    </InfoSelect>
-                    <ProfileImgDiv>
-                        <ProfileImg
-                        onClick={() => onClickProfileImg()}
-                        src={profileImageSrc}/>                    
-                        <ProfileImgInput
-                        ref={imgInputRef}
-                        onChange={onUploadProfileImage}
-                        type={"file"}
-                        accept={"image/*"}/>
-                    </ProfileImgDiv>
-                </LeftForm>
-                <RightForm>
-                    <InfoLabel>Phone number</InfoLabel>
-                    <NumberInput
-                    onKeyDown={(e) => ["e", "E", "+"].includes(e.key) && e.preventDefault()}
-                    type={"number"}
-                    value={phoneNumber}
-                    onChange={changePhoneNumber}/>
-                    <InfoLabel>Email address</InfoLabel>
-                    <InfoInput
-                    value={email}
-                    onChange={changeEmail}/>
-                    <InfoLabel>Identification number</InfoLabel>
-                    <InfoInput
-                    value={identificationNumber}
-                    onChange={changeIdentificationNumber}/>
-                    <InfoLabel>Password</InfoLabel>
-                    <InfoInput
-                    value={password}
-                    onChange={changePassword}/>
-                    <InfoLabel>About</InfoLabel>
-                    <AboutTextarea
-                    value={about}
-                    onChange={changeAbout}
-                    rows={6}/>
-                    <AddTeacherButtonDiv>
-                    <AddTeacherButton
-                    isVaild={isVaild}
-                    type={"submit"}>Add Teacher</AddTeacherButton>
-                    </AddTeacherButtonDiv>
-                </RightForm>
-            </div>
-            </AddTeacherForm>
-            <CloseIcon
-            onClick={() => closeModal()}
-            src={CloseIconPNG}/>
-        </Container>
-    )
-}
+  return (
+    <Container>
+      <AddTeacherForm
+        onSubmit={(e: React.FormEvent<HTMLFormElement>) => onClickAddTeacher(e)}
+      >
+        <TitleDiv>선생님 등록</TitleDiv>
+        <div style={{ display: "flex", background: "white" }}>
+          <LeftForm>
+            <InfoLabel>이름</InfoLabel>
+            <InfoInput value={name} onChange={changeName} />
+            <span style={{ display: "flex", justifyContent: "space-between" }}>
+              <InfoSelect
+                onChange={selectClass}
+                style={{ flex: 1 }}
+                defaultValue={"담당 학년"}
+              >
+                <option disabled hidden>
+                  담당 학년
+                </option>
+                <option key={1} value={1}>
+                  1학년
+                </option>
+                <option key={2} value={2}>
+                  2학년
+                </option>
+                <option key={3} value={3}>
+                  3학년
+                </option>
+              </InfoSelect>
+              <InfoSelect
+                onChange={selectGender}
+                defaultValue={"성별"}
+                style={{ marginLeft: "19px", flex: 1 }}
+              >
+                <option disabled hidden>
+                  성별
+                </option>
+                <option key={1} value={1}>
+                  남성
+                </option>
+                <option key={2} value={2}>
+                  여성
+                </option>
+              </InfoSelect>
+            </span>
+            <InfoSelect onChange={selectSubject} defaultValue={"과목"}>
+              <option disabled hidden>
+                과목
+              </option>
+              <option key={1} value={1}>
+                국어
+              </option>
+              <option key={2} value={2}>
+                영어
+              </option>
+              <option key={3} value={3}>
+                수학
+              </option>
+              <option key={4} value={4}>
+                사회
+              </option>
+              <option key={5} value={5}>
+                과학
+              </option>
+            </InfoSelect>
+            <ProfileImgDiv>
+              <ProfileImg
+                onClick={() => onClickProfileImg()}
+                src={profileImageSrc}
+              />
+              <ProfileImgInput
+                ref={imgInputRef}
+                onChange={onUploadProfileImage}
+                type={"file"}
+                accept={"image/*"}
+              />
+            </ProfileImgDiv>
+          </LeftForm>
+          <RightForm>
+            <InfoLabel>전화번호</InfoLabel>
+            <NumberInput
+              onKeyDown={(e) =>
+                ["e", "E", "+"].includes(e.key) && e.preventDefault()
+              }
+              type={"number"}
+              value={phoneNumber}
+              onChange={changePhoneNumber}
+            />
+            <InfoLabel>이메일</InfoLabel>
+            <InfoInput value={email} onChange={changeEmail} />
+            <InfoLabel>교번</InfoLabel>
+            <InfoInput
+              value={identificationNumber}
+              onChange={changeIdentificationNumber}
+            />
+            <InfoLabel>비밀번호</InfoLabel>
+            <InfoInput value={password} onChange={changePassword} />
+            <InfoLabel>참고 사항</InfoLabel>
+            <AboutTextarea value={about} onChange={changeAbout} rows={6} />
+            <AddTeacherButtonDiv>
+              <AddTeacherButton isVaild={isVaild} type={"submit"}>
+                등록하기
+              </AddTeacherButton>
+            </AddTeacherButtonDiv>
+          </RightForm>
+        </div>
+      </AddTeacherForm>
+      <CloseIcon onClick={() => closeModal()} src={CloseIconPNG} />
+    </Container>
+  );
+};
 
-export default AddTeacherModal
+export default AddTeacherModal;

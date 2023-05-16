@@ -40,7 +40,7 @@ const TopBar = () => {
     return (
         <Container>
             <LogoutText onClick={() => onClickLogout()}>
-                Log out
+                로그아웃
             </LogoutText>
 
         </Container>

@@ -43,3 +43,10 @@ export const POST_addStudent = (studentObj) => {
   const resPromise = promise.then((response) => response);
   return resPromise;
 };
+
+export const DELETE_student = (id) => {
+  const promise = axios.delete(`${rootUrl}/api/users/student?id=${id}`);
+  const response = promise.then((response) => response);
+
+  return response;
+};

@@ -6,6 +6,7 @@ import SMSIconPNG from "../assets/icons/sms_icon.png";
 import { useDispatch } from "react-redux";
 import { deleteStudent, setEditModal } from "../redux/students/state";
 import { rootUrl } from "../server";
+import { DELETE_student } from "../server/student";
 
 interface props {
   student: any;
@@ -137,7 +138,16 @@ const StudentDetail = ({ student, index }: props) => {
   };
 
   const onClickDelete = () => {
-    dispatch(deleteStudent(index));
+    // if (confirm("해당 학생을 삭제하겠습니까?") === true) {
+    DELETE_student(student.id)
+      .then((response) => {
+        console.log("DELETE_student reponse", response);
+        dispatch(deleteStudent(index));
+      })
+      .catch((error) => {
+        console.log("DELETE_student error", error);
+      });
+    // }
   };
 
   return (

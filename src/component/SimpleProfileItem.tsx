@@ -6,7 +6,7 @@ import blank_profile from '../assets/blank_profile.jpg';
 import { rootUrl } from '../server';
 
 const Container = styled.div`
-width: 100%;
+width: 90%;
 height: 3.5rem;
 padding: 0px 0px 0px 1.5rem;
 display: flex;

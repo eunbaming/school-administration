@@ -150,18 +150,22 @@ const ListStudentHeader = ({ onClickAddStudentButton }: props) => {
   };
 
   const searchStudents = (keyword: string) => {
-    const filteredStudents = students.filter((item: any) => {
-      if (filter === "class") {
-        return item[filter].includes(keyword);
-      }
-      if (filter === "phone number") {
-        return item["phoneNumber"].includes(keyword);
-      } else {
-        return item[filter].toLowerCase().includes(keyword);
-      }
-    });
-
-    dispatch(setFilteredStudents(filteredStudents));
+    if (keyword === "") {
+      dispatch(setFilteredStudents(students));
+    } else {
+      const filteredStudents = students.filter((item: any) => {
+        if (filter === "name") {
+          return item["name"].toLowerCase().includes(keyword.toLowerCase());
+        } else if (filter === "class") {
+          return item[filter].toString().includes(keyword);
+        } else if (filter === "email") {
+          return item["email"].includes(keyword);
+        } else if (filter === "phone number") {
+          return item["phone_number"].includes(keyword);
+        }
+      });
+      dispatch(setFilteredStudents(filteredStudents));
+    }
   };
 
   return (
@@ -172,20 +176,17 @@ const ListStudentHeader = ({ onClickAddStudentButton }: props) => {
       </StudentArea>
 
       <FilterSearch>
-        <Filter onChange={selectFilter}>
-          <Option key={0} value={"filter"} disabled hidden>
-            Add filter
-          </Option>
-          <Option key={1} value={"name"}>
+        <Filter onChange={selectFilter} defaultValue={"name"}>
+          <Option key={"name"} value={"name"}>
             name
           </Option>
-          <Option key={2} value={"class"}>
+          <Option key={"class"} value={"class"}>
             class
           </Option>
-          <Option key={3} value={"email"}>
+          <Option key={"email"} value={"email"}>
             email
           </Option>
-          <Option key={3} value={"phone number"}>
+          <Option key={"phone number"} value={"phone number"}>
             phone number
           </Option>
         </Filter>
