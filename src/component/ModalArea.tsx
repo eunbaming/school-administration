@@ -334,7 +334,9 @@ const ModalArea = ({ submitAddStudent, setModal }: props) => {
           </NameArea>
           <Upload>
             <FileUploadContainer>
-              <FileImage onClick={onClickFileImage} />
+              <FileImage 
+              src={profileImageSrc}
+              onClick={onClickFileImage} />
               <FileInput
                 type="file"
                 accept="image/jpg, image/jpeg, image/png"

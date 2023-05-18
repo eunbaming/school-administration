@@ -431,7 +431,7 @@ const EditTeacherModal = ({
             <AboutTextarea value={about} onChange={changeAbout} rows={8} />
             <AddTeacherButtonDiv>
               <AddTeacherButton isVaild={isVaild} type={"submit"}>
-                Edit Teacher
+                선생님 수정
               </AddTeacherButton>
             </AddTeacherButtonDiv>
           </RightForm>

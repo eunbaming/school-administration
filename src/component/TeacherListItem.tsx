@@ -31,6 +31,9 @@ padding: 12px 8px;
 font-family: 'KumbhSans-Regular';
 display: flex;
 align-items: center;
+overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 `;
 
 const ProfileImg = styled.img`

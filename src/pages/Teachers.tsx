@@ -81,15 +81,12 @@ const Teachers = () => {
 
     const submitEditTeacher = (teacherObj: any) => {
 
-        
-
+      
         PUT_editTeacher(teacherObj)
         .then((response) => {
             console.log("PUT_editTeacher response", response);
-
-            dispatch(setAddModal(false));
+            dispatch(setEditModal(false));
             dispatch(editTeacher(teacherObj));
-
         })
         .catch((error) => {
             console.log("PUT_editTeacher error", error);

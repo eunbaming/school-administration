@@ -27,11 +27,13 @@ align-items: center;
 `;
 
 interface maleProps {
-    readonly femaleCount: number
+    readonly femaleCount: number;
+    readonly maleCount: number;
 }
 
 interface femaleProps {
     readonly maleCount: number;
+    readonly femaleCount: number;
 }
 
 const FemaleRatioSpan = styled(animated.span)<femaleProps>`
@@ -42,6 +44,7 @@ background-color: #ffdbcc;
 border-radius: 5px 0px 0px 5px;
 border-top-right-radius: ${props => props.maleCount === 0 ? '5px' : '0px'};
 border-bottom-right-radius: ${props => props.maleCount === 0 ? '5px' : '0px'};
+z-index: ${props => props.femaleCount > props.maleCount ? 5 : 0};
 `
 
 const MaleRatioSpan = styled(animated.span)<maleProps>`
@@ -52,6 +55,7 @@ background-color: #abdee6;
 border-radius: 0px 5px 5px 0px;
 border-top-left-radius: ${props => props.femaleCount === 0 ? '5px' : '0px'};
 border-bottom-left-radius: ${props => props.femaleCount === 0 ? '5px' : '0px'};
+z-index: ${props => props.maleCount > props.femaleCount ? 5 : 0};
 `;
 
 const GenderTextDiv = styled.div`
@@ -125,11 +129,13 @@ const GenderRatioGraph = ({maleCount, femaleCount}: props) => {
         <Container>
             <RatioContainer>
             <FemaleRatioSpan
+            femaleCount={femaleCount}
             maleCount={maleCount}
             style={{
                 ...femaleSprings,
             }}/>
             <MaleRatioSpan
+            maleCount={maleCount}
             femaleCount={femaleCount}
             style={{
                 ...maleSprings,
@@ -139,11 +145,11 @@ const GenderRatioGraph = ({maleCount, femaleCount}: props) => {
             <GenderTextDiv>
                 <GenderText>
                     여성
-                    {femaleCount > 0 &&` ${Math.round(femaleCount/(maleCount+femaleCount) * 100)}%`}
+                    {!isNaN(femaleCount) &&` ${Math.round(femaleCount/(maleCount+femaleCount) * 100)}%`}
                 </GenderText>
                 <GenderText>
                     남성
-                    {maleCount > 0 && ` ${Math.round(maleCount/(maleCount+femaleCount) * 100)}%`}
+                    {!isNaN(maleCount) && ` ${Math.round(maleCount/(maleCount+femaleCount) * 100)}%`}
                 </GenderText>
             </GenderTextDiv>
         </Container>

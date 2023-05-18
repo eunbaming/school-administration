@@ -196,9 +196,9 @@ const TeacherDetail = ({teacher, index}: props) => {
                 담당 학년
             </InfoLabelText>
             <InfoValueText>
-                {teacher.class === 1 && '1 학년'}
-                {teacher.class === 2 && '2 학년'}
-                {teacher.class === 3 && '3 학년'}
+                {teacher.class === 1 && '1학년'}
+                {teacher.class === 2 && '2학년'}
+                {teacher.class === 3 && '3학년'}
             </InfoValueText>
             </InfoItemDiv>
 

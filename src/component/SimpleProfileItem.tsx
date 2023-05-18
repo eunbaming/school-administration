@@ -35,6 +35,9 @@ margin-left: 20px;
 font-size: 14px;
 font-weight: 500;
 font-family: 'KumbhSans-Regular';
+overflow: hidden;
+text-overflow: ellipsis;
+white-space: nowrap;
 `;
 
 interface props {
