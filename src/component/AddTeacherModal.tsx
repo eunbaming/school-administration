@@ -6,6 +6,7 @@ import { setAddModal } from "../redux/teachers/state";
 
 import CloseIconPNG from "../assets/icons/close_icon.png";
 import BlankProfileImagePNG from "../assets/blank_profile.jpg";
+import { profile } from "console";
 
 const Container = styled.div`
   min-width: 35rem;
@@ -206,7 +207,8 @@ const AddTeacherModal = ({ submitAddTeacher, closeModal }: props) => {
       password.length > 0 &&
       teacherClass.length > 0 &&
       gender.length > 0 &&
-      subject.length > 0
+      subject.length > 0 &&
+      profileImageSrc !== BlankProfileImagePNG
     ) {
       setIsVaild(true);
     } else {
@@ -221,6 +223,7 @@ const AddTeacherModal = ({ submitAddTeacher, closeModal }: props) => {
     gender,
     subject,
     teacherClass,
+    profileImageSrc,
   ]);
 
   const onUploadProfileImage = (e: React.ChangeEvent<HTMLInputElement>) => {

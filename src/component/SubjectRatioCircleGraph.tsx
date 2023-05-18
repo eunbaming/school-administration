@@ -71,30 +71,28 @@ align-items: center;
 `;
 
 interface props {
-    korean: number,
-    english: number,
-    math: number,
-    society: number,
-    science: number,
     entire: number,
+    dataArr: any,
 }
 
-const SubjectRatioCircleGraph = ({korean = 0, english = 0, math = 0, society = 0, science = 0, entire}: props) => {
+const SubjectRatioCircleGraph = ({entire, dataArr}: props) => {
 
     const data = {
         labels: [],
         datasets: [{
-            data: [korean, english, math, society, science],
+            data: dataArr.map((item: any) => item.num),
             backgroundColor: ['#9fd6cd', '#f4e3dc', '#ef9a9a', '#ede6c5', '#f4d284'],
             borderColor: ['#9fd6cd', '#f4e3dc', '#ef9a9a', '#ede6c5', '#f4d284'],
             cutout: '75%',
         }]
     }
 
+    let delayed: any;
+
     const options = {
         events: [],
         animation: {
-            duration: 2000,
+        duration: 2500,
         }
     }
 
@@ -104,8 +102,7 @@ const SubjectRatioCircleGraph = ({korean = 0, english = 0, math = 0, society = 0
                 <Doughnut
                 style={{width: '95%', height: '95%'}}
                 data={data}
-                options={options}
-                updateMode={"resize"}>
+                options={options}>
                 </Doughnut>
                 <DataDiv>
                     <span
@@ -115,21 +112,21 @@ const SubjectRatioCircleGraph = ({korean = 0, english = 0, math = 0, society = 0
                         style={{backgroundColor: "#9fd6cd"}}
                     ></DataColorLabel>
                     <DataText>
-                        국어{` ${Math.round(korean/entire * 100)}%`}
+                        {dataArr[0].name}{` ${Math.round(dataArr[0].num/entire * 100)}%`}
                     </DataText>
-                    </DataItem>
-                    <DataItem>
-                        <DataColorLabel
-                        style={{backgroundColor: "#f4e3dc"}}/>
-                        <DataText>
-                        영어{` ${Math.round(english/entire * 100)}%`}
-                        </DataText>
                     </DataItem>
                     <DataItem>
                         <DataColorLabel
                         style={{backgroundColor: "#ef9a9a"}}/>
                         <DataText>
-                            수학{` ${Math.round(math/entire * 100)}%`}
+                        {dataArr[2].name}{` ${Math.round(dataArr[2].num/entire * 100)}%`}
+                        </DataText>
+                    </DataItem>
+                    <DataItem>
+                        <DataColorLabel
+                        style={{backgroundColor: "#f4d284"}}/>
+                        <DataText>
+                            {dataArr[4].name}{` ${Math.round(dataArr[4].num/entire * 100)}%`}
                         </DataText>
                     </DataItem>
                     </span>
@@ -137,16 +134,16 @@ const SubjectRatioCircleGraph = ({korean = 0, english = 0, math = 0, society = 0
                     style={{display: 'flex', flexDirection: 'column'}}>
                     <DataItem>
                         <DataColorLabel
-                        style={{backgroundColor: "#ede6c5"}}/>
+                        style={{backgroundColor: "#f4e3dc"}}/>
                     <DataText>
-                        사회{` ${Math.round(society/entire * 100)}%`}
+                        {dataArr[1].name}{` ${Math.round(dataArr[1].num/entire * 100)}%`}
                     </DataText>
                     </DataItem>
                     <DataItem>
                         <DataColorLabel
-                        style={{backgroundColor: "#f4d284"}}/>
+                        style={{backgroundColor: "#ede6c5"}}/>
                         <DataText>
-                            과학{` ${Math.round(science/entire * 100)}%`}
+                            {dataArr[3].name}{` ${Math.round(dataArr[3].num/entire * 100)}%`}
                     </DataText>
                     </DataItem>
                     </span>

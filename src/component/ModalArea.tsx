@@ -216,6 +216,7 @@ const ModalArea = ({ submitAddStudent, setModal }: props) => {
         image_url: profileImageSrc,
         added: true,
         school_id: school !== null ? JSON.parse(school).school_id : "",
+        user_about: "",
       };
 
       submitAddStudent(studentObj);

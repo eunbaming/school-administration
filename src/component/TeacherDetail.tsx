@@ -164,9 +164,14 @@ const TeacherDetail = ({teacher, index}: props) => {
     return (
         <Container>
             <ProfileDiv>
+            {!teacher.added && (
             <ProfileImage
-            src={(teacher.added !== undefined ? (teacher.added ? teacher.image_url : `${rootUrl}/${teacher.profile_image_url}`) : `${rootUrl}/${teacher.profile_image_url}`)}
-            />
+            src={`${rootUrl}/${teacher.profile_image_url}`}/>
+            )}
+            {teacher.added && (
+                <ProfileImage
+                src={teacher.image_url}/>
+            )}
             <NameDiv>
                 {teacher.name}
             </NameDiv>
@@ -191,9 +196,9 @@ const TeacherDetail = ({teacher, index}: props) => {
                 담당 학년
             </InfoLabelText>
             <InfoValueText>
-                {teacher.class === 1 && '1 학년'}
-                {teacher.class === 2 && '2 학년'}
-                {teacher.class === 3 && '3 학년'}
+                {teacher.class === 1 && '1학년'}
+                {teacher.class === 2 && '2학년'}
+                {teacher.class === 3 && '3학년'}
             </InfoValueText>
             </InfoItemDiv>
 
