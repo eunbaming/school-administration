@@ -22,8 +22,6 @@ export const POST_addStudent = (studentObj) => {
     formData.append(key, studentObj[key]);
   }
 
-  formData.append("school_id", "1");
-
   for (let key of formData.keys()) {
     console.log(key);
   }

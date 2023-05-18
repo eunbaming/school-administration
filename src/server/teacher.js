@@ -55,13 +55,17 @@ export const PUT_editTeacher = (teacherObj) => {
     console.log(key, ":", formData.get(key));
   }
 
-  const promise = axios.put(`${rootUrl}/api/users/teacher`, formData, {
-    headers: {
-      "Content-Type": "multipart/form-data",
-      access: localStorage.getItem("accessToken"),
-      refresh: localStorage.getItem("refreshToken"),
-    },
-  });
+  const promise = axios.put(
+    `${rootUrl}/api/users/teacher?id=${teacherObj.id}`,
+    formData,
+    {
+      headers: {
+        "Content-Type": "multipart/form-data",
+        access: localStorage.getItem("accessToken"),
+        refresh: localStorage.getItem("refreshToken"),
+      },
+    }
+  );
 
   const resPromise = promise.then((response) => response);
 

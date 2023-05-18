@@ -3,8 +3,8 @@ import { Route, Routes, useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 import { addSchool } from "./redux/school/state";
-import { setFilteredTeachers, setTeachers } from "./redux/teachers/state";
-import { addStudents } from "./redux/students/state";
+import { setFilteredTeachers, setTeachers, setGenderRatio, setSubjectRatio } from "./redux/teachers/state";
+import { addStudents, setStuGenderRatio, setClassRatio, } from "./redux/students/state";
 import { setCurrentTab } from "./redux/tab/state";
 
 import Login from "./pages/Login";
@@ -20,6 +20,8 @@ import { GET_getStudents } from "./server/student";
 import { error } from "console";
 
 function App() {
+  const {teachers} = useSelector((state: any) => state.teacher);
+  const {students} = useSelector((state: any) => state.student);
   const { schools } = useSelector((state: any) => state.school);
   const { currentTab } = useSelector((state: any) => state.tab);
   const dispatch = useDispatch();
@@ -51,6 +53,73 @@ function App() {
       })
       .catch((error: any) => console.log("Get Schols Failed", error));
   }, []);
+
+  useEffect(() => {
+
+    console.log("Dashboard useLayoutEffect")
+
+    
+    const maleNum = teachers.reduce((acc: any, item: any) => {
+      if(item.gender === 1) {
+        return acc = acc + 1
+      } else {
+        return acc
+      }
+    }, 0)
+
+    const femaleNum = teachers.reduce((acc: any, item: any) => {
+      if(item.gender === 2) {
+        return acc = acc + 1
+      } else {
+        return acc
+      }
+    }, 0)
+
+    dispatch(setGenderRatio(maleNum, femaleNum));
+
+    const student_maleNum = students.reduce((acc: any, item: any) => {
+      if(item.gender === 1) {
+        return acc = acc + 1
+      } else {
+        return acc
+      }
+    }, 0)
+
+    const student_femaleNum = students.reduce((acc: any, item: any) => {
+      if(item.gender === 2) {
+        return acc = acc + 1
+      } else {
+        return acc
+      }
+    }, 0)
+
+    dispatch(setStuGenderRatio(student_maleNum, student_femaleNum))
+
+    const koreanNum = (teachers.reduce((acc: any, item: any) => {
+      return acc + (item.subject === 1)
+    }, 0))
+
+    const englishNum = (teachers.reduce((acc: any, item: any) => {
+      return acc + (item.subject === 2)
+    }, 0))
+
+    const mathNum = (teachers.reduce((acc: any, item: any) => {
+      return acc + (item.subject === 3)
+    }, 0));
+
+    const societyNum = (teachers.reduce((acc: any, item: any) => {
+      return acc + (item.subject === 4)
+    }, 0));
+
+    const scienceNum = (teachers.reduce((acc: any, item: any) => {
+      return acc + (item.subject === 5)
+    }, 0))
+
+    dispatch(setSubjectRatio(koreanNum, englishNum, mathNum, societyNum, scienceNum))
+
+  }, [teachers, students])
+
+  
 
   const location = useLocation();
 

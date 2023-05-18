@@ -188,10 +188,11 @@ const ModalArea = ({ submitAddStudent, setModal }: props) => {
     if (isVaild) {
       setModal(false);
 
-      const school = localStorage.getItem("current_shool");
+      const school = localStorage.getItem("current_school");
 
       const studentObj = {
-        email,
+        email: idNum,
+        email_address: email,
         password,
         name,
         grade: Number(selectClass),
@@ -201,6 +202,7 @@ const ModalArea = ({ submitAddStudent, setModal }: props) => {
         image_url: imageFile?.thumbnail,
         added: true,
         school_id: school !== null ? JSON.parse(school).school_id : "",
+        user_about: "",
       };
 
       submitAddStudent(studentObj);

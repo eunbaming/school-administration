@@ -48,10 +48,11 @@ interface props {
     teachers: any;
     femaleCount: number;
     maleCount: number;
-    subjectNum: any;
+    subjectNumArr: any;
+    totalNum: number,
 }
 
-const TeachersDataAnalysis = ({teachers, femaleCount, maleCount, subjectNum}: props) => {
+const TeachersDataAnalysis = ({teachers, femaleCount, maleCount, subjectNumArr, totalNum}: props) => {
 
     return (
         <Container>
@@ -67,12 +68,8 @@ const TeachersDataAnalysis = ({teachers, femaleCount, maleCount, subjectNum}: pr
             maleCount={maleCount}
             />
             <SubjectRatioCircleGraph
-            korean={subjectNum.korean}
-            english={subjectNum.english}
-            math={subjectNum.math}
-            society={subjectNum.society}
-            science={subjectNum.science}
-            entire={teachers.length}
+            dataArr={subjectNumArr}
+            entire={totalNum}
             />
             </DataAnalysisDiv>
             <ProfileListDiv>

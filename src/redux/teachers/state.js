@@ -63,11 +63,12 @@ const INITIAL_STATE = {
   filteredTeachers: [],
   maleNum: 0,
   femaleNum: 0,
-  koreanNum: 0,
-  englishNum: 0,
-  mathNum: 0,
-  societyNum: 0,
-  scienceNum: 0,
+  koreanNum: 1,
+  englishNum: 1,
+  mathNum: 1,
+  societyNum: 1,
+  scienceNum: 1,
+  totalNum: 5,
 };
 
 export const teacherReducer = (state = INITIAL_STATE, action) => {
@@ -76,6 +77,7 @@ export const teacherReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         teachers: action.teachers,
+        totalNum: action.teachers.length,
       };
     case ADD:
       return {
@@ -130,6 +132,21 @@ export const teacherReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         filteredTeachers: action.filteredTeachers,
+      };
+    case SET_GENDER_RATIO:
+      return {
+        ...state,
+        maleNum: action.maleNum,
+        femaleNum: action.femaleNum,
+      };
+    case SET_SUBJECT_RATIO:
+      return {
+        ...state,
+        koreanNum: action.koreanNum,
+        englishNum: action.englishNum,
+        mathNum: action.mathNum,
+        societyNum: action.societyNum,
+        scienceNum: action.scienceNum,
       };
     default:
       return state;

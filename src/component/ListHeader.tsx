@@ -141,10 +141,10 @@ const ListHeader = ({onClickAddTeacherButton}: props) => {
                 } else if(filter === 'email') {
                     return item['email_address'].includes(keywordValue)
                 } else if(filter === 'gender') {
-                    if(keyword === '남성' || '남' || '남자') {
-                        return item['gender'] == 1
-                    } else if(keyword === '여성' || '여' || '여자') {
-                        return item['gender'] == 2
+                    if(keyword === '남성' || keyword === '남' || keyword === '남자') {
+                        return item['gender'] === 1
+                    } else if(keyword === '여성' || keyword === '여' || keyword === '여자') {
+                        return item['gender'] === 2
                     }
                 } else if(filter === 'name') {    
                         return item[filter].toLowerCase().includes(keywordValue.toLowerCase())

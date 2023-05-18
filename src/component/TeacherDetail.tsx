@@ -164,9 +164,14 @@ const TeacherDetail = ({teacher, index}: props) => {
     return (
         <Container>
             <ProfileDiv>
+            {!teacher.added && (
             <ProfileImage
-            src={(teacher.added !== undefined ? (teacher.added ? teacher.image_url : `${rootUrl}/${teacher.profile_image_url}`) : `${rootUrl}/${teacher.profile_image_url}`)}
-            />
+            src={`${rootUrl}/${teacher.profile_image_url}`}/>
+            )}
+            {teacher.added && (
+                <ProfileImage
+                src={teacher.image_url}/>
+            )}
             <NameDiv>
                 {teacher.name}
             </NameDiv>

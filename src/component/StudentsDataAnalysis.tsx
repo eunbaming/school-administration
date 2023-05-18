@@ -66,11 +66,7 @@ const StudentsDataAnalysis = ({students, femaleCount, maleCount}: props) => {
             maleCount={maleCount}
             />
             <SubjectRatioCircleGraph
-            korean={10}
-            english={9}
-            math={8}
-            society={3}
-            science={4}
+            dataArr={[{name: "", num: 0}, {name: "", num: 0}, {name: "", num: 0}, {name: "", num: 0}, {name: "", num: 0}]}
             entire={students.length}
             />
             </DataAnalysisDiv>

@@ -37,113 +37,15 @@ justify-content: space-between;
 
 const Dashboard = () => {
   
-  const [maleCount, setMaleCount] = useState(0);
-  const [femaleCount, setFemaleCount] = useState(0);
-  const [stuMaleCount, setStuMaleCount] = useState(0);
-  const [stuFemaleCount, setStuFemaleCount] = useState(0);
 
-  const [koreanNum, setKoreanNum] = useState(0);
-  const [englishNum, setEnglishNum] = useState(0);
-  const [mathNum, setMathNum] = useState(0);
-  const [societyNum, setSocietyNum] = useState(0);
-  const [scienceNum, setScienceNum] = useState(0);
-
-  const { students } = useSelector((state: any) => state.student);
-  const {teachers} = useSelector((state: any) => state.teacher);
+  const { students, stuMaleNum, stuFemaleNum } = useSelector((state: any) => state.student);
+  const {teachers, maleNum, femaleNum, koreanNum, englishNum, mathNum, societyNum, scienceNum, totalNum} = useSelector((state: any) => state.teacher);
 
   console.log("Dashboard teachers", teachers);
 
   const school = localStorage.getItem("current_school");
 
   console.log(school !== null ? JSON.parse(school) : "")
-
-  useLayoutEffect(() => {
-
-    console.log("Dashboard useLayoutEffect")
-
-    
-    const maleNum = teachers.reduce((acc: any, item: any) => {
-      if(item.gender === 1) {
-        return acc = acc + 1
-      } else {
-        return acc
-      }
-    }, 0)
-
-    const femaleNum = teachers.reduce((acc: any, item: any) => {
-      if(item.gender === 2) {
-        return acc = acc + 1
-      } else {
-        return acc
-      }
-    }, 0)
-
-    setMaleCount(maleNum);
-    setFemaleCount(femaleNum);
-
-    const student_maleNum = students.reduce((acc: any, item: any) => {
-      if(item.gender === 1) {
-        return acc = acc + 1
-      } else {
-        return acc
-      }
-    }, 0)
-
-    const student_femaleNum = students.reduce((acc: any, item: any) => {
-      if(item.gender === 2) {
-        return acc = acc + 1
-      } else {
-        return acc
-      }
-    }, 0)
-
-    setStuFemaleCount(student_femaleNum);
-    setStuMaleCount(student_maleNum);
-
-    setKoreanNum(teachers.reduce((acc: any, item: any) => {
-      return acc + (item.subject === 1)
-    }, 0))
-
-    setEnglishNum(teachers.reduce((acc: any, item: any) => {
-      return acc + (item.subject === 2)
-    }, 0))
-
-    setMathNum(teachers.reduce((acc: any, item: any) => {
-      return acc + (item.subject === 3)
-    }, 0));
-
-    setSocietyNum(teachers.reduce((acc: any, item: any) => {
-      return acc + (item.subject === 4)
-    }, 0));
-
-    setScienceNum(teachers.reduce((acc: any, item: any) => {
-      return acc + (item.subject === 5)
-    }, 0))
-
-
-
-  
-
-    
-  }, [teachers, students])
-
-
-
-
-
-  /*
-  const onClickAddUser = (type: string) => {
-    if (type === "Teachers") {
-      navigate("teachers");
-      setCurrentTab("teachers");
-      localStorage.setItem("currentTab", "teachers");
-    } else if (type === "Students") {
-      navigate("students");
-      setCurrentTab("students");
-      localStorage.setItem("currentTab", "students");
-    }
-  }
-  */
 
   return (
     <Layout>
@@ -154,13 +56,14 @@ const Dashboard = () => {
         <Body>
          <TeachersDataAnalysis
          teachers={teachers}
-         femaleCount={femaleCount}
-         maleCount={maleCount}
-         subjectNum={{korean: koreanNum, english: englishNum, math: mathNum, society: societyNum, science: scienceNum}}/>
+         femaleCount={femaleNum}
+         maleCount={maleNum}
+         subjectNumArr={[{name: '국어',num: koreanNum}, {name: '영어', num: englishNum}, {name: '수학', num: mathNum}, {name: '사회', num: societyNum}, {name: '과학', num: scienceNum}].sort((a, b) => b.num - a.num)}
+         totalNum={totalNum}/>
          <StudentsDataAnalysis
          students={students}
-         femaleCount={stuFemaleCount}
-         maleCount={stuMaleCount}/>
+         femaleCount={stuFemaleNum}
+         maleCount={stuMaleNum}/>
         </Body>
       </Container>
     </Layout>

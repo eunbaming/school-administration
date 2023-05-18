@@ -7,6 +7,9 @@ const SET_FILTERED_STUDENTS = "students/SET_FILTERED_STUDENTS";
 
 const SET_EDIT_MODAL = "students/SET_EDIT_MODAL";
 
+const SET_GENDER_RATIO = "students/SET_GENDER_RATIO";
+const SET_CLASS_RATIO = "studnets/SET_CLASS_RATIO";
+
 export const addStudents = (students) => ({ type: ADD, students });
 export const editStudent = (student, index) => ({ type: EDIT, student, index });
 export const deleteStudent = (deleteIndex) => ({ type: DELETE, deleteIndex });
@@ -22,12 +25,30 @@ export const setFilteredStudents = (filteredStudents) => ({
   filteredStudents,
 });
 
+export const setStuGenderRatio = (stuMaleNum, stuFemaleNum) => ({
+  type: SET_GENDER_RATIO,
+  stuMaleNum,
+  stuFemaleNum,
+});
+
+export const setClassRatio = (freshNum, juniorNum, seniorNum) => ({
+  type: SET_CLASS_RATIO,
+  freshNum,
+  juniorNum,
+  seniorNum,
+});
+
 const INITIAL_STATE = {
   students: [],
   isVisEditModal: false,
   filteredStudent: [],
   filter: "name",
   searchStudents: [],
+  stuMaleNum: 0,
+  stuFemaleNum: 0,
+  freshNum: 0,
+  juniorNum: 0,
+  seniorNum: 0,
 };
 
 export const studentReducer = (state = INITIAL_STATE, action) => {
@@ -77,6 +98,19 @@ export const studentReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         isVisEditModal: action.isVisEditModal,
+      };
+    case SET_GENDER_RATIO:
+      return {
+        ...state,
+        stuMaleNum: action.stuMaleNum,
+        stuFemaleNum: action.stuFemaleNum,
+      };
+    case SET_CLASS_RATIO:
+      return {
+        ...state,
+        freshNum: action.freshNum,
+        juniorNum: action.juniorNum,
+        seniorNum: action.seniorNum,
       };
     default:
       return state;

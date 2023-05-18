@@ -39,7 +39,7 @@ color: #4F4F4F;
 const GuideText = styled.span`
 font-family: "KumbhSans-SemiBold";
 font-weight: 500;
-font-size: 14px;
+font-size: 17px;
 color: #4F4F4F;
 `;
 
@@ -83,8 +83,7 @@ const TeacherList = ({teacherArr, curTeacherIndex, setCurTeacherIndex}: props) =
             <TeachersDiv>
                 {teacherArr.length === 0 && (
                     <NoTeacherDiv>
-                        No Teachers at this time
-                        <GuideText>Teachers will appear here after they enroll in your school.  </GuideText>
+                        <GuideText>검색된 선생님이 없습니다.</GuideText>
                     </NoTeacherDiv>
                 )}
                 {teacherArr.length > 0 && (

@@ -396,7 +396,7 @@ const EditTeacherModal = ({
             <ProfileImgDiv>
               <ProfileImg
                 onClick={() => onClickProfileImg()}
-                src={profileImageSrc}
+                src={teacher.added !== undefined ? teacher.image_url : profileImageSrc}
               />
               <ProfileImgInput
                 ref={imgInputRef}
