@@ -2,6 +2,7 @@ import React, { useRef, useState, useMemo, useEffect } from "react";
 import styled from "styled-components";
 import ImageForm from "./ImageForm";
 import NoProfileImg from "../assets/noProfile.png";
+import BlankProfileImagePNG from "../assets/blank_profile.jpg";
 
 const Container = styled.div``;
 
@@ -125,11 +126,26 @@ interface props {
   setModal: (value: boolean) => void;
 }
 
-const FileUploadContainer = styled.div``;
+const FileUploadContainer = styled.div`
+  margin-top: 55px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
 
-const FileUploadForm = styled.form``;
+const FileImage = styled.img`
+  width: 16vw;
+  height: 16vw;
+  min-width: 13rem;
+  min-height: 13rem;
+  border-radius: 200px;
+  z-index: 10;
+  object-fit: cover;
+`;
 
 const FileInput = styled.input`
+  position: absolute;
   display: none;
 `;
 
@@ -161,6 +177,10 @@ const ModalArea = ({ submitAddStudent, setModal }: props) => {
   const [phone, setPhone] = useState("");
   const [idNum, setIdNum] = useState("");
   const [password, setPassword] = useState("");
+
+  const [imageFile, setImageFile] = useState<any>();
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
+  const [profileImageSrc, setProfileImageSrc] = useState<any>(NoProfileImg);
 
   useEffect(() => {
     if (
@@ -199,7 +219,7 @@ const ModalArea = ({ submitAddStudent, setModal }: props) => {
         gender: Number(gender),
         phone_number: phone,
         image: imageFile,
-        image_url: imageFile?.thumbnail,
+        image_url: profileImageSrc,
         added: true,
         school_id: school !== null ? JSON.parse(school).school_id : "",
         user_about: "",
@@ -209,38 +229,63 @@ const ModalArea = ({ submitAddStudent, setModal }: props) => {
     }
   };
 
-  const fileInputRef = useRef<HTMLInputElement>(null);
-  const [imageFile, setImageFile] = useState<UploadImage | null>(null);
-  const handleClickFileInput = () => {
-    fileInputRef.current?.click();
+  const onClickFileImage = () => {
+    if (!fileInputRef.current) {
+      return;
+    }
+    fileInputRef.current.click();
   };
 
   const uploadProfile = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const fileList = event.target.files;
-    // const length = fileList?.length;
-    if (fileList && fileList[0]) {
-      const url = URL.createObjectURL(fileList[0]);
+    if (!event.target.files) {
+      return;
+    }
+    if (event.target.files[0]) {
+      setImageFile(event.target.files[0]);
+      const file = event.target.files[0];
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
 
-      setImageFile({
-        file: fileList[0],
-        thumbnail: url,
-        type: fileList[0].type.slice(0, 5),
+      return new Promise<void>((resolve) => {
+        reader.onload = () => {
+          console.log("reader.result", reader.result);
+          setProfileImageSrc(reader.result || null);
+          resolve();
+        };
       });
     }
   };
+  // const [imageFile, setImageFile] = useState<UploadImage | null>(null);
+  // const handleClickFileInput = () => {
+  //   fileInputRef.current?.click();
+  // };
 
-  const showImage = useMemo(() => {
-    if (!imageFile && imageFile == null) {
-      return <BlankImage onClick={handleClickFileInput} src={NoProfileImg} />;
-    }
-    return (
-      <UploadedImage
-        src={imageFile.thumbnail}
-        alt={imageFile.type}
-        onClick={handleClickFileInput}
-      />
-    );
-  }, [imageFile]);
+  // const uploadProfile = (event: React.ChangeEvent<HTMLInputElement>) => {
+  //   const fileList = event.target.files;
+  //   // const length = fileList?.length;
+  //   if (fileList && fileList[0]) {
+  //     const url = URL.createObjectURL(fileList[0]);
+
+  //     setImageFile({
+  //       file: fileList[0],
+  //       thumbnail: url,
+  //       type: fileList[0].type.slice(0, 5),
+  //     });
+  //   }
+  // };
+
+  // const showImage = useMemo(() => {
+  //   if (!imageFile && imageFile == null) {
+  //     return <BlankImage onClick={handleClickFileInput} src={NoProfileImg} />;
+  //   }
+  //   return (
+  //     <UploadedImage
+  //       src={imageFile.thumbnail}
+  //       alt={imageFile.type}
+  //       onClick={handleClickFileInput}
+  //     />
+  //   );
+  // }, [imageFile]);
 
   return (
     <Container>
@@ -288,17 +333,14 @@ const ModalArea = ({ submitAddStudent, setModal }: props) => {
             </NameInputs>
           </NameArea>
           <Upload>
-            {/* <ImageForm /> */}
             <FileUploadContainer>
-              {showImage}
-              <FileUploadForm>
-                <FileInput
-                  type="file"
-                  accept="image/jpg, image/jpeg, image/png"
-                  ref={fileInputRef}
-                  onChange={(event) => uploadProfile(event)}
-                />
-              </FileUploadForm>
+              <FileImage onClick={onClickFileImage} />
+              <FileInput
+                type="file"
+                accept="image/jpg, image/jpeg, image/png"
+                ref={fileInputRef}
+                onChange={(event) => uploadProfile(event)}
+              />
             </FileUploadContainer>
             <EmailPhonePassword>
               <Group>
