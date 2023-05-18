@@ -160,12 +160,6 @@ const UploadedImage = styled.img`
   border-radius: 50%;
 `;
 
-type UploadImage = {
-  file: File;
-  thumbnail: string;
-  type: string;
-};
-
 const ModalArea = ({ submitAddStudent, setModal }: props) => {
   const nameInputRef = useRef<HTMLInputElement>(null);
   const [isVaild, setIsVaild] = useState(false);
@@ -333,7 +327,10 @@ const ModalArea = ({ submitAddStudent, setModal }: props) => {
           </NameArea>
           <Upload>
             <FileUploadContainer>
-              <FileImage onClick={onClickFileImage} />
+              <FileImage
+                src={profileImageSrc}
+                onClick={() => onClickFileImage()}
+              />
               <FileInput
                 type="file"
                 accept="image/jpg, image/jpeg, image/png"
