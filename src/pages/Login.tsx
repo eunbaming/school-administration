@@ -57,10 +57,12 @@ const Login = () => {
                 alert('존재하지 않는 계정입니다.')
             } else if(response.data.message === '비밀번호가 일치하지 않습니다.') {
               alert('비밀번호가 일치하지 않습니다.')
-            } else if(response.data.refreshToken && response.data.accessToken){
-                
-                localStorage.setItem('refreshToken', response.data.refreshToken)
-                localStorage.setItem('accessToken', response.data.accessToken)
+            } else if(response.data.email){
+              if(response.data.subject) {
+                localStorage.setItem('accountType', 'teacher')
+              }
+                //localStorage.setItem('refreshToken', response.data.refreshToken)
+                //localStorage.setItem('accessToken', response.data.accessToken)
                 navigate('dashboard');
             }
            })
