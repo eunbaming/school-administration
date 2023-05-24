@@ -118,6 +118,7 @@ const AddStudent = styled.button`
   font-weight: 600;
   font-size: 14px;
   color: #4f4f4f;
+  margin: 10px 50px 10px 0;
   cursor: pointer;
 `;
 
@@ -284,11 +285,7 @@ const ModalArea = ({ submitAddStudent, setModal }: props) => {
   return (
     <Container>
       <Modal>
-        <Add>Add Students</Add>
-        <Buttons>
-          <Button onClick={handleFocusName}>Manually</Button>
-          <Button>Import CSV</Button>
-        </Buttons>
+        <Add>학생 등록</Add>
         <Form onSubmit={(event) => addStudentRender(event)}>
           <NameArea>
             <NameLabel>Name</NameLabel>
@@ -301,7 +298,7 @@ const ModalArea = ({ submitAddStudent, setModal }: props) => {
                 onChange={(event: any) => setSelectClass(event.target.value)}
               >
                 <Option disabled hidden>
-                  Class
+                  학년
                 </Option>
                 <Option key={1} value={1}>
                   1학년
@@ -315,7 +312,7 @@ const ModalArea = ({ submitAddStudent, setModal }: props) => {
               </Select>
               <Select onChange={(event: any) => setGender(event.target.value)}>
                 <Option disabled hidden>
-                  Gender
+                  성별
                 </Option>
                 <Option key={1} value={1}>
                   남성
@@ -341,32 +338,32 @@ const ModalArea = ({ submitAddStudent, setModal }: props) => {
             </FileUploadContainer>
             <EmailPhonePassword>
               <Group>
-                <GroupLabel>Email address</GroupLabel>
+                <GroupLabel>이메일 주소</GroupLabel>
                 <GroupInput
                   onChange={(event) => setEmail(event.target.value)}
                 />
               </Group>
               <Group>
-                <GroupLabel>Phone number</GroupLabel>
+                <GroupLabel>핸드폰 번호</GroupLabel>
                 <GroupInput
                   onChange={(event) => setPhone(event.target.value)}
                 />
               </Group>
               <Group>
-                <GroupLabel>Identification number</GroupLabel>
+                <GroupLabel>학번</GroupLabel>
                 <GroupInput
                   onChange={(event) => setIdNum(event.target.value)}
                 />
               </Group>
               <Group>
-                <GroupLabel>Password</GroupLabel>
+                <GroupLabel>비밀번호</GroupLabel>
                 <GroupInput
                   onChange={(event) => setPassword(event.target.value)}
                 />
               </Group>
+              <AddStudent type="submit">학생 등록</AddStudent>
             </EmailPhonePassword>
           </Upload>
-          <AddStudent type="submit">Add Student</AddStudent>
         </Form>
       </Modal>
     </Container>

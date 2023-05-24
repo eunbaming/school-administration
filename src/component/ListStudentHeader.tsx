@@ -204,11 +204,11 @@ const ListStudentHeader = ({ onClickAddStudentButton }: props) => {
       </FilterSearch>
 
       <Category>
-        <Item style={{ flex: 1 }}>Name</Item>
-        <Item style={{ flex: 1 }}>Student ID</Item>
-        <Item style={{ flex: 1 }}>Class</Item>
-        <Item style={{ flex: 1 }}>Gender</Item>
-        <Item style={{ flex: 1.5 }}>Email address</Item>
+        <Item style={{ flex: 1 }}>이름</Item>
+        <Item style={{ flex: 1 }}>학생 ID</Item>
+        <Item style={{ flex: 1 }}>학년</Item>
+        <Item style={{ flex: 1 }}>성별</Item>
+        <Item style={{ flex: 1.5 }}>이메일 주소</Item>
       </Category>
     </Container>
   );
