@@ -224,7 +224,9 @@ const LoginForm = ({schools, submitLoginForm, navigateSignUp, type, selectType}:
                 <SchoolSelect
                 defaultValue={school} onChange={selectScool}>
                     <option 
+
                     key="0" value={"default"} disabled hidden>학교를 선택하세요.</option>
+
                     {schools.map((item: any) => (
                         <option key={item.school_id} value={item.school_id}>{item.school_name}</option>
                     ))}
